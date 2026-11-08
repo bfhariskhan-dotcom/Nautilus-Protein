@@ -1,0 +1,6 @@
+{
+  "name": "Nautilus Protein - Premium Sports Nutrition & Fitness Supplements",
+  "description": "Pakistan's premier destination for high-potency whey proteins, mass gainers, creatine, pre-workout formulas, and athletic performance supplements.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

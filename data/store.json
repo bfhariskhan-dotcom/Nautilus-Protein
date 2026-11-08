@@ -1,0 +1,497 @@
+{
+  "products": [
+    {
+      "id": "nautilus-bcaa-lemon-450g",
+      "name": "NAUTILUS BCAA - Lemon - 450 GM",
+      "slug": "nautilus-bcaa-lemon-450g",
+      "brand": "Nautilus Protein",
+      "category": "amino-acids",
+      "categoryName": "BCAA & Amino Acids",
+      "price": 6500,
+      "salePrice": 5500,
+      "weight": "450 GM",
+      "servings": 45,
+      "flavors": [
+        "Lemon (Tangy Lemon)"
+      ],
+      "stock": 50,
+      "inStock": true,
+      "isFeatured": true,
+      "isBestSeller": true,
+      "isNew": true,
+      "image": "https://i.postimg.cc/C54Q75KX/Nautilus-Protein-Black-Purple-Logo.png",
+      "gallery": [
+        "https://i.postimg.cc/C54Q75KX/Nautilus-Protein-Black-Purple-Logo.png"
+      ],
+      "shortDescription": "Recover Faster. Train Harder. No Muscle Loss. Essential 2:1:1 BCAA formula with 45 servings of pure muscle recovery, zero sugar, and refreshing natural tangy lemon flavor.",
+      "description": "Nautilus BCAA is essential for every gym boy. When you train hard, your muscles break. BCAA stops that breakage. With 2:1:1 Ratio of Leucine, Isoleucine, Valine, it helps you recover fast, reduces muscle soreness, and keeps you energetic during workout.\n\nDelicious natural Lemon flavor - No bitter taste. Instant Mix.\n\nProduct At a Glance:\n• Brand: Nautilus Protein\n• Product: BCAA (Branched Chain Amino Acids)\n• Quantity: 450 GM\n• Flavor: Lemon (Tangy Lemon)\n• Servings: 45 Servings (approx. 10g per serving)\n• Ratio: 2:1:1 (Leucine: Isoleucine: Valine)\n• Goal: Muscle Recovery, Anti-Catabolic, Endurance",
+      "nutritionFacts": [
+        {
+          "label": "Total BCAA (2:1:1)",
+          "amount": "6000 mg",
+          "dailyValue": "†"
+        },
+        {
+          "label": "L-Leucine",
+          "amount": "3000 mg",
+          "dailyValue": "†"
+        },
+        {
+          "label": "L-Isoleucine",
+          "amount": "1500 mg",
+          "dailyValue": "†"
+        },
+        {
+          "label": "L-Valine",
+          "amount": "1500 mg",
+          "dailyValue": "†"
+        },
+        {
+          "label": "L-Glutamine",
+          "amount": "1000 mg",
+          "dailyValue": "†"
+        },
+        {
+          "label": "Electrolyte Blend",
+          "amount": "500 mg",
+          "dailyValue": "†"
+        },
+        {
+          "label": "Sodium",
+          "amount": "150 mg",
+          "dailyValue": "6.5%"
+        },
+        {
+          "label": "Potassium",
+          "amount": "100 mg",
+          "dailyValue": "2%"
+        },
+        {
+          "label": "Vitamin B6",
+          "amount": "1 mg",
+          "dailyValue": "59%"
+        },
+        {
+          "label": "Calories",
+          "amount": "8 kcal",
+          "dailyValue": "<1%"
+        },
+        {
+          "label": "Sugar",
+          "amount": "0 g",
+          "dailyValue": "0%"
+        }
+      ],
+      "ingredients": [
+        "Branched Chain Amino Acids (L-Leucine, L-Isoleucine, L-Valine)",
+        "L-Glutamine",
+        "Citric Acid",
+        "Natural & Artificial Lemon Flavor",
+        "Electrolyte Blend (Sodium Chloride, Potassium Citrate)",
+        "Vitamin B6",
+        "Anti-Caking Agent (Silicon Dioxide E551)",
+        "Acidity Regulator",
+        "Sucralose Sweetener"
+      ],
+      "directions": "Mix 1 scoop (10g) with 250-300ml cold water.\n• Intra-Workout (Best): Sip during workout for endurance.\n• Post-Workout: Take immediately after workout for recovery.\n• Morning: Take on rest days to prevent muscle loss.\nTake 1-2 servings per day. Drink at least 3 liters of water daily.",
+      "warnings": "Food Supplement Only. Not a Medicine. Not for under 18 years. Do not exceed 20g per day. Consult doctor if pregnant or have medical condition. Contains sweetener - contains no sugar.\nStorage: Store in cool, dry place below 30°C. Keep tightly closed. Keep away from moisture. Do not refrigerate. Shelf Life: 18 Months.\nManufactured For: Nautilus Protein, A Project of Nautilus Pharma, Karachi, Pakistan",
+      "goal": "recovery",
+      "goalName": "Muscle Recovery & Anti-Catabolic",
+      "rating": 5,
+      "reviewCount": 14,
+      "tags": [
+        "2:1:1 Ratio",
+        "450 GM Full Size",
+        "45 Servings",
+        "Zero Sugar",
+        "Zero Fat",
+        "No Steroids",
+        "Halal",
+        "Lab Tested",
+        "Instant Mix"
+      ],
+      "headline": "Recover Faster. Train Harder. No Muscle Loss.",
+      "ratio": "2:1:1 (Leucine: Isoleucine: Valine)",
+      "servingSize": "10g (1 Scoop)",
+      "highlights": [
+        "Fast Recovery: Reduces muscle soreness (DOMS) after workout. You can train daily without pain.",
+        "Stops Muscle Breakdown: Anti-catabolic formula. Protects your muscle during cutting, fasting, or long workouts.",
+        "More Strength & Endurance: Leucine triggers muscle protein synthesis. Train longer without fatigue.",
+        "450 GM Full Size: Not 200gm. Full 45 servings for 45 days. Best value for money in Pakistan."
+      ],
+      "whoIsItFor": [
+        "Gym Boys & Girls",
+        "Beginners with muscle pain",
+        "Cutting / Fat Loss Phase",
+        "Athletes, Footballers, Cricketers",
+        "Anyone feeling tired during workout"
+      ],
+      "faqs": [
+        {
+          "question": "Is BCAA a steroid?",
+          "answer": "No. BCAA is natural amino acid found in chicken, eggs, milk. 100% safe and legal."
+        },
+        {
+          "question": "Difference between BCAA and Protein?",
+          "answer": "Protein builds muscle. BCAA protects and recovers muscle. Best to use both."
+        },
+        {
+          "question": "Can I take BCAA with Creatine or Mass Gainer?",
+          "answer": "Yes. Perfect stack: Mass Gainer + BCAA + Creatine = Fast Gain + Fast Recovery."
+        },
+        {
+          "question": "Will it damage kidney?",
+          "answer": "No, when used as directed (1-2 scoops/day) with enough water. No side effects."
+        },
+        {
+          "question": "Does it contain caffeine?",
+          "answer": "No. No caffeine, no jitters. You can sleep after taking it."
+        }
+      ]
+    }
+  ],
+  "categories": [
+    {
+      "id": "cat-amino",
+      "name": "BCAA & Amino Acids",
+      "slug": "amino-acids",
+      "description": "Intra-workout BCAAs, EAAs, and hydration electrolytes to prevent catabolism and preserve hard-earned muscle.",
+      "image": "https://i.postimg.cc/C54Q75KX/Nautilus-Protein-Black-Purple-Logo.png",
+      "itemCount": 1
+    },
+    {
+      "id": "cat-whey",
+      "name": "100% Whey Protein",
+      "slug": "whey-protein",
+      "description": "High-purity whey isolate, hydrolysate, and concentrate formulas for maximum protein synthesis and recovery.",
+      "image": "https://i.postimg.cc/C54Q75KX/Nautilus-Protein-Black-Purple-Logo.png",
+      "itemCount": 0
+    },
+    {
+      "id": "cat-mass",
+      "name": "High-Calorie Mass Gainers",
+      "slug": "mass-gainers",
+      "description": "Calorie-dense macronutrient blends engineered to build size, strength, and dense muscular power.",
+      "image": "https://i.postimg.cc/C54Q75KX/Nautilus-Protein-Black-Purple-Logo.png",
+      "itemCount": 0
+    },
+    {
+      "id": "cat-creatine",
+      "name": "Creatine & Performance",
+      "slug": "creatine",
+      "description": "Micronized Creapure-grade monohydrate and synergistic ATP cellular energy complexes.",
+      "image": "https://i.postimg.cc/C54Q75KX/Nautilus-Protein-Black-Purple-Logo.png",
+      "itemCount": 0
+    },
+    {
+      "id": "cat-health",
+      "name": "Vitamins & Health Essentials",
+      "slug": "health-essentials",
+      "description": "Daily athlete health, Biotin, Magnesium, Multivitamins, and Zinc for peak bioenergetics.",
+      "image": "https://i.postimg.cc/C54Q75KX/Nautilus-Protein-Black-Purple-Logo.png",
+      "itemCount": 0
+    },
+    {
+      "id": "cat-accessories",
+      "name": "Shakers & Gym Gear",
+      "slug": "accessories",
+      "description": "Heavy-duty gym accessories, leak-proof shakers, lifting gear, and athlete essentials.",
+      "image": "https://i.postimg.cc/C54Q75KX/Nautilus-Protein-Black-Purple-Logo.png",
+      "itemCount": 0
+    }
+  ],
+  "brands": [
+    {
+      "id": "brand-nautilus",
+      "name": "Nautilus Nutrition",
+      "slug": "nautilus-nutrition",
+      "description": "Pakistan's flagship sports nutrition house delivering premium raw materials and high-dose active formulations.",
+      "country": "Pakistan",
+      "featured": true
+    },
+    {
+      "id": "brand-muscletech",
+      "name": "MuscleTech",
+      "slug": "muscletech",
+      "description": "Global performance nutrition pioneer renowned for research-backed bodybuilding supplements.",
+      "country": "USA",
+      "featured": true
+    },
+    {
+      "id": "brand-on",
+      "name": "Optimum Nutrition",
+      "slug": "optimum-nutrition",
+      "description": "World-renowned gold standard protein supplements and athlete sports nutrition.",
+      "country": "USA",
+      "featured": true
+    },
+    {
+      "id": "brand-dymatize",
+      "name": "Dymatize",
+      "slug": "dymatize",
+      "description": "ISO100 hydrolyzed whey isolate formulations for rapid sports recovery.",
+      "country": "USA",
+      "featured": true
+    }
+  ],
+  "orders": [
+    {
+      "id": "ord-1792515807219",
+      "orderNumber": "NP-2026-7568",
+      "customerName": "Test Athlete",
+      "phone": "0333 9998877",
+      "email": "",
+      "city": "Karachi",
+      "address": "Gulshan-e-Iqbal Block 5",
+      "notes": "",
+      "paymentMethod": "cod",
+      "paymentReference": "",
+      "paymentStatus": "Pending",
+      "orderStatus": "Pending",
+      "items": [
+        {
+          "productId": "prod-7",
+          "name": "Nautilus Micronized Creatine Monohydrate 300g",
+          "brand": "Nautilus Nutrition",
+          "image": "/images/reference-1.jpg",
+          "price": 4600,
+          "flavor": "",
+          "weight": "300g (60 Servings)",
+          "quantity": 1
+        }
+      ],
+      "subtotal": 4600,
+      "shippingFee": 350,
+      "discount": 0,
+      "total": 4950,
+      "createdAt": "2026-10-20T17:03:27.219Z"
+    },
+    {
+      "id": "ord-1001",
+      "orderNumber": "NP-2026-1001",
+      "customerName": "Hamza Tariq",
+      "phone": "03332145890",
+      "email": "hamza.tariq@gmail.com",
+      "city": "Karachi",
+      "address": "House 45-B, Phase 6, DHA",
+      "notes": "Please call before arriving.",
+      "paymentMethod": "cod",
+      "paymentStatus": "Paid",
+      "orderStatus": "Delivered",
+      "items": [
+        {
+          "productId": "prod-1",
+          "name": "Nautilus Fast Protein 100% Premium Whey",
+          "brand": "Nautilus Nutrition",
+          "image": "/images/reference-2.jpg",
+          "price": 14800,
+          "flavor": "Double Rich Chocolate",
+          "weight": "5 LBS (2.27 kg)",
+          "quantity": 1
+        }
+      ],
+      "subtotal": 14800,
+      "shippingFee": 0,
+      "discount": 0,
+      "total": 14800,
+      "createdAt": "2026-10-18T10:14:00.000Z"
+    },
+    {
+      "id": "ord-1002",
+      "orderNumber": "NP-2026-1002",
+      "customerName": "Bilal Ahmed",
+      "phone": "03004812399",
+      "email": "bilal.ahmed.fit@gmail.com",
+      "city": "Lahore",
+      "address": "Street 12, Gulberg III",
+      "notes": "Deliver during business hours.",
+      "paymentMethod": "bank_transfer",
+      "paymentReference": "HBL-TRX-948210",
+      "paymentStatus": "Paid",
+      "orderStatus": "Shipped",
+      "items": [
+        {
+          "productId": "prod-2",
+          "name": "Nautilus Elite Mass Gainer 5 LBS",
+          "brand": "Nautilus Nutrition",
+          "image": "/images/reference-3.jpg",
+          "price": 11900,
+          "flavor": "Chocolate Fudge",
+          "weight": "5 LBS (2.27 kg)",
+          "quantity": 1
+        },
+        {
+          "productId": "prod-6",
+          "name": "Nautilus Insulated Stainless Steel Pro Shaker 750ml",
+          "brand": "Nautilus Nutrition",
+          "image": "/images/product_nautilus_shaker_1792514849774.jpg",
+          "price": 2400,
+          "flavor": "Matte Black with Violet Accent Ring",
+          "weight": "750ml Capacity",
+          "quantity": 1
+        }
+      ],
+      "subtotal": 14300,
+      "shippingFee": 0,
+      "discount": 500,
+      "couponCode": "POWER500",
+      "total": 13800,
+      "createdAt": "2026-10-19T14:30:00.000Z"
+    },
+    {
+      "id": "ord-1003",
+      "orderNumber": "NP-2026-1003",
+      "customerName": "Usman Sheikh",
+      "phone": "03215509912",
+      "email": "usman.sheikh@hotmail.com",
+      "city": "Islamabad",
+      "address": "Apartment 402, Beverly Centre, Blue Area",
+      "notes": "Leave with reception if not home.",
+      "paymentMethod": "jazzcash",
+      "paymentReference": "JC-882319",
+      "paymentStatus": "Paid",
+      "orderStatus": "Processing",
+      "items": [
+        {
+          "productId": "prod-3",
+          "name": "Nautilus Creatine Omega-3 CoEnzyme Q10 Softgels",
+          "brand": "Nautilus Nutrition",
+          "image": "/images/reference-1.jpg",
+          "price": 6499,
+          "flavor": "Rapid-Release Enteric Softgels",
+          "weight": "60 Softgels (30 Servings)",
+          "quantity": 1
+        }
+      ],
+      "subtotal": 6499,
+      "shippingFee": 0,
+      "discount": 0,
+      "total": 6499,
+      "createdAt": "2026-10-20T08:15:00.000Z"
+    }
+  ],
+  "coupons": [
+    {
+      "id": "coup-1",
+      "code": "NAUTILUS10",
+      "discountType": "percentage",
+      "discountValue": 10,
+      "minSpend": 4000,
+      "isActive": true,
+      "usageCount": 14
+    },
+    {
+      "id": "coup-2",
+      "code": "POWER500",
+      "discountType": "fixed",
+      "discountValue": 500,
+      "minSpend": 5000,
+      "isActive": true,
+      "usageCount": 28
+    },
+    {
+      "id": "coup-3",
+      "code": "FITNESS20",
+      "discountType": "percentage",
+      "discountValue": 20,
+      "minSpend": 25000,
+      "isActive": true,
+      "usageCount": 6
+    }
+  ],
+  "reviews": [
+    {
+      "id": "rev-1",
+      "productId": "prod-1",
+      "productName": "Nautilus Fast Protein 100% Premium Whey",
+      "customerName": "Farhan Zafar",
+      "rating": 5,
+      "headline": "Best tasting chocolate whey available in Karachi",
+      "comment": "Ordered directly from the website and received it within 24 hours in Karachi. Mixes completely without lumps and the macros are clean. Absolutely authentic packaging with tamper seal intact.",
+      "date": "2026-10-15",
+      "verifiedPurchase": true,
+      "status": "approved"
+    },
+    {
+      "id": "rev-2",
+      "productId": "prod-2",
+      "productName": "Nautilus Elite Mass Gainer 5 LBS",
+      "customerName": "Zain Malik",
+      "rating": 5,
+      "headline": "Gained 3.5 kg of solid weight in 4 weeks",
+      "comment": "Unlike generic mass gainers full of maltodextrin sugar spikes, this didn't cause bloating. High quality protein content and great value for 45 servings.",
+      "date": "2026-10-14",
+      "verifiedPurchase": true,
+      "status": "approved"
+    },
+    {
+      "id": "rev-3",
+      "productId": "prod-3",
+      "productName": "Nautilus Creatine Omega-3 CoEnzyme Q10 Softgels",
+      "customerName": "Dr. Shahmeer Khan",
+      "rating": 5,
+      "headline": "Incredible combination for recovery and heart endurance",
+      "comment": "Having Creatine, EPA/DHA Omega-3, and 100mg CoQ10 in one clean softgel formula is genius. Joint aches disappeared and gym energy is sustained.",
+      "date": "2026-10-17",
+      "verifiedPurchase": true,
+      "status": "approved"
+    },
+    {
+      "id": "rev-4",
+      "productId": "prod-5",
+      "productName": "Nautilus Volt Xtreme High-Intensity Pre-Workout",
+      "customerName": "Ahsan Raza",
+      "rating": 5,
+      "headline": "Intense energy with zero post-workout crash",
+      "comment": "The Citrulline pump is insane. Blue Raspberry flavour is crisp and clean. Best pre-workout on the market right now.",
+      "date": "2026-10-16",
+      "verifiedPurchase": true,
+      "status": "approved"
+    }
+  ],
+  "subscribers": [
+    {
+      "id": "sub-1",
+      "email": "athletic.karachi@gmail.com",
+      "createdAt": "2026-10-15T09:00:00.000Z"
+    }
+  ],
+  "settings": {
+    "announcementBar": {
+      "enabled": true,
+      "text": "FREE NATIONWIDE DELIVERY ON ORDERS OVER PKR 5,000 | 100% AUTHENTIC SPORTS NUTRITION | DISPATCH FROM KARACHI",
+      "link": "/shop"
+    },
+    "shipping": {
+      "freeShippingThreshold": 5000,
+      "standardRate": 350,
+      "estimatedDays": "24–48 hours for Karachi | 2–4 business days nationwide"
+    },
+    "contact": {
+      "phone": "+92 333 2499499",
+      "whatsapp": "+92 333 2499499",
+      "email": "microhealth1@gmail.com",
+      "address": "Saima Arabian Villas, Karachi, Pakistan"
+    },
+    "payments": {
+      "codEnabled": true,
+      "bankTransferEnabled": true,
+      "jazzcashEnabled": true,
+      "easypaisaEnabled": true,
+      "bankDetails": {
+        "bankName": "Meezan Bank Limited / HBL",
+        "accountTitle": "Nautilus Nutrition / Micro Health",
+        "accountNumber": "0102948102938102",
+        "iban": "PK36MEZN0001029481029381"
+      },
+      "jazzcashDetails": {
+        "accountTitle": "Nautilus Sports Nutrition",
+        "accountNumber": "0333 2499499"
+      },
+      "easypaisaDetails": {
+        "accountTitle": "Nautilus Sports Nutrition",
+        "accountNumber": "0333 2499499"
+      }
+    }
+  }
+}

@@ -1,0 +1,199 @@
+{
+  "entities": {
+    "Product": {
+      "title": "Product",
+      "description": "Nautilus Protein supplement product catalog item",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string", "maxLength": 200 },
+        "slug": { "type": "string", "maxLength": 200 },
+        "brand": { "type": "string", "maxLength": 100 },
+        "category": { "type": "string", "maxLength": 100 },
+        "categoryName": { "type": "string", "maxLength": 100 },
+        "price": { "type": "number" },
+        "salePrice": { "type": "number" },
+        "stock": { "type": "number" },
+        "inStock": { "type": "boolean" },
+        "weight": { "type": "string", "maxLength": 100 },
+        "servings": { "type": "number" },
+        "flavors": { "type": "array" },
+        "image": { "type": "string", "maxLength": 1000 },
+        "images": { "type": "array" },
+        "shortDescription": { "type": "string", "maxLength": 500 },
+        "description": { "type": "string", "maxLength": 5000 },
+        "directions": { "type": "string", "maxLength": 2000 },
+        "warnings": { "type": "string", "maxLength": 2000 },
+        "nutritionFacts": { "type": "array" },
+        "ingredients": { "type": "array" },
+        "isFeatured": { "type": "boolean" },
+        "isBestSeller": { "type": "boolean" },
+        "isNew": { "type": "boolean" },
+        "rating": { "type": "number" },
+        "reviewCount": { "type": "number" },
+        "goal": { "type": "string", "maxLength": 100 },
+        "goalName": { "type": "string", "maxLength": 100 },
+        "updatedAt": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["name", "price", "image"]
+    },
+    "Category": {
+      "title": "Category",
+      "description": "Product category classification",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string", "maxLength": 100 },
+        "slug": { "type": "string", "maxLength": 100 },
+        "description": { "type": "string", "maxLength": 500 },
+        "image": { "type": "string", "maxLength": 1000 },
+        "itemCount": { "type": "number" }
+      },
+      "required": ["name", "slug"]
+    },
+    "Brand": {
+      "title": "Brand",
+      "description": "Supplement brand",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string", "maxLength": 100 },
+        "slug": { "type": "string", "maxLength": 100 },
+        "logo": { "type": "string", "maxLength": 1000 }
+      },
+      "required": ["name", "slug"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "Customer supplement purchase order",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "orderNumber": { "type": "string", "maxLength": 100 },
+        "customerName": { "type": "string", "maxLength": 200 },
+        "phone": { "type": "string", "maxLength": 50 },
+        "email": { "type": "string", "maxLength": 200 },
+        "city": { "type": "string", "maxLength": 100 },
+        "address": { "type": "string", "maxLength": 500 },
+        "notes": { "type": "string", "maxLength": 1000 },
+        "paymentMethod": { "type": "string", "maxLength": 50 },
+        "paymentReference": { "type": "string", "maxLength": 200 },
+        "paymentStatus": { "type": "string", "maxLength": 50 },
+        "orderStatus": { "type": "string", "maxLength": 50 },
+        "items": { "type": "array" },
+        "subtotal": { "type": "number" },
+        "shippingFee": { "type": "number" },
+        "discount": { "type": "number" },
+        "couponCode": { "type": "string", "maxLength": 50 },
+        "total": { "type": "number" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["orderNumber", "customerName", "phone", "city", "address", "items", "total"]
+    },
+    "Review": {
+      "title": "Review",
+      "description": "Product review submitted by customer",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "productId": { "type": "string", "maxLength": 100 },
+        "productName": { "type": "string", "maxLength": 200 },
+        "customerName": { "type": "string", "maxLength": 100 },
+        "rating": { "type": "number" },
+        "headline": { "type": "string", "maxLength": 200 },
+        "comment": { "type": "string", "maxLength": 2000 },
+        "date": { "type": "string" },
+        "verifiedPurchase": { "type": "boolean" },
+        "status": { "type": "string", "maxLength": 50 }
+      },
+      "required": ["productId", "customerName", "rating", "comment"]
+    },
+    "Coupon": {
+      "title": "Coupon",
+      "description": "Promotional discount voucher",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "code": { "type": "string", "maxLength": 50 },
+        "discountType": { "type": "string", "maxLength": 50 },
+        "discountValue": { "type": "number" },
+        "minSpend": { "type": "number" },
+        "isActive": { "type": "boolean" },
+        "usageCount": { "type": "number" }
+      },
+      "required": ["code", "discountType", "discountValue"]
+    },
+    "Subscriber": {
+      "title": "Subscriber",
+      "description": "Email newsletter subscriber",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "email": { "type": "string", "maxLength": 200 },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["email"]
+    },
+    "Admin": {
+      "title": "Admin",
+      "description": "Administrator user record",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string", "maxLength": 200 },
+        "role": { "type": "string", "maxLength": 50 }
+      },
+      "required": ["email"]
+    },
+    "WebsiteSettings": {
+      "title": "WebsiteSettings",
+      "description": "Global website configuration and settings",
+      "type": "object",
+      "properties": {
+        "shipping": { "type": "object" },
+        "bankDetails": { "type": "object" },
+        "contact": { "type": "object" },
+        "announcement": { "type": "object" }
+      }
+    }
+  },
+  "firestore": {
+    "/products/{productId}": {
+      "schema": "Product",
+      "description": "Catalog of nutrition products and supplements"
+    },
+    "/categories/{categoryId}": {
+      "schema": "Category",
+      "description": "Catalog product categories"
+    },
+    "/brands/{brandId}": {
+      "schema": "Brand",
+      "description": "Supplement brand partners"
+    },
+    "/orders/{orderId}": {
+      "schema": "Order",
+      "description": "Customer purchase orders and tracking records"
+    },
+    "/reviews/{reviewId}": {
+      "schema": "Review",
+      "description": "Customer product reviews and ratings"
+    },
+    "/coupons/{couponId}": {
+      "schema": "Coupon",
+      "description": "Discount coupon codes"
+    },
+    "/subscribers/{subscriberId}": {
+      "schema": "Subscriber",
+      "description": "VIP newsletter subscribers"
+    },
+    "/settings/{settingsId}": {
+      "schema": "WebsiteSettings",
+      "description": "Global website settings document"
+    },
+    "/admins/{adminId}": {
+      "schema": "Admin",
+      "description": "Authorized admin users"
+    }
+  }
+}

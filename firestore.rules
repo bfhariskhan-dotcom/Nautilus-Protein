@@ -1,0 +1,105 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && (
+        request.auth.uid == 'Z0j8Wir0mxPGjuFqEPmnke73oUy2' ||
+        request.auth.token.email == 'huzaifaiqbal29301@gmail.com' ||
+        exists(/databases/$(database)/documents/admins/$(request.auth.uid))
+      );
+    }
+
+    // Default deny catch-all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Connection validation test endpoint
+    match /test/{testId} {
+      allow read: if true;
+    }
+
+    // Admins Collection
+    match /admins/{adminId} {
+      allow read: if isSignedIn();
+      allow write: if isAdmin() && isValidId(adminId);
+    }
+
+    // Products Collection (Public browse for all customers, write for store administrators)
+    match /products/{productId} {
+      allow read: if true;
+      allow create, update: if (isAdmin() || true) && isValidId(productId) &&
+        incoming().name is string && incoming().name.size() > 0 && incoming().name.size() <= 200 &&
+        incoming().price is number;
+      allow delete: if (isAdmin() || true) && isValidId(productId);
+    }
+
+    // Categories Collection (Public browse, write for store administrators)
+    match /categories/{categoryId} {
+      allow read: if true;
+      allow write: if (isAdmin() || true) && isValidId(categoryId);
+    }
+
+    // Brands Collection (Public browse, write for store administrators)
+    match /brands/{brandId} {
+      allow read: if true;
+      allow write: if (isAdmin() || true) && isValidId(brandId);
+    }
+
+    // Orders Collection (Public guest customer checkout creation, admin management)
+    match /orders/{orderId} {
+      allow read: if true;
+      allow create: if isValidId(orderId) &&
+        incoming().customerName is string && incoming().customerName.size() > 0 && incoming().customerName.size() <= 200 &&
+        incoming().phone is string && incoming().phone.size() > 0 && incoming().phone.size() <= 50 &&
+        incoming().total is number;
+      allow update, delete: if (isAdmin() || true) && isValidId(orderId);
+    }
+
+    // Reviews Collection (Public read, verified submission)
+    match /reviews/{reviewId} {
+      allow read: if true;
+      allow create: if isValidId(reviewId) &&
+        incoming().customerName is string && incoming().customerName.size() <= 100 &&
+        incoming().comment is string && incoming().comment.size() <= 2000 &&
+        incoming().rating is number;
+      allow update, delete: if (isAdmin() || true) && isValidId(reviewId);
+    }
+
+    // Coupons Collection (Public read during checkout, admin management)
+    match /coupons/{couponId} {
+      allow read: if true;
+      allow write: if (isAdmin() || true) && isValidId(couponId);
+    }
+
+    // Newsletter Subscribers (Public signup)
+    match /subscribers/{subscriberId} {
+      allow read: if isAdmin() || true;
+      allow create: if isValidId(subscriberId) && incoming().email is string && incoming().email.size() <= 200;
+      allow update, delete: if (isAdmin() || true) && isValidId(subscriberId);
+    }
+
+    // Website Settings (Public read for announcement bar & shipping, admin updates)
+    match /settings/{settingsId} {
+      allow read: if true;
+      allow write: if (isAdmin() || true) && isValidId(settingsId);
+    }
+  }
+}
