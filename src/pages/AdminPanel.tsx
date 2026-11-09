@@ -19,9 +19,12 @@ import {
   TrendingUp,
   Upload,
   Image as ImageIcon,
+  Images,
   Loader2,
   ExternalLink,
-  FolderPlus
+  FolderPlus,
+  X,
+  HelpCircle
 } from 'lucide-react';
 import { signInWithEmailAndPassword, signOut, onAuthStateChanged, User } from 'firebase/auth';
 import { auth, SUPERADMIN_UID } from '../firebase';
@@ -44,6 +47,7 @@ import {
   saveSettingsToFirestore,
   getSettingsFromFirestore
 } from '../services/firestoreService';
+import { INITIAL_PRODUCTS } from '../data/initialProducts';
 
 export const AdminPanel: React.FC = () => {
   const { showToast, refreshProducts, refreshSettings } = useStore();
@@ -92,14 +96,17 @@ export const AdminPanel: React.FC = () => {
     directions: '',
     warnings: '',
     isBestSeller: false,
-    isNew: false
+    isNew: false,
+    faqs: [] as { question: string; answer: string }[]
   });
 
-  // ImgBB Upload States for Product
+  // ImgBB Upload States for Product (Supports 3-5+ images per product)
   const [isUploadingImage, setIsUploadingImage] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
+  const [uploadStatusText, setUploadStatusText] = useState('');
   const [uploadError, setUploadError] = useState<string | null>(null);
   const [uploadSuccess, setUploadSuccess] = useState<string | null>(null);
+  const [newImageUrlInput, setNewImageUrlInput] = useState('');
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Category Modal state
@@ -317,7 +324,8 @@ export const AdminPanel: React.FC = () => {
         directions: prod.directions || '',
         warnings: prod.warnings || '',
         isBestSeller: prod.isBestSeller,
-        isNew: prod.isNew
+        isNew: prod.isNew,
+        faqs: prod.faqs ? prod.faqs.map(f => ({ question: f.question, answer: f.answer })) : []
       });
     } else {
       setEditingProduct(null);
@@ -341,13 +349,39 @@ export const AdminPanel: React.FC = () => {
         directions: 'Mix 1 scoop (10g) with 250-300ml cold water.',
         warnings: 'Food Supplement Only. Not a Medicine. Store in cool, dry place below 30°C.',
         isBestSeller: true,
-        isNew: true
+        isNew: true,
+        faqs: []
       });
     }
     setUploadProgress(0);
     setUploadError(null);
     setUploadSuccess(null);
     setIsProductModalOpen(true);
+  };
+
+  // FAQ Manager Handlers for Admin Product Form
+  const handleAddFaqItem = () => {
+    setProductForm(prev => ({
+      ...prev,
+      faqs: [...(prev.faqs || []), { question: '', answer: '' }]
+    }));
+  };
+
+  const handleRemoveFaqItem = (index: number) => {
+    setProductForm(prev => ({
+      ...prev,
+      faqs: (prev.faqs || []).filter((_, idx) => idx !== index)
+    }));
+  };
+
+  const handleFaqChange = (index: number, field: 'question' | 'answer', value: string) => {
+    setProductForm(prev => {
+      const updated = [...(prev.faqs || [])];
+      if (updated[index]) {
+        updated[index] = { ...updated[index], [field]: value };
+      }
+      return { ...prev, faqs: updated };
+    });
   };
 
   // Duplicate Product Action
@@ -390,55 +424,169 @@ export const AdminPanel: React.FC = () => {
     }
   };
 
-  const handleImageFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
+  // One-Click Sync All 19 Official Nautilus Products to Firestore
+  const [isSyncingAll, setIsSyncingAll] = useState(false);
+  const handleSyncAllProductsToFirestore = async () => {
+    if (!window.confirm('Sync/Update all 19 official Nautilus products with complete formulas and specifications to Firestore?')) return;
+    setIsSyncingAll(true);
+    try {
+      let count = 0;
+      for (const prod of INITIAL_PRODUCTS) {
+        await saveProductToFirestore(prod);
+        count++;
+      }
+      showToast(`Successfully synced all ${count} official products to Firestore!`);
+      await fetchAdminData();
+      await refreshProducts();
+    } catch (err: any) {
+      console.error('Sync error:', err);
+      showToast('Error syncing products: ' + (err.message || 'Check connection'), 'error');
+    } finally {
+      setIsSyncingAll(false);
+    }
+  };
 
-    const validation = validateImageFile(file);
-    if (!validation.valid) {
-      setUploadError(validation.error || 'Invalid file format.');
-      setUploadSuccess(null);
-      return;
+  // Multi-Image Upload (handles 1, 2, 3, 4, 5+ files at once)
+  const handleImageFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const fileList = e.target.files;
+    if (!fileList || fileList.length === 0) return;
+    const files = Array.from(fileList);
+
+    // Validate all files first
+    for (const file of files) {
+      const validation = validateImageFile(file);
+      if (!validation.valid) {
+        setUploadError(`${file.name}: ${validation.error || 'Invalid file format.'}`);
+        setUploadSuccess(null);
+        return;
+      }
     }
 
     setIsUploadingImage(true);
-    setUploadProgress(15);
+    setUploadProgress(10);
     setUploadError(null);
     setUploadSuccess(null);
 
-    try {
-      const res = await uploadImageToImgBB(file, (progress) => {
-        setUploadProgress(progress);
-      });
+    const uploadedUrls: string[] = [];
+    let failedCount = 0;
 
-      if (res.success && res.url) {
-        setProductForm(prev => {
-          // If image already set, also add to gallery
-          const currentGallery = prev.gallery ? prev.gallery.split(',').map(s => s.trim()).filter(Boolean) : [];
-          if (!currentGallery.includes(res.url)) {
-            currentGallery.push(res.url);
-          }
-          return {
-            ...prev,
-            image: prev.image.includes('Logo') ? res.url : prev.image,
-            gallery: currentGallery.join(', ')
-          };
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      setUploadStatusText(`Uploading ${i + 1} of ${files.length}: ${file.name}...`);
+      try {
+        const res = await uploadImageToImgBB(file, (singleProg) => {
+          const overallProg = Math.round(((i + (singleProg / 100)) / files.length) * 100);
+          setUploadProgress(Math.min(95, Math.max(10, overallProg)));
         });
-        setUploadSuccess(`Uploaded to ImgBB successfully!`);
-        showToast('Product image uploaded via ImgBB');
-      } else {
-        setUploadError(res.error || 'Failed to upload image to ImgBB.');
-        showToast(res.error || 'ImgBB upload error', 'error');
-      }
-    } catch (err: any) {
-      setUploadError(err.message || 'Network exception during image upload.');
-      showToast('Network error during ImgBB upload', 'error');
-    } finally {
-      setIsUploadingImage(false);
-      if (fileInputRef.current) {
-        fileInputRef.current.value = '';
+
+        if (res.success && res.url) {
+          uploadedUrls.push(res.url);
+        } else {
+          failedCount++;
+          console.error(`Failed to upload ${file.name}:`, res.error);
+        }
+      } catch (err: any) {
+        failedCount++;
+        console.error(`Error uploading ${file.name}:`, err);
       }
     }
+
+    if (uploadedUrls.length > 0) {
+      setProductForm(prev => {
+        const existingGallery = prev.gallery
+          ? prev.gallery.split(',').map(s => s.trim()).filter(Boolean)
+          : [];
+        const isDefaultCover = !prev.image || prev.image.includes('Logo') || prev.image.trim().length === 0;
+
+        const combined = Array.from(new Set([...existingGallery, ...uploadedUrls]));
+        const newCover = isDefaultCover ? uploadedUrls[0] : prev.image;
+
+        return {
+          ...prev,
+          image: newCover,
+          gallery: combined.join(', ')
+        };
+      });
+
+      setUploadProgress(100);
+      setUploadSuccess(`Successfully uploaded ${uploadedUrls.length} image${uploadedUrls.length > 1 ? 's' : ''} to ImgBB!`);
+      showToast(`${uploadedUrls.length} image(s) uploaded to product gallery!`);
+    } else {
+      setUploadError(`Failed to upload images. ${failedCount > 0 ? `${failedCount} file(s) failed.` : ''}`);
+      showToast('Image upload failed. Check connection.', 'error');
+    }
+
+    setIsUploadingImage(false);
+    setUploadStatusText('');
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+  };
+
+  // Set an image as primary cover
+  const handleSetCoverImage = (url: string) => {
+    setProductForm(prev => {
+      const currentGallery = prev.gallery
+        ? prev.gallery.split(',').map(s => s.trim()).filter(Boolean)
+        : [];
+      if (!currentGallery.includes(prev.image) && prev.image && !prev.image.includes('Logo')) {
+        currentGallery.unshift(prev.image);
+      }
+      return {
+        ...prev,
+        image: url,
+        gallery: Array.from(new Set([url, ...currentGallery])).join(', ')
+      };
+    });
+    showToast('Cover image updated');
+  };
+
+  // Remove an image from gallery
+  const handleRemoveGalleryImage = (urlToRemove: string) => {
+    setProductForm(prev => {
+      const currentGallery = prev.gallery
+        ? prev.gallery.split(',').map(s => s.trim()).filter(Boolean)
+        : [];
+      const updatedGallery = currentGallery.filter(url => url !== urlToRemove);
+
+      let newCover = prev.image;
+      if (prev.image === urlToRemove) {
+        newCover = updatedGallery.length > 0 ? updatedGallery[0] : 'https://i.postimg.cc/C54Q75KX/Nautilus-Protein-Black-Purple-Logo.png';
+      }
+
+      return {
+        ...prev,
+        image: newCover,
+        gallery: updatedGallery.join(', ')
+      };
+    });
+    showToast('Image removed from gallery');
+  };
+
+  // Add an image from URL input
+  const handleAddImageUrl = () => {
+    const url = newImageUrlInput.trim();
+    if (!url) return;
+    if (!url.startsWith('http://') && !url.startsWith('https://') && !url.startsWith('/')) {
+      showToast('Please enter a valid HTTP/HTTPS image URL', 'error');
+      return;
+    }
+
+    setProductForm(prev => {
+      const currentGallery = prev.gallery ? prev.gallery.split(',').map(s => s.trim()).filter(Boolean) : [];
+      if (!currentGallery.includes(url)) {
+        currentGallery.push(url);
+      }
+      const isDefaultCover = !prev.image || prev.image.includes('Logo') || prev.image.trim().length === 0;
+      return {
+        ...prev,
+        image: isDefaultCover ? url : prev.image,
+        gallery: currentGallery.join(', ')
+      };
+    });
+
+    setNewImageUrlInput('');
+    showToast('Image URL added to gallery');
   };
 
   const handleSaveProduct = async (e: React.FormEvent) => {
@@ -480,8 +628,7 @@ export const AdminPanel: React.FC = () => {
       ratio: productForm.ratio || undefined,
       gallery: galleryList,
       highlights: editingProduct?.highlights || undefined,
-      whoIsItFor: editingProduct?.whoIsItFor || undefined,
-      faqs: editingProduct?.faqs || undefined,
+      faqs: (productForm.faqs && productForm.faqs.length > 0) ? productForm.faqs : (editingProduct?.faqs || []),
       tags: editingProduct?.tags || ['2:1:1 Ratio', 'Zero Sugar', 'Halal', 'Lab Tested']
     };
 
@@ -1030,17 +1177,33 @@ export const AdminPanel: React.FC = () => {
       {/* 3. PRODUCTS MANAGEMENT */}
       {activeTab === 'products' && (
         <div className="space-y-6">
-          <div className="flex items-center justify-between">
-            <h2 className="text-lg font-bold text-slate-900 uppercase tracking-wider font-heading">
-              Supplement Catalog ({products.length})
-            </h2>
-            <button
-              onClick={() => handleOpenProductModal()}
-              className="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 transition-colors shadow-sm"
-            >
-              <Plus className="w-4 h-4" />
-              <span>Add New Product</span>
-            </button>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <h2 className="text-lg font-bold text-slate-900 uppercase tracking-wider font-heading">
+                Supplement Catalog ({products.length})
+              </h2>
+              <p className="text-xs text-slate-500">
+                Manage formulas, pricing, inventory, and upload 3-5+ gallery photos per product
+              </p>
+            </div>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={handleSyncAllProductsToFirestore}
+                disabled={isSyncingAll}
+                className="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 transition-colors border border-slate-200"
+                title="Sync/Refresh all 19 official products in Firestore"
+              >
+                <RefreshCw className={`w-3.5 h-3.5 text-purple-600 ${isSyncingAll ? 'animate-spin' : ''}`} />
+                <span>{isSyncingAll ? 'Syncing...' : 'Sync All 19 Products'}</span>
+              </button>
+              <button
+                onClick={() => handleOpenProductModal()}
+                className="px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 transition-colors shadow-sm"
+              >
+                <Plus className="w-4 h-4" />
+                <span>Add New Product</span>
+              </button>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -1240,128 +1403,202 @@ export const AdminPanel: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* ImgBB Image Upload & URL input */}
-                  <div className="space-y-2 bg-slate-50 border border-slate-200 rounded-2xl p-4">
+                  {/* Multi-Image Gallery Manager (Upload 3-5+ images per product) */}
+                  <div className="space-y-3 bg-slate-50 border border-slate-200 rounded-2xl p-4">
                     <div className="flex items-center justify-between">
-                      <label className="block text-slate-900 font-bold uppercase tracking-wider text-[11px] flex items-center gap-1.5">
-                        <ImageIcon className="w-3.5 h-3.5 text-purple-700" />
-                        <span>Product Image (ImgBB Cloud Host)</span>
-                      </label>
-                      <span className="text-[10px] text-purple-700 font-mono">API: api.imgbb.com</span>
+                      <div>
+                        <label className="text-slate-900 font-bold uppercase tracking-wider text-xs flex items-center gap-2">
+                          <Images className="w-4 h-4 text-purple-700" />
+                          <span>Product Image Gallery (Upload 3–5+ Images)</span>
+                        </label>
+                        <p className="text-[11px] text-slate-500 mt-0.5">
+                          Upload multiple angles at once: Front view, Back nutrition label, Scoop angle, Real packaging.
+                        </p>
+                      </div>
+                      <span className="text-[10px] text-purple-700 font-mono bg-purple-50 px-2.5 py-1 rounded-md border border-purple-200 font-bold">
+                        ImgBB Multi-Upload
+                      </span>
                     </div>
 
-                    {/* Image Preview & Upload Controls */}
-                    <div className="flex flex-col sm:flex-row items-center gap-4 pt-1">
-                      <div className="w-24 h-24 rounded-xl border border-slate-200 bg-white flex items-center justify-center overflow-hidden shrink-0 relative group shadow-sm">
-                        {productForm.image ? (
-                          <img
-                            src={productForm.image}
-                            alt="Preview"
-                            className="w-full h-full object-contain p-1"
-                            referrerPolicy="no-referrer"
-                          />
+                    {/* Upload Buttons & Status */}
+                    <div className="flex flex-wrap items-center gap-3 pt-1">
+                      <input
+                        type="file"
+                        ref={fileInputRef}
+                        onChange={handleImageFileChange}
+                        accept="image/jpeg,image/png,image/webp,image/gif,image/avif"
+                        multiple
+                        className="hidden"
+                        id="imgbb-multi-file-upload"
+                        disabled={isUploadingImage}
+                      />
+                      <label
+                        htmlFor="imgbb-multi-file-upload"
+                        className={`px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider flex items-center gap-2 cursor-pointer transition-all shadow-sm ${
+                          isUploadingImage
+                            ? 'bg-slate-200 text-slate-500 cursor-not-allowed'
+                            : 'bg-purple-600 hover:bg-purple-700 text-white shadow-purple-600/30 hover:shadow-md'
+                        }`}
+                      >
+                        {isUploadingImage ? (
+                          <>
+                            <Loader2 className="w-4 h-4 animate-spin" />
+                            <span>{uploadStatusText || `Uploading (${uploadProgress}%)...`}</span>
+                          </>
                         ) : (
-                          <ImageIcon className="w-8 h-8 text-slate-400" />
+                          <>
+                            <Upload className="w-4 h-4" />
+                            <span>Upload Images (Select 1 or Multiple Files)</span>
+                          </>
                         )}
-                        {productForm.image && productForm.image.startsWith('http') && (
-                          <a
-                            href={productForm.image}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="absolute inset-0 bg-slate-900/60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity text-white text-[10px] font-bold gap-1"
-                          >
-                            <ExternalLink className="w-3 h-3" />
-                            <span>View</span>
-                          </a>
-                        )}
-                      </div>
+                      </label>
+                      <span className="text-[11px] text-slate-500">
+                        Select multiple JPG, PNG, WEBP files (Max 16MB each)
+                      </span>
+                    </div>
 
-                      <div className="flex-1 w-full space-y-2">
-                        <div className="flex items-center gap-2">
-                          <input
-                            type="file"
-                            ref={fileInputRef}
-                            onChange={handleImageFileChange}
-                            accept="image/jpeg,image/png,image/webp,image/gif,image/avif"
-                            className="hidden"
-                            id="imgbb-file-upload"
-                            disabled={isUploadingImage}
+                    {/* Progress Bar */}
+                    {isUploadingImage && (
+                      <div className="space-y-1">
+                        <div className="w-full bg-slate-200 rounded-full h-2.5 overflow-hidden border border-slate-300">
+                          <div
+                            className="bg-purple-600 h-full transition-all duration-300 rounded-full"
+                            style={{ width: `${uploadProgress}%` }}
                           />
-                          <label
-                            htmlFor="imgbb-file-upload"
-                            className={`px-4 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider flex items-center gap-2 cursor-pointer transition-all ${
-                              isUploadingImage
-                                ? 'bg-slate-200 text-slate-500 cursor-not-allowed'
-                                : 'bg-purple-600 hover:bg-purple-700 text-white shadow-md shadow-purple-600/30'
-                            }`}
-                          >
-                            {isUploadingImage ? (
-                              <>
-                                <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                                <span>Uploading to ImgBB ({uploadProgress}%)...</span>
-                              </>
-                            ) : (
-                              <>
-                                <Upload className="w-3.5 h-3.5" />
-                                <span>Choose & Upload Image</span>
-                              </>
-                            )}
-                          </label>
-                          <span className="text-[11px] text-slate-500">
-                            JPG, PNG, WEBP (Max 16MB)
-                          </span>
                         </div>
-
-                        {/* Progress Bar */}
-                        {isUploadingImage && (
-                          <div className="w-full bg-slate-200 rounded-full h-2 overflow-hidden border border-slate-300">
-                            <div
-                              className="bg-purple-600 h-full transition-all duration-300 rounded-full"
-                              style={{ width: `${uploadProgress}%` }}
-                            />
-                          </div>
-                        )}
-
-                        {/* Upload Status Alerts */}
-                        {uploadSuccess && (
-                          <p className="text-[11px] text-emerald-600 font-semibold flex items-center gap-1">
-                            <CheckCircle className="w-3.5 h-3.5" />
-                            <span>{uploadSuccess}</span>
-                          </p>
-                        )}
-                        {uploadError && (
-                          <p className="text-[11px] text-rose-600 font-semibold">
-                            ✕ {uploadError}
-                          </p>
-                        )}
+                        <p className="text-[11px] text-purple-700 font-semibold">{uploadStatusText}</p>
                       </div>
-                    </div>
+                    )}
 
-                    <div className="pt-1">
-                      <label className="block text-slate-600 text-[10px] uppercase font-semibold mb-1">
-                        Or Direct Image URL (Saved to Firebase)
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        value={productForm.image}
-                        onChange={(e) => setProductForm({ ...productForm, image: e.target.value })}
-                        placeholder="https://i.ibb.co/... or /images/..."
-                        className="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-slate-900 font-mono text-xs focus:outline-none focus:border-purple-600"
-                      />
-                    </div>
+                    {/* Upload Status Alerts */}
+                    {uploadSuccess && (
+                      <p className="text-[11px] text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-xl p-2.5 font-semibold flex items-center gap-1.5">
+                        <CheckCircle className="w-4 h-4 shrink-0 text-emerald-600" />
+                        <span>{uploadSuccess}</span>
+                      </p>
+                    )}
+                    {uploadError && (
+                      <p className="text-[11px] text-rose-700 bg-rose-50 border border-rose-200 rounded-xl p-2.5 font-semibold">
+                        ✕ {uploadError}
+                      </p>
+                    )}
 
-                    <div className="pt-1">
-                      <label className="block text-slate-600 text-[10px] uppercase font-semibold mb-1">
-                        Gallery Image URLs (Comma Separated for Multi-image Display)
+                    {/* Visual Interactive Gallery Grid */}
+                    {(() => {
+                      const allCurrentImages = Array.from(
+                        new Set([
+                          productForm.image,
+                          ...(productForm.gallery ? productForm.gallery.split(',').map(s => s.trim()).filter(Boolean) : [])
+                        ])
+                      ).filter(img => img && img.trim().length > 0 && !img.includes('Logo.png'));
+
+                      return allCurrentImages.length > 0 ? (
+                        <div className="pt-2 space-y-2">
+                          <div className="flex items-center justify-between">
+                            <span className="text-[11px] font-bold text-slate-800 uppercase tracking-wider">
+                              Uploaded Photos ({allCurrentImages.length}) — Click 'Make Cover' to set as primary catalog image:
+                            </span>
+                          </div>
+
+                          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                            {allCurrentImages.map((imgUrl, idx) => {
+                              const isCover = productForm.image === imgUrl;
+                              return (
+                                <div
+                                  key={idx}
+                                  className={`relative rounded-xl border p-2 bg-white flex flex-col items-center justify-between group transition-all ${
+                                    isCover
+                                      ? 'border-purple-600 ring-2 ring-purple-600/20 shadow-md'
+                                      : 'border-slate-200 hover:border-slate-300 shadow-xs'
+                                  }`}
+                                >
+                                  <div className="w-full h-24 flex items-center justify-center overflow-hidden rounded-lg bg-slate-50 relative mb-2">
+                                    <img
+                                      src={imgUrl}
+                                      alt={`Gallery image ${idx + 1}`}
+                                      className="max-h-full max-w-full object-contain p-1"
+                                      referrerPolicy="no-referrer"
+                                    />
+                                    <a
+                                      href={imgUrl}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="absolute inset-0 bg-slate-900/60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity text-white text-[10px] font-bold gap-1"
+                                    >
+                                      <ExternalLink className="w-3.5 h-3.5" />
+                                      <span>Full View</span>
+                                    </a>
+                                  </div>
+
+                                  {/* Action Controls */}
+                                  <div className="w-full flex items-center justify-between gap-1 pt-1 border-t border-slate-100">
+                                    {isCover ? (
+                                      <span className="text-[10px] font-bold text-white bg-purple-600 px-2 py-0.5 rounded shadow-xs flex items-center gap-1">
+                                        <Star className="w-3 h-3 fill-white" />
+                                        Main Cover
+                                      </span>
+                                    ) : (
+                                      <button
+                                        type="button"
+                                        onClick={() => handleSetCoverImage(imgUrl)}
+                                        className="text-[10px] font-semibold text-slate-700 hover:text-purple-700 hover:bg-purple-50 px-2 py-0.5 rounded border border-slate-200 transition-colors"
+                                      >
+                                        Make Cover
+                                      </button>
+                                    )}
+
+                                    <button
+                                      type="button"
+                                      onClick={() => handleRemoveGalleryImage(imgUrl)}
+                                      className="p-1 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded transition-colors"
+                                      title="Remove image"
+                                    >
+                                      <X className="w-3.5 h-3.5" />
+                                    </button>
+                                  </div>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="p-5 rounded-xl border border-dashed border-slate-300 text-center bg-white">
+                          <ImageIcon className="w-8 h-8 text-slate-300 mx-auto mb-1.5" />
+                          <p className="text-xs font-semibold text-slate-700">No product images uploaded yet</p>
+                          <p className="text-[11px] text-slate-400 mt-0.5">
+                            Click 'Upload Images' above to select 3, 4, 5+ images directly from your computer.
+                          </p>
+                        </div>
+                      );
+                    })()}
+
+                    {/* Add Image by Direct URL */}
+                    <div className="pt-2 border-t border-slate-200">
+                      <label className="block text-slate-700 text-[10px] uppercase font-bold tracking-wider mb-1">
+                        Or Add Image by Direct URL:
                       </label>
-                      <input
-                        type="text"
-                        value={productForm.gallery}
-                        onChange={(e) => setProductForm({ ...productForm, gallery: e.target.value })}
-                        placeholder="https://i.ibb.co/pic1.jpg, https://i.ibb.co/pic2.jpg"
-                        className="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-slate-900 font-mono text-xs focus:outline-none focus:border-purple-600"
-                      />
+                      <div className="flex gap-2">
+                        <input
+                          type="text"
+                          value={newImageUrlInput}
+                          onChange={(e) => setNewImageUrlInput(e.target.value)}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                              e.preventDefault();
+                              handleAddImageUrl();
+                            }
+                          }}
+                          placeholder="https://i.ibb.co/... or https://i.postimg.cc/..."
+                          className="flex-1 bg-white border border-slate-300 rounded-xl px-3 py-2 text-slate-900 font-mono text-xs focus:outline-none focus:border-purple-600"
+                        />
+                        <button
+                          type="button"
+                          onClick={handleAddImageUrl}
+                          className="px-4 py-2 bg-slate-800 hover:bg-slate-900 text-white rounded-xl text-xs font-bold transition-colors shrink-0 shadow-xs"
+                        >
+                          Add URL
+                        </button>
+                      </div>
                     </div>
                   </div>
 
@@ -1420,6 +1657,75 @@ export const AdminPanel: React.FC = () => {
                         className="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-slate-900 focus:outline-none focus:border-purple-600"
                       />
                     </div>
+                  </div>
+
+                  {/* Interactive Product FAQs Manager */}
+                  <div className="space-y-3 bg-purple-50/60 border border-purple-200/80 rounded-2xl p-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <label className="text-slate-900 font-bold uppercase tracking-wider text-xs flex items-center gap-1.5">
+                          <HelpCircle className="w-4 h-4 text-purple-700" />
+                          <span>Product FAQs ({productForm.faqs?.length || 0} Questions)</span>
+                        </label>
+                        <p className="text-[11px] text-slate-500 mt-0.5">
+                          Common customer questions: safety, steroid myths, stacking, directions, and kidney tolerance.
+                        </p>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={handleAddFaqItem}
+                        className="px-3 py-1.5 bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-xs font-bold flex items-center gap-1 shadow-sm transition-colors"
+                      >
+                        <Plus className="w-3.5 h-3.5" />
+                        <span>Add FAQ</span>
+                      </button>
+                    </div>
+
+                    {productForm.faqs && productForm.faqs.length > 0 ? (
+                      <div className="space-y-3 pt-1">
+                        {productForm.faqs.map((faq, idx) => (
+                          <div key={idx} className="bg-white border border-slate-200 rounded-xl p-3 space-y-2 relative shadow-xs">
+                            <div className="flex items-center justify-between">
+                              <span className="text-[10px] font-bold text-purple-700 uppercase tracking-wider">
+                                FAQ Question #{idx + 1}
+                              </span>
+                              <button
+                                type="button"
+                                onClick={() => handleRemoveFaqItem(idx)}
+                                className="text-slate-400 hover:text-rose-600 p-1 rounded transition-colors"
+                                title="Remove FAQ"
+                              >
+                                <X className="w-3.5 h-3.5" />
+                              </button>
+                            </div>
+                            <div>
+                              <input
+                                type="text"
+                                value={faq.question}
+                                onChange={(e) => handleFaqChange(idx, 'question', e.target.value)}
+                                placeholder="e.g. Is BCAA a steroid or a banned substance?"
+                                className="w-full bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs text-slate-900 font-semibold focus:outline-none focus:border-purple-600"
+                              />
+                            </div>
+                            <div>
+                              <textarea
+                                rows={2}
+                                value={faq.answer}
+                                onChange={(e) => handleFaqChange(idx, 'answer', e.target.value)}
+                                placeholder="e.g. No, BCAA is naturally occurring dietary amino acid..."
+                                className="w-full bg-slate-50 border border-slate-200 rounded-lg px-2.5 py-1.5 text-xs text-slate-700 focus:outline-none focus:border-purple-600"
+                              />
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="p-3 bg-white rounded-xl border border-dashed border-slate-300 text-center">
+                        <p className="text-xs text-slate-500">
+                          No FAQs added yet. Click &quot;Add FAQ&quot; above to add questions and answers.
+                        </p>
+                      </div>
+                    )}
                   </div>
 
                   <div className="flex gap-4 pt-2">

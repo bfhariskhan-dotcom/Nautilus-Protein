@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Search, ShoppingBag, Heart, Menu, X, ShieldCheck, Flame, Zap, Truck, Phone } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Search, ShoppingBag, Heart, Menu, X, ShieldCheck, Flame, Zap, Truck, Phone, ChevronDown } from 'lucide-react';
 import { useStore } from '../context/StoreContext';
 
 export const Header: React.FC = () => {
@@ -7,6 +7,8 @@ export const Header: React.FC = () => {
     cart,
     wishlist,
     activePage,
+    categories,
+    products,
     navigateTo,
     setIsSearchOpen,
     setIsCartOpen,
@@ -15,6 +17,21 @@ export const Header: React.FC = () => {
   } = useStore();
 
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isCatDropdownOpen, setIsCatDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Strictly filter out any categories that have 0 products attached
+  const activeCategories = (categories && categories.length > 0 ? categories : [
+    { slug: 'amino-acids', name: 'BCAA & Amino Acids' },
+    { slug: 'whey-protein', name: '100% Whey Protein' },
+    { slug: 'mass-gainers', name: 'High-Calorie Mass Gainers' },
+    { slug: 'creatine', name: 'Creatine & Performance' },
+    { slug: 'vitamins', name: 'Vitamins & Health' },
+    { slug: 'accessories', name: 'Shakers & Gym Gear' }
+  ]).filter(cat => {
+    if (!products || products.length === 0) return true;
+    return products.some(p => p.category === cat.slug || ((p.category as string) === 'vitamins' && (cat.slug === 'health-essentials' || cat.slug === 'vitamins')));
+  });
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,19 +41,18 @@ export const Header: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const totalCartCount = cart.reduce((acc, item) => acc + item.quantity, 0);
+  // Close dropdown on outside click
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setIsCatDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
-  const navLinks = [
-    { label: 'Home', page: 'home' },
-    { label: 'Shop All', page: 'shop' },
-    { label: 'Whey Protein', page: 'category', param: { category: 'whey-protein' } },
-    { label: 'Mass Gainers', page: 'category', param: { category: 'mass-gainers' } },
-    { label: 'Creatine', page: 'category', param: { category: 'creatine' } },
-    { label: 'Pre-Workout', page: 'category', param: { category: 'pre-workout' } },
-    { label: 'Accessories', page: 'category', param: { category: 'accessories' } },
-    { label: 'About Us', page: 'about' },
-    { label: 'Contact', page: 'contact' },
-  ];
+  const totalCartCount = cart.reduce((acc, item) => acc + item.quantity, 0);
 
   const marqueeItems = [
     { icon: Truck, text: 'FREE NATIONWIDE DELIVERY ON ORDERS OVER PKR 5,000' },
@@ -104,27 +120,115 @@ export const Header: React.FC = () => {
             </button>
           </div>
 
-          {/* Desktop Navigation Links */}
-          <nav className="hidden xl:flex items-center gap-6 2xl:gap-7 text-sm font-medium tracking-wide">
-            {navLinks.map((link) => {
-              const isActive = activePage === link.page;
-              return (
-                <button
-                  key={link.label}
-                  onClick={() => navigateTo(link.page, link.param)}
-                  className={`relative py-1 whitespace-nowrap transition-colors duration-150 ${
-                    isActive
-                      ? 'text-purple-700 font-bold'
-                      : 'text-slate-600 hover:text-purple-700'
-                  }`}
-                >
-                  {link.label}
-                  {isActive && (
-                    <span className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-purple-600 to-indigo-600 rounded-full shadow-[0_0_8px_rgba(147,51,234,0.5)]" />
-                  )}
-                </button>
-              );
-            })}
+          {/* Desktop Navigation Menu (Compact with Categories Dropdown) */}
+          <nav className="hidden lg:flex items-center gap-6 2xl:gap-8 text-sm font-semibold tracking-wide">
+            {/* 1. Home */}
+            <button
+              onClick={() => navigateTo('home')}
+              className={`relative py-1 transition-colors ${
+                activePage === 'home' ? 'text-purple-700 font-bold' : 'text-slate-600 hover:text-purple-700'
+              }`}
+            >
+              <span>Home</span>
+              {activePage === 'home' && (
+                <span className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-purple-600 rounded-full" />
+              )}
+            </button>
+
+            {/* 2. Categories Dropdown */}
+            <div
+              ref={dropdownRef}
+              className="relative"
+              onMouseEnter={() => setIsCatDropdownOpen(true)}
+              onMouseLeave={() => setIsCatDropdownOpen(false)}
+            >
+              <button
+                onClick={() => setIsCatDropdownOpen(!isCatDropdownOpen)}
+                className={`flex items-center gap-1.5 py-1 transition-colors ${
+                  activePage === 'category' ? 'text-purple-700 font-bold' : 'text-slate-600 hover:text-purple-700'
+                }`}
+              >
+                <span>Categories</span>
+                <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isCatDropdownOpen ? 'rotate-180 text-purple-600' : 'text-slate-400'}`} />
+              </button>
+
+              {/* Floating Dropdown Menu */}
+              {isCatDropdownOpen && (
+                <div className="absolute top-full left-0 pt-2 w-72 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
+                  <div className="bg-white rounded-2xl border border-slate-200 shadow-2xl p-2.5 space-y-1">
+                    <div className="px-3 py-1.5 border-b border-slate-100 flex items-center justify-between text-[11px] font-bold uppercase tracking-wider text-purple-600">
+                      <span>Browse Categories</span>
+                      <button
+                        onClick={() => {
+                          navigateTo('shop');
+                          setIsCatDropdownOpen(false);
+                        }}
+                        className="hover:underline text-slate-500 hover:text-purple-700 normal-case"
+                      >
+                        All Products →
+                      </button>
+                    </div>
+
+                    {activeCategories.map((cat) => (
+                      <button
+                        key={cat.slug}
+                        onClick={() => {
+                          navigateTo('category', { category: cat.slug });
+                          setIsCatDropdownOpen(false);
+                        }}
+                        className="w-full text-left px-3 py-2 rounded-xl hover:bg-purple-50 transition-colors flex items-center justify-between group"
+                      >
+                        <span className="text-xs font-semibold text-slate-700 group-hover:text-purple-700">
+                          {cat.name}
+                        </span>
+                        <span className="text-purple-500 opacity-0 group-hover:opacity-100 transition-opacity text-xs">
+                          →
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* 3. Shop All */}
+            <button
+              onClick={() => navigateTo('shop')}
+              className={`relative py-1 transition-colors ${
+                activePage === 'shop' ? 'text-purple-700 font-bold' : 'text-slate-600 hover:text-purple-700'
+              }`}
+            >
+              <span>Shop All</span>
+              {activePage === 'shop' && (
+                <span className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-purple-600 rounded-full" />
+              )}
+            </button>
+
+            {/* 4. About Us */}
+            <button
+              onClick={() => navigateTo('about')}
+              className={`relative py-1 transition-colors ${
+                activePage === 'about' ? 'text-purple-700 font-bold' : 'text-slate-600 hover:text-purple-700'
+              }`}
+            >
+              <span>About Us</span>
+              {activePage === 'about' && (
+                <span className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-purple-600 rounded-full" />
+              )}
+            </button>
+
+            {/* 5. Contact */}
+            <button
+              onClick={() => navigateTo('contact')}
+              className={`relative py-1 transition-colors ${
+                activePage === 'contact' ? 'text-purple-700 font-bold' : 'text-slate-600 hover:text-purple-700'
+              }`}
+            >
+              <span>Contact</span>
+              {activePage === 'contact' && (
+                <span className="absolute bottom-0 left-0 right-0 h-[2.5px] bg-purple-600 rounded-full" />
+              )}
+            </button>
           </nav>
 
           {/* Action Icons Zone */}
@@ -184,7 +288,7 @@ export const Header: React.FC = () => {
             {/* Mobile Menu Hamburger */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="xl:hidden p-2 text-slate-700 hover:text-purple-700 rounded-xl hover:bg-slate-100 transition-colors"
+              className="lg:hidden p-2 text-slate-700 hover:text-purple-700 rounded-xl hover:bg-slate-100 transition-colors"
               aria-label="Toggle menu"
             >
               {isMobileMenuOpen ? <X className="w-6 h-6 text-purple-600" /> : <Menu className="w-6 h-6" />}
@@ -195,9 +299,15 @@ export const Header: React.FC = () => {
 
       {/* Mobile Drawer Navigation */}
       {isMobileMenuOpen && (
-        <div className="xl:hidden bg-white/98 border-b border-purple-200 px-4 pt-3 pb-6 animate-in slide-in-from-top-3 duration-200 shadow-xl">
+        <div className="lg:hidden bg-white/98 border-b border-purple-200 px-4 pt-3 pb-6 animate-in slide-in-from-top-3 duration-200 shadow-xl">
           <div className="flex flex-col space-y-1">
-            {navLinks.map((link) => {
+            {[
+              { label: 'Home', page: 'home' },
+              { label: 'Shop All Products', page: 'shop' },
+              ...activeCategories.map(c => ({ label: c.name, page: 'category', param: { category: c.slug } })),
+              { label: 'About Us', page: 'about' },
+              { label: 'Contact', page: 'contact' },
+            ].map((link: any) => {
               const isActive = activePage === link.page;
               return (
                 <button

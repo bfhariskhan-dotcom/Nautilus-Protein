@@ -30,7 +30,12 @@ export const ShopPage: React.FC = () => {
     let result = [...products];
 
     if (categoryFilter !== 'all') {
-      result = result.filter(p => p.category === categoryFilter);
+      result = result.filter(p => {
+        if (p.category === categoryFilter) return true;
+        if (categoryFilter === 'health-essentials' && p.category === 'vitamins') return true;
+        if (categoryFilter === 'vitamins' && (p.category as string) === 'health-essentials') return true;
+        return false;
+      });
     }
 
     if (brandFilter !== 'all') {
@@ -149,22 +154,31 @@ export const ShopPage: React.FC = () => {
               >
                 All Categories ({products.length})
               </button>
-              {categories.map((c) => (
-                <button
-                  key={c.id}
-                  onClick={() => setCategoryFilter(c.slug)}
-                  className={`w-full text-left px-3 py-2 rounded-lg text-xs font-medium transition-colors flex items-center justify-between ${
-                    categoryFilter === c.slug
-                      ? 'bg-purple-600 text-white font-bold'
-                      : 'text-slate-600 hover:bg-slate-100 hover:text-purple-700'
-                  }`}
-                >
-                  <span>{c.name}</span>
-                  <span className="text-[11px] text-slate-400 tabular-nums">
-                    {products.filter(p => p.category === c.slug).length}
-                  </span>
-                </button>
-              ))}
+              {categories
+                .filter(c => {
+                  const count = products.filter(p => p.category === c.slug || ((p.category as string) === 'vitamins' && (c.slug === 'health-essentials' || c.slug === 'vitamins'))).length;
+                  return count > 0;
+                })
+                .map((c) => {
+                  const count = products.filter(p => p.category === c.slug || ((p.category as string) === 'vitamins' && (c.slug === 'health-essentials' || c.slug === 'vitamins'))).length;
+                  const isSelected = categoryFilter === c.slug || (categoryFilter === 'vitamins' && c.slug === 'health-essentials') || (categoryFilter === 'health-essentials' && c.slug === 'vitamins');
+                  return (
+                    <button
+                      key={c.id}
+                      onClick={() => setCategoryFilter(c.slug)}
+                      className={`w-full text-left px-3 py-2 rounded-lg text-xs font-medium transition-colors flex items-center justify-between ${
+                        isSelected
+                          ? 'bg-purple-600 text-white font-bold'
+                          : 'text-slate-600 hover:bg-slate-100 hover:text-purple-700'
+                      }`}
+                    >
+                      <span>{c.name}</span>
+                      <span className="text-[11px] tabular-nums opacity-80">
+                        {count}
+                      </span>
+                    </button>
+                  );
+                })}
             </div>
           </div>
 

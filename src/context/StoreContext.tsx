@@ -78,10 +78,34 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     }
   });
 
-  const [activePage, setActivePage] = useState<string>('home');
-  const [selectedProductSlug, setSelectedProductSlug] = useState<string | null>(null);
-  const [selectedCategorySlug, setSelectedCategorySlug] = useState<string | null>(null);
-  const [selectedBrandSlug, setSelectedBrandSlug] = useState<string | null>(null);
+  // Parse current URL path for distinct product links and deep navigation
+  const parseCurrentUrl = () => {
+    if (typeof window === 'undefined') return { page: 'home', params: {} as any };
+    const pathname = window.location.pathname;
+    if (pathname.startsWith('/product/')) {
+      const slug = decodeURIComponent(pathname.replace('/product/', '').split('/')[0]);
+      if (slug) return { page: 'product', params: { slug } };
+    }
+    if (pathname.startsWith('/category/')) {
+      const category = decodeURIComponent(pathname.replace('/category/', '').split('/')[0]);
+      if (category) return { page: 'category', params: { category } };
+    }
+    if (pathname.startsWith('/brand/')) {
+      const brand = decodeURIComponent(pathname.replace('/brand/', '').split('/')[0]);
+      if (brand) return { page: 'brand', params: { brand } };
+    }
+    const cleanPath = pathname.replace('/', '');
+    if (['shop', 'cart', 'checkout', 'about', 'contact', 'faqs', 'admin', 'wishlist', 'track-order', 'refund', 'terms', 'privacy'].includes(cleanPath)) {
+      return { page: cleanPath, params: {} };
+    }
+    return { page: 'home', params: {} };
+  };
+
+  const initialRoute = parseCurrentUrl();
+  const [activePage, setActivePage] = useState<string>(initialRoute.page);
+  const [selectedProductSlug, setSelectedProductSlug] = useState<string | null>(initialRoute.params?.slug || null);
+  const [selectedCategorySlug, setSelectedCategorySlug] = useState<string | null>(initialRoute.params?.category || null);
+  const [selectedBrandSlug, setSelectedBrandSlug] = useState<string | null>(initialRoute.params?.brand || null);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
   const [isCartOpen, setIsCartOpen] = useState<boolean>(false);
@@ -90,6 +114,19 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const [lastConfirmedOrder, setLastConfirmedOrder] = useState<Order | null>(null);
   const [toasts, setToasts] = useState<Toast[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  // Popstate listener to handle browser back / forward navigation seamlessly
+  useEffect(() => {
+    const handlePopState = () => {
+      const route = parseCurrentUrl();
+      setActivePage(route.page);
+      if (route.params?.slug) setSelectedProductSlug(route.params.slug);
+      if (route.params?.category) setSelectedCategorySlug(route.params.category);
+      if (route.params?.brand) setSelectedBrandSlug(route.params.brand);
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
 
   // Sync cart and wishlist to localStorage
   useEffect(() => {
@@ -249,6 +286,26 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     if (params?.category) setSelectedCategorySlug(params.category);
     if (params?.brand) setSelectedBrandSlug(params.brand);
     if (params?.order) setLastConfirmedOrder(params.order);
+
+    // Update real browser address bar so each product and category has its own unique link
+    if (typeof window !== 'undefined') {
+      let targetPath = '/';
+      if (page === 'product' && params?.slug) {
+        targetPath = `/product/${encodeURIComponent(params.slug)}`;
+      } else if (page === 'category' && params?.category) {
+        targetPath = `/category/${encodeURIComponent(params.category)}`;
+      } else if (page === 'brand' && params?.brand) {
+        targetPath = `/brand/${encodeURIComponent(params.brand)}`;
+      } else if (page === 'home') {
+        targetPath = '/';
+      } else {
+        targetPath = `/${page}`;
+      }
+
+      if (window.location.pathname !== targetPath) {
+        window.history.pushState({ page, params }, '', targetPath);
+      }
+    }
   };
 
   const addToCart = (product: Product, quantity = 1, flavor?: string, weight?: string) => {

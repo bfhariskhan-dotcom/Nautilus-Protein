@@ -22,6 +22,7 @@ export const HomePage: React.FC = () => {
 
   // 3. Testimonials Interactive Slider State & Drag
   const [testimonialIndex, setTestimonialIndex] = useState(0);
+  const [cardsPerView, setCardsPerView] = useState(3);
   const [isTestimonialPaused, setIsTestimonialPaused] = useState(false);
   const [isDraggingReview, setIsDraggingReview] = useState(false);
   const reviewDragStartX = useRef<number | null>(null);
@@ -44,29 +45,29 @@ export const HomePage: React.FC = () => {
     },
     {
       id: 'slide-2',
-      eyebrow: 'Zero Fat · Zero Sugar · Ultra Filtered',
-      headline: 'Hydrolyzed',
-      headlineAccent: 'Whey Isolate.',
-      subtitle: '25g rapid-absorbing bioactive protein per scoop. Clean mixability, zero bloating, and unmatched recovery for serious lifters.',
-      primaryBtn: 'Get Whey Isolate',
-      primaryAction: () => navigateTo('product', { slug: 'nautilus-hydrolyzed-whey-isolate-5lbs' }),
-      secondaryBtn: 'View Nutrition',
+      eyebrow: 'Zero Fat · Ultra Filtered Bioactive Peptides',
+      headline: 'Fast Protein',
+      headlineAccent: 'Whey Chocolate.',
+      subtitle: '25g rapid-absorbing protein per serving. Clean mixability, rich chocolate taste, and unmatched recovery for serious lifters.',
+      primaryBtn: 'Shop Fast Protein',
+      primaryAction: () => navigateTo('product', { slug: 'nautilus-fast-protein-whey-chocolate-5lbs' }),
+      secondaryBtn: 'Explore Whey',
       secondaryAction: () => navigateTo('category', { category: 'whey-protein' }),
       image: '/images/product_nautilus_isolate_1792514848952.jpg',
       badge: '25g Bioactive Purity'
     },
     {
       id: 'slide-3',
-      eyebrow: 'Clinical Nitric Oxide & Focus Catalyst',
-      headline: 'Volt Xtreme',
-      headlineAccent: 'Pre-Workout.',
-      subtitle: '6000mg pure Citrulline Malate, 3200mg CarnoSyn Beta-Alanine, and clean sustained energy without crash.',
-      primaryBtn: 'Claim Pre-Workout',
-      primaryAction: () => navigateTo('product', { slug: 'nautilus-volt-xtreme-pre-workout' }),
-      secondaryBtn: 'All Pre-Workouts',
-      secondaryAction: () => navigateTo('category', { category: 'pre-workout' }),
+      eyebrow: 'Pure Micronized Creapure-Grade Monohydrate',
+      headline: 'Micronized',
+      headlineAccent: 'Creatine 405g.',
+      subtitle: '5g pure HPLC-tested Creatine Monohydrate per serving. Amplifies muscular ATP replenishment, raw strength, and power output.',
+      primaryBtn: 'Get Pure Creatine',
+      primaryAction: () => navigateTo('product', { slug: 'nautilus-micronized-creatine-monohydrate-405g' }),
+      secondaryBtn: 'All Creatine',
+      secondaryAction: () => navigateTo('category', { category: 'creatine' }),
       image: '/images/product_nautilus_preworkout_1792514849391.jpg',
-      badge: '6000mg Citrulline'
+      badge: '5000mg Pure Creatine'
     }
   ];
 
@@ -74,7 +75,7 @@ export const HomePage: React.FC = () => {
     {
       tag: 'Exclusive Stack Savings',
       headline: 'Power Up Your Routine. Save Up To 20%.',
-      description: 'Combine Nautilus Fast Protein with Micronized Creatine and Volt Pre-Workout. Use coupon POWER500 for an instant PKR 500 discount on orders above PKR 5,000.',
+      description: 'Combine Nautilus Fast Protein with Micronized Creatine and BCAA 2:1:1. Use coupon POWER500 for an instant PKR 500 discount on orders above PKR 5,000.',
       code: 'POWER500',
       cta: 'Claim Stack Offer',
       action: () => navigateTo('shop')
@@ -227,14 +228,34 @@ export const HomePage: React.FC = () => {
     return () => clearInterval(promoInterval);
   }, [isPromoPaused, promoSlides.length]);
 
-  // Auto-slide Testimonials Carousel
+  // Responsive cards per view calculation
+  useEffect(() => {
+    const handleResize = () => {
+      if (typeof window !== 'undefined') {
+        if (window.innerWidth < 640) {
+          setCardsPerView(1);
+        } else if (window.innerWidth < 1024) {
+          setCardsPerView(2);
+        } else {
+          setCardsPerView(3);
+        }
+      }
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const maxTestimonialIndex = Math.max(0, testimonials.length - cardsPerView);
+
+  // Auto-slide Testimonials Carousel (properly bounded)
   useEffect(() => {
     if (isTestimonialPaused) return;
     const testInterval = setInterval(() => {
-      setTestimonialIndex((prev) => (prev + 1) % testimonials.length);
+      setTestimonialIndex((prev) => (prev >= maxTestimonialIndex ? 0 : prev + 1));
     }, 5000);
     return () => clearInterval(testInterval);
-  }, [isTestimonialPaused, testimonials.length]);
+  }, [isTestimonialPaused, maxTestimonialIndex]);
 
   // Touch Swipe for Hero Banner
   const handleTouchStart = (e: React.TouchEvent) => {
@@ -274,7 +295,7 @@ export const HomePage: React.FC = () => {
     promoTouchEndX.current = null;
   };
 
-  // Cursor Drag / Touch Gestures for Testimonials Carousel
+  // Cursor Drag / Touch Gestures for Testimonials Carousel (properly bounded)
   const handleReviewMouseDown = (e: React.MouseEvent) => {
     setIsDraggingReview(true);
     reviewDragStartX.current = e.clientX;
@@ -283,9 +304,9 @@ export const HomePage: React.FC = () => {
     if (!isDraggingReview || reviewDragStartX.current === null) return;
     const diff = reviewDragStartX.current - e.clientX;
     if (diff > 40) {
-      setTestimonialIndex((prev) => (prev + 1) % testimonials.length);
+      setTestimonialIndex((prev) => (prev >= maxTestimonialIndex ? 0 : prev + 1));
     } else if (diff < -40) {
-      setTestimonialIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+      setTestimonialIndex((prev) => (prev <= 0 ? maxTestimonialIndex : prev - 1));
     }
     setIsDraggingReview(false);
     reviewDragStartX.current = null;
@@ -297,9 +318,9 @@ export const HomePage: React.FC = () => {
     if (reviewTouchStartX.current === null) return;
     const diff = reviewTouchStartX.current - e.changedTouches[0].clientX;
     if (diff > 40) {
-      setTestimonialIndex((prev) => (prev + 1) % testimonials.length);
+      setTestimonialIndex((prev) => (prev >= maxTestimonialIndex ? 0 : prev + 1));
     } else if (diff < -40) {
-      setTestimonialIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+      setTestimonialIndex((prev) => (prev <= 0 ? maxTestimonialIndex : prev - 1));
     }
     reviewTouchStartX.current = null;
   };
@@ -368,118 +389,117 @@ export const HomePage: React.FC = () => {
   return (
     <div className="space-y-14 sm:space-y-20 pb-20 overflow-hidden">
       
-      {/* 1. SLIDING HERO BANNER (CLEAN & PUNCHY, ZERO AI ICONS, SINGLE MOBILE BUTTON, RICH CONTRAST OVERLAY) */}
-      <section
-        onMouseEnter={() => setIsPaused(true)}
-        onMouseLeave={() => setIsPaused(false)}
-        onTouchStart={handleTouchStart}
-        onTouchMove={handleTouchMove}
-        onTouchEnd={handleTouchEnd}
-        className="relative min-h-[460px] sm:min-h-[560px] lg:min-h-[620px] flex items-center bg-black overflow-hidden select-none"
-      >
-        {/* Horizontal Sliding Track */}
-        <div
-          className="flex w-full h-full transition-transform duration-700 ease-out will-change-transform"
-          style={{ transform: `translate3d(-${currentSlide * 100}%, 0, 0)` }}
+      {/* 1. HERO BANNER WITH FLUSH ATTACHED MARQUEE TICKER (FULL WIDTH, FULL HEIGHT, ZERO BLACK LETTERBOXING) */}
+      <div className="w-full">
+        <section
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+          className="relative w-full h-[85vh] min-h-[560px] max-h-[880px] flex items-center overflow-hidden select-none bg-black"
         >
-          {heroSlides.map((slide) => (
-            <div
-              key={slide.id}
-              className="min-w-full w-full h-full relative shrink-0 flex items-center py-12 sm:py-16"
-              style={{ minHeight: 'inherit' }}
-            >
-              {/* Background Media with Darker Rich Contrast Overlay */}
-              <div className="absolute inset-0">
-                <img
-                  src={slide.image}
-                  alt={slide.headline}
-                  className="w-full h-full object-cover object-center filter brightness-[0.70] contrast-110 scale-105"
-                  loading="eager"
-                />
-                {/* Rich gradients for high-contrast crisp typography */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/50 to-black/30" />
-                <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/60 to-transparent" />
-                {/* Purple radial ambient accent */}
-                <div className="absolute top-1/4 -left-20 w-96 h-96 bg-purple-900/25 blur-3xl rounded-full pointer-events-none" />
-              </div>
+          {/* Horizontal Sliding Track */}
+          <div
+            className="flex w-full h-full transition-transform duration-700 ease-out will-change-transform"
+            style={{ transform: `translate3d(-${currentSlide * 100}%, 0, 0)` }}
+          >
+            {heroSlides.map((slide) => (
+              <div
+                key={slide.id}
+                className="min-w-full w-full h-full relative shrink-0 flex items-center"
+              >
+                {/* Background Media with Full-Bleed Coverage (object-cover fills 100% width and 100% height) */}
+                <div className="absolute inset-0 w-full h-full">
+                  <img
+                    src={slide.image}
+                    alt={slide.headline}
+                    className="w-full h-full object-cover object-center filter brightness-[0.88] contrast-105"
+                    loading="eager"
+                  />
+                  {/* Clean, uniform subtle dark overlay for crisp text contrast */}
+                  <div className="absolute inset-0 bg-black/40" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-black/25" />
+                </div>
 
-              {/* Foreground Banner Content (Streamlined & Clean) */}
-              <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-10">
-                <div className="max-w-2xl space-y-4 sm:space-y-6">
-                  
-                  {/* Clean Hero Headline */}
-                  <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold uppercase tracking-tight text-white font-heading leading-[0.95] drop-shadow-lg">
-                    {slide.headline}{' '}
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-purple-300 to-violet-300 drop-shadow-[0_0_20px_rgba(168,85,247,0.5)]">
-                      {slide.headlineAccent}
-                    </span>
-                  </h1>
+                {/* Foreground Banner Content (High Contrast, Razor-sharp Typography) */}
+                <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-10">
+                  <div className="max-w-2xl space-y-4 sm:space-y-6">
+                    
+                    {/* Clean Hero Headline */}
+                    <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold uppercase tracking-tight text-white font-heading leading-[0.95] drop-shadow-[0_4px_16px_rgba(0,0,0,0.9)]">
+                      {slide.headline}{' '}
+                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-purple-300 to-violet-300 drop-shadow-[0_0_25px_rgba(168,85,247,0.6)]">
+                        {slide.headlineAccent}
+                      </span>
+                    </h1>
 
-                  {/* Concise Punchy Subtitle */}
-                  <p className="text-sm sm:text-base text-neutral-200 max-w-xl leading-relaxed drop-shadow-md">
-                    {slide.subtitle}
-                  </p>
+                    {/* Concise Punchy Subtitle */}
+                    <p className="text-sm sm:text-base text-neutral-100 max-w-xl leading-relaxed drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] font-medium">
+                      {slide.subtitle}
+                    </p>
 
-                  {/* Call to Actions - Single button on mobile, dual on desktop */}
-                  <div className="pt-2 flex flex-wrap items-center gap-3 sm:gap-4">
-                    <button
-                      onClick={slide.primaryAction}
-                      className="w-full sm:w-auto px-7 sm:px-8 py-3.5 bg-gradient-to-r from-purple-700 via-purple-600 to-purple-500 hover:from-purple-600 hover:to-purple-400 text-white rounded-xl text-xs sm:text-sm font-bold tracking-wider uppercase transition-all shadow-xl shadow-purple-950/70 hover:shadow-purple-700/50 hover:scale-[1.02] flex items-center justify-center gap-2 group active:scale-95"
-                    >
-                      <span>{slide.primaryBtn}</span>
-                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                    </button>
+                    {/* Call to Actions - Single button on mobile, dual on desktop */}
+                    <div className="pt-2 flex flex-wrap items-center gap-3 sm:gap-4">
+                      <button
+                        onClick={slide.primaryAction}
+                        className="w-full sm:w-auto px-7 sm:px-8 py-3.5 bg-gradient-to-r from-purple-700 via-purple-600 to-purple-500 hover:from-purple-600 hover:to-purple-400 text-white rounded-xl text-xs sm:text-sm font-bold tracking-wider uppercase transition-all shadow-xl shadow-purple-950/70 hover:shadow-purple-700/50 hover:scale-[1.02] flex items-center justify-center gap-2 group active:scale-95"
+                      >
+                        <span>{slide.primaryBtn}</span>
+                        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                      </button>
 
-                    <button
-                      onClick={slide.secondaryAction}
-                      className="hidden sm:inline-flex px-6 sm:px-7 py-3.5 bg-neutral-900/90 hover:bg-neutral-800 text-white rounded-xl text-xs sm:text-sm font-bold tracking-wider uppercase border border-neutral-700 hover:border-purple-500 transition-colors items-center justify-center"
-                    >
-                      {slide.secondaryBtn}
-                    </button>
+                      <button
+                        onClick={slide.secondaryAction}
+                        className="hidden sm:inline-flex px-6 sm:px-7 py-3.5 bg-neutral-900/90 hover:bg-neutral-800 text-white rounded-xl text-xs sm:text-sm font-bold tracking-wider uppercase border border-neutral-700 hover:border-purple-500 transition-colors items-center justify-center shadow-lg backdrop-blur-sm"
+                      >
+                        {slide.secondaryBtn}
+                      </button>
+                    </div>
+
                   </div>
-
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
 
-        {/* Slide Indicators / Dots */}
-        <div className="absolute z-20 bottom-4 sm:bottom-6 inset-x-0 flex items-center justify-center gap-2 sm:gap-3 pointer-events-auto">
-          {heroSlides.map((slide, i) => (
-            <button
-              key={slide.id}
-              onClick={() => setCurrentSlide(i)}
-              className={`h-2 rounded-full transition-all duration-300 focus:outline-none ${
-                currentSlide === i
-                  ? 'w-8 sm:w-10 bg-purple-500 shadow-[0_0_10px_rgba(168,85,247,0.9)]'
-                  : 'w-2 bg-white/50 hover:bg-white'
-              }`}
-              aria-label={`Go to slide ${i + 1}`}
-            />
-          ))}
-        </div>
-      </section>
+          {/* Slide Indicators / Dots */}
+          <div className="absolute z-20 bottom-4 sm:bottom-6 inset-x-0 flex items-center justify-center gap-2 sm:gap-3 pointer-events-auto">
+            {heroSlides.map((slide, i) => (
+              <button
+                key={slide.id}
+                onClick={() => setCurrentSlide(i)}
+                className={`h-2 rounded-full transition-all duration-300 focus:outline-none ${
+                  currentSlide === i
+                    ? 'w-8 sm:w-10 bg-purple-500 shadow-[0_0_10px_rgba(168,85,247,0.9)]'
+                    : 'w-2 bg-white/50 hover:bg-white'
+                }`}
+                aria-label={`Go to slide ${i + 1}`}
+              />
+            ))}
+          </div>
+        </section>
 
-      {/* Marquee Trust Ticker Strip Under Hero */}
-      <div className="bg-purple-950 text-purple-200 border-y border-purple-900/50 py-3 overflow-hidden select-none shadow-sm">
-        <div className="nautilus-marquee-track flex items-center gap-8 whitespace-nowrap text-xs font-semibold tracking-wider uppercase">
-          <span className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-purple-400 shrink-0" /> 100% Authentic Seals & Tamper-Evident Packaging</span>
-          <span className="text-purple-600">·</span>
-          <span className="flex items-center gap-2"><Truck className="w-4 h-4 text-purple-400 shrink-0" /> Fast Nationwide Delivery Across All Pakistan Cities</span>
-          <span className="text-purple-600">·</span>
-          <span className="flex items-center gap-2"><ShieldCheck className="w-4 h-4 text-purple-400 shrink-0" /> Cash on Delivery (COD) Available</span>
-          <span className="text-purple-600">·</span>
-          <span className="flex items-center gap-2"><Award className="w-4 h-4 text-purple-400 shrink-0" /> 100% Original Clinical Sports Nutrition</span>
-          <span className="text-purple-600">·</span>
-          <span className="flex items-center gap-2"><MessageCircle className="w-4 h-4 text-purple-400 shrink-0" /> Dedicated WhatsApp Athlete Support (+92 325 2571589)</span>
-          <span className="text-purple-600">·</span>
-          {/* Loop duplicates for seamless continuous loop */}
-          <span className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-purple-400 shrink-0" /> 100% Authentic Seals & Tamper-Evident Packaging</span>
-          <span className="text-purple-600">·</span>
-          <span className="flex items-center gap-2"><Truck className="w-4 h-4 text-purple-400 shrink-0" /> Fast Nationwide Delivery Across All Pakistan Cities</span>
-          <span className="text-purple-600">·</span>
-          <span className="flex items-center gap-2"><ShieldCheck className="w-4 h-4 text-purple-400 shrink-0" /> Cash on Delivery (COD) Available</span>
+        {/* Marquee Trust Ticker Strip - Flush right under hero banner with ZERO GAP */}
+        <div className="bg-purple-950 text-purple-200 border-b border-purple-900/50 py-3 overflow-hidden select-none shadow-sm">
+          <div className="nautilus-marquee-track flex items-center gap-8 whitespace-nowrap text-xs font-semibold tracking-wider uppercase">
+            <span className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-purple-400 shrink-0" /> 100% Authentic Seals & Tamper-Evident Packaging</span>
+            <span className="text-purple-600">·</span>
+            <span className="flex items-center gap-2"><Truck className="w-4 h-4 text-purple-400 shrink-0" /> Fast Nationwide Delivery Across All Pakistan Cities</span>
+            <span className="text-purple-600">·</span>
+            <span className="flex items-center gap-2"><ShieldCheck className="w-4 h-4 text-purple-400 shrink-0" /> Cash on Delivery (COD) Available</span>
+            <span className="text-purple-600">·</span>
+            <span className="flex items-center gap-2"><Award className="w-4 h-4 text-purple-400 shrink-0" /> 100% Original Clinical Sports Nutrition</span>
+            <span className="text-purple-600">·</span>
+            <span className="flex items-center gap-2"><MessageCircle className="w-4 h-4 text-purple-400 shrink-0" /> Dedicated WhatsApp Athlete Support (+92 325 2571589)</span>
+            <span className="text-purple-600">·</span>
+            {/* Loop duplicates for seamless continuous loop */}
+            <span className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-purple-400 shrink-0" /> 100% Authentic Seals & Tamper-Evident Packaging</span>
+            <span className="text-purple-600">·</span>
+            <span className="flex items-center gap-2"><Truck className="w-4 h-4 text-purple-400 shrink-0" /> Fast Nationwide Delivery Across All Pakistan Cities</span>
+            <span className="text-purple-600">·</span>
+            <span className="flex items-center gap-2"><ShieldCheck className="w-4 h-4 text-purple-400 shrink-0" /> Cash on Delivery (COD) Available</span>
+          </div>
         </div>
       </div>
 
@@ -504,23 +524,41 @@ export const HomePage: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
-          {categories.map((cat) => (
-            <div
-              key={cat.id}
-              onClick={() => navigateTo('category', { category: cat.slug })}
-              className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200 hover:border-purple-400 shadow-sm hover:shadow-md cursor-pointer text-center transition-all duration-200 group hover:-translate-y-1 hover:shadow-xl hover:shadow-purple-950/30 flex flex-col items-center justify-center"
-            >
-              <div className="w-12 h-12 rounded-xl bg-purple-50 border border-purple-200 flex items-center justify-center text-purple-600 mb-3 group-hover:scale-110 group-hover:bg-purple-100 group-hover:border-purple-400 transition-all">
-                <Zap className="w-5 h-5" />
-              </div>
-              <h3 className="text-xs sm:text-sm font-bold text-slate-800 group-hover:text-purple-700 transition-colors uppercase tracking-wider">
-                {cat.name}
-              </h3>
-              <p className="text-[11px] text-slate-400 mt-1 font-mono">
-                {products.filter(p => p.category === cat.slug).length || cat.itemCount || 0} Products
-              </p>
-            </div>
-          ))}
+          {categories
+            .filter((cat) => {
+              const count = products.filter(
+                (p) =>
+                  p.category === cat.slug ||
+                  ((p.category as string) === 'vitamins' &&
+                    (cat.slug === 'health-essentials' || cat.slug === 'vitamins'))
+              ).length || cat.itemCount || 0;
+              return count > 0;
+            })
+            .map((cat) => {
+              const count = products.filter(
+                (p) =>
+                  p.category === cat.slug ||
+                  ((p.category as string) === 'vitamins' &&
+                    (cat.slug === 'health-essentials' || cat.slug === 'vitamins'))
+              ).length || cat.itemCount || 0;
+              return (
+                <div
+                  key={cat.id}
+                  onClick={() => navigateTo('category', { category: cat.slug })}
+                  className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200 hover:border-purple-400 shadow-sm hover:shadow-md cursor-pointer text-center transition-all duration-200 group hover:-translate-y-1 hover:shadow-xl hover:shadow-purple-950/30 flex flex-col items-center justify-center"
+                >
+                  <div className="w-12 h-12 rounded-xl bg-purple-50 border border-purple-200 flex items-center justify-center text-purple-600 mb-3 group-hover:scale-110 group-hover:bg-purple-100 group-hover:border-purple-400 transition-all">
+                    <Zap className="w-5 h-5" />
+                  </div>
+                  <h3 className="text-xs sm:text-sm font-bold text-slate-800 group-hover:text-purple-700 transition-colors uppercase tracking-wider">
+                    {cat.name}
+                  </h3>
+                  <p className="text-[11px] text-slate-400 mt-1 font-mono">
+                    {count} Products
+                  </p>
+                </div>
+              );
+            })}
         </div>
       </section>
 
@@ -802,14 +840,14 @@ export const HomePage: React.FC = () => {
           {/* Slider Prev / Next Controls */}
           <div className="flex items-center gap-2 self-start md:self-auto">
             <button
-              onClick={() => setTestimonialIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length)}
+              onClick={() => setTestimonialIndex((prev) => (prev <= 0 ? maxTestimonialIndex : prev - 1))}
               className="p-2.5 rounded-xl bg-white hover:bg-purple-50 text-slate-700 hover:text-purple-700 border border-slate-200 hover:border-purple-300 shadow-sm transition-all hover:scale-105 active:scale-95"
               aria-label="Previous Review"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
             <button
-              onClick={() => setTestimonialIndex((prev) => (prev + 1) % testimonials.length)}
+              onClick={() => setTestimonialIndex((prev) => (prev >= maxTestimonialIndex ? 0 : prev + 1))}
               className="p-2.5 rounded-xl bg-white hover:bg-purple-50 text-slate-700 hover:text-purple-700 border border-slate-200 hover:border-purple-300 shadow-sm transition-all hover:scale-105 active:scale-95"
               aria-label="Next Review"
             >
@@ -831,43 +869,46 @@ export const HomePage: React.FC = () => {
         >
           {/* Sliding Cards Track */}
           <div
-            className="flex transition-transform duration-500 ease-out gap-4 sm:gap-6 will-change-transform"
+            className="flex transition-transform duration-500 ease-out will-change-transform"
             style={{
-              transform: `translate3d(calc(-${testimonialIndex * 100}% - ${testimonialIndex * 16}px), 0, 0)`
+              transform: `translate3d(-${testimonialIndex * (100 / cardsPerView)}%, 0, 0)`
             }}
           >
             {testimonials.map((t) => (
               <div
                 key={t.id}
-                className="w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] shrink-0 p-6 sm:p-7 rounded-2xl bg-white border border-slate-200 hover:border-purple-300 shadow-sm transition-all duration-300 flex flex-col justify-between hover:shadow-md relative group"
+                style={{ width: `${100 / cardsPerView}%` }}
+                className="shrink-0 p-2 sm:p-3"
               >
-                <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center gap-1 text-purple-600">
-                      {[...Array(t.rating)].map((_, i) => (
-                        <Star key={i} className="w-4 h-4 fill-current text-purple-600" />
-                      ))}
-                    </div>
-                    <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-purple-50 text-purple-700 border border-purple-200 font-mono">
-                      {t.city}
-                    </span>
-                  </div>
-
-                  <p className="text-xs text-purple-600 font-semibold font-mono mb-2">
-                    {t.product}
-                  </p>
-
-                  <p className="text-xs sm:text-sm text-slate-700 leading-relaxed italic">
-                    &ldquo;{t.quote}&rdquo;
-                  </p>
-                </div>
-
-                <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
+                <div className="h-full p-6 sm:p-7 rounded-2xl bg-white border border-slate-200 hover:border-purple-300 shadow-sm transition-all duration-300 flex flex-col justify-between hover:shadow-md relative group">
                   <div>
-                    <p className="text-slate-900 font-bold">{t.author}</p>
-                    <p className="text-purple-600 text-[11px]">{t.badge}</p>
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="flex items-center gap-1 text-purple-600">
+                        {[...Array(t.rating)].map((_, i) => (
+                          <Star key={i} className="w-4 h-4 fill-current text-purple-600" />
+                        ))}
+                      </div>
+                      <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-purple-50 text-purple-700 border border-purple-200 font-mono">
+                        {t.city}
+                      </span>
+                    </div>
+
+                    <p className="text-xs text-purple-600 font-semibold font-mono mb-2">
+                      {t.product}
+                    </p>
+
+                    <p className="text-xs sm:text-sm text-slate-700 leading-relaxed italic">
+                      &ldquo;{t.quote}&rdquo;
+                    </p>
                   </div>
-                  <span className="text-[11px] text-slate-400 font-mono">Verified Order</span>
+
+                  <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
+                    <div>
+                      <p className="text-slate-900 font-bold">{t.author}</p>
+                      <p className="text-purple-600 text-[11px]">{t.badge}</p>
+                    </div>
+                    <span className="text-[11px] text-slate-400 font-mono">Verified Order</span>
+                  </div>
                 </div>
               </div>
             ))}
@@ -876,7 +917,7 @@ export const HomePage: React.FC = () => {
 
         {/* Carousel Indicators / Interactive Dots */}
         <div className="mt-6 flex items-center justify-center gap-2">
-          {testimonials.map((_, i) => (
+          {Array.from({ length: maxTestimonialIndex + 1 }).map((_, i) => (
             <button
               key={i}
               onClick={() => setTestimonialIndex(i)}

@@ -118,11 +118,6 @@ export const Footer: React.FC = () => {
               </button>
             </div>
 
-            <p className="text-xs text-slate-600 leading-relaxed max-w-sm pt-1">
-              Formulated for serious bodybuilding athletes, powerlifters, and fitness enthusiasts across Pakistan.
-              Supplying 100% genuine imported and locally manufactured bioactive sports supplements with lab-verified purity.
-            </p>
-
             <div className="space-y-2.5 text-xs pt-1">
               <div className="flex items-center gap-2.5 text-slate-700">
                 <MapPin className="w-4 h-4 text-purple-600 shrink-0" />
@@ -233,7 +228,7 @@ export const Footer: React.FC = () => {
               </li>
               <li>
                 <button
-                  onClick={() => navigateTo('category', { category: 'health-essentials' })}
+                  onClick={() => navigateTo('category', { category: 'vitamins' })}
                   className="text-left block w-full hover:text-purple-700 transition-colors"
                 >
                   Vitamins & Health Essentials
