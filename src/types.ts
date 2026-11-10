@@ -129,6 +129,7 @@ export interface CustomerReview {
   date: string;
   verifiedPurchase: boolean;
   status: 'approved' | 'pending' | 'rejected';
+  city?: string;
 }
 
 export interface Coupon {

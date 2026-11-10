@@ -692,6 +692,8 @@ export const ProductDetailPage: React.FC = () => {
               </form>
             </div>
           </div>
+        )}
+
         {/* Review Summary Breakdown */}
         <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-sm">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
