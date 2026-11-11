@@ -459,13 +459,13 @@ export const CheckoutPage: React.FC = () => {
                     <span className="text-[11px] text-red-700 font-bold bg-red-100 border border-red-200 px-2 py-0.5 rounded-full">Instant</span>
                   </div>
                   <p className="text-xs text-slate-500 mt-1 leading-relaxed">
-                    Send funds directly to Nautilus JazzCash account number <strong className="text-slate-900">0325 2571589</strong>.
+                    Send funds directly to Nautilus JazzCash account number <strong className="text-slate-900">0333 2499499</strong>.
                   </p>
 
                   {paymentMethod === 'jazzcash' && (
                     <div className="mt-3 p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600 space-y-2">
                       <p><span className="text-slate-400">Account Title:</span> Nautilus Sports Nutrition</p>
-                      <p><span className="text-slate-400">Account Number:</span> 0325 2571589</p>
+                      <p><span className="text-slate-400">Account Number:</span> 0333 2499499</p>
                       <input
                         type="text"
                         placeholder="Enter JazzCash Transaction TID (e.g. TID: 10928371)"
@@ -502,13 +502,13 @@ export const CheckoutPage: React.FC = () => {
                     <span className="text-[11px] text-red-700 font-bold bg-red-100 border border-red-200 px-2 py-0.5 rounded-full">Instant</span>
                   </div>
                   <p className="text-xs text-slate-500 mt-1 leading-relaxed">
-                    Send funds directly to Nautilus Easypaisa account number <strong className="text-slate-900">0325 2571589</strong>.
+                    Send funds directly to Nautilus Easypaisa account number <strong className="text-slate-900">0333 2499499</strong>.
                   </p>
 
                   {paymentMethod === 'easypaisa' && (
                     <div className="mt-3 p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600 space-y-2">
                       <p><span className="text-slate-400">Account Title:</span> Nautilus Sports Nutrition</p>
-                      <p><span className="text-slate-400">Account Number:</span> 0325 2571589</p>
+                      <p><span className="text-slate-400">Account Number:</span> 0333 2499499</p>
                       <input
                         type="text"
                         placeholder="Enter Easypaisa Transaction ID (e.g. TRX-992817)"

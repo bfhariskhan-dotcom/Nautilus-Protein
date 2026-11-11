@@ -162,7 +162,7 @@ export const QuickViewModal: React.FC = () => {
               </button>
 
               <a
-                href={`https://wa.me/923252571589?text=${encodeURIComponent(
+                href={`https://wa.me/923332499499?text=${encodeURIComponent(
                   `Hello Nautilus Protein, I would like to inquire about ${quickViewProduct.name} (${currentFlavor}).`
                 )}`}
                 target="_blank"

@@ -164,10 +164,16 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   // Load initial store data from Firestore with server fallback
   const refreshProducts = async () => {
+    const CANONICAL_12_IDS = new Set([
+      'whey-5-lbs', 'whey-2-2-lbs', 'mass-5-lbs', 'mass-2-2-lbs',
+      'fast-protein-5-lbs', 'creatine-capsule', 'multivitamin', 'zinc',
+      'magnesium-glycinate', 'biotin', 'bcaa', 'creatine-powder'
+    ]);
     try {
       const fsProducts = await getProductsFromFirestore();
       if (fsProducts && fsProducts.length > 0) {
-        setProducts(fsProducts.map(cleanProductImage));
+        const canonical = fsProducts.filter(p => CANONICAL_12_IDS.has(p.id));
+        setProducts((canonical.length > 0 ? canonical : fsProducts).map(cleanProductImage));
         return;
       }
       // If Firestore is empty, fetch from backend API
@@ -226,9 +232,27 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         let loadedBrands = fsBrands;
         let loadedSettings = fsSettings;
 
-        // If Firestore is empty OR has legacy placeholder products, sync with the clean catalog
-        const hasLegacyProducts = loadedProducts.some(p => p.id === 'prod-1' || p.id === 'prod-2' || p.id === 'prod-3');
-        if (loadedProducts.length === 0 || hasLegacyProducts) {
+        // Enforce the exact 12 products catalog requested by user
+        const CANONICAL_12_IDS = new Set([
+          'whey-5-lbs',
+          'whey-2-2-lbs',
+          'mass-5-lbs',
+          'mass-2-2-lbs',
+          'fast-protein-5-lbs',
+          'creatine-capsule',
+          'multivitamin',
+          'zinc',
+          'magnesium-glycinate',
+          'biotin',
+          'bcaa',
+          'creatine-powder'
+        ]);
+
+        const hasLegacyOrExtraProducts = loadedProducts.length === 0 ||
+          loadedProducts.length !== 12 ||
+          loadedProducts.some(p => !CANONICAL_12_IDS.has(p.id));
+
+        if (hasLegacyOrExtraProducts) {
           try {
             const [pRes, cRes, bRes, sRes] = await Promise.all([
               fetch('/api/products').then(r => r.ok ? r.json() : []).catch(() => []),
@@ -243,16 +267,14 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
               loadedBrands = bRes || [];
               loadedSettings = sRes;
 
-              // Clean legacy dummy products from Firestore
-              if (hasLegacyProducts) {
-                for (const oldProd of fsProducts) {
-                  if (oldProd.id.startsWith('prod-')) {
-                    deleteProductFromFirestore(oldProd.id).catch(() => {});
-                  }
+              // Clean obsolete products from Firestore
+              for (const oldProd of fsProducts) {
+                if (!CANONICAL_12_IDS.has(oldProd.id)) {
+                  deleteProductFromFirestore(oldProd.id).catch(() => {});
                 }
               }
 
-              // Seed the clean new product and categories into Firestore permanently
+              // Seed the clean new 12 products and categories into Firestore permanently
               seedInitialFirestoreData({
                 products: pRes,
                 categories: cRes || [],
@@ -273,7 +295,12 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         // 2. Set up real-time listener for products in Firestore
         unsubscribeProducts = subscribeToProducts((updated) => {
           if (updated && updated.length > 0) {
-            setProducts(updated.map(cleanProductImage));
+            const canonicalOnly = updated.filter(p => CANONICAL_12_IDS.has(p.id));
+            if (canonicalOnly.length > 0) {
+              setProducts(canonicalOnly.map(cleanProductImage));
+            } else {
+              setProducts(updated.map(cleanProductImage));
+            }
           }
         });
       } catch (err) {

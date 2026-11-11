@@ -63,7 +63,7 @@ export const ContactPage: React.FC = () => {
                 </div>
                 <div>
                   <h4 className="text-slate-900 font-bold uppercase text-[11px]">WhatsApp & Phone</h4>
-                  <p className="text-slate-700 font-semibold mt-0.5 font-mono text-sm">+92 325 2571589</p>
+                  <p className="text-slate-700 font-semibold mt-0.5 font-mono text-sm">+92 333 2499499</p>
                   <p className="text-[10px] text-slate-500">Available 10:00 AM – 10:00 PM (Mon–Sat) for athlete support</p>
                 </div>
               </div>
@@ -83,13 +83,13 @@ export const ContactPage: React.FC = () => {
             {/* Direct WhatsApp CTA */}
             <div className="pt-2">
               <a
-                href="https://wa.me/923252571589?text=Hello%20Nautilus%20Protein,%20I%20have%20an%20inquiry%20regarding%20your%20products."
+                href="https://wa.me/923332499499?text=Hello%20Nautilus%20Protein,%20I%20have%20an%20inquiry%20regarding%20your%20products."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full py-3.5 px-6 bg-red-600 hover:bg-red-700 text-white rounded-xl text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all shadow-md shadow-red-600/30"
               >
                 <Phone className="w-4 h-4" />
-                <span>Start Direct WhatsApp Chat (0325 2571589)</span>
+                <span>Start Direct WhatsApp Chat (0333 2499499)</span>
               </a>
             </div>
 

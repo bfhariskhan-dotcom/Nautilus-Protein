@@ -551,90 +551,9 @@ export const HomePage: React.FC = () => {
           </div>
         </section>
 
-        {/* Marquee Trust Ticker Strip - Flush right under hero banner with ZERO GAP */}
-        <div className="bg-black text-white border-b border-red-950 py-3 overflow-hidden select-none shadow-sm">
-          <div className="nautilus-marquee-track flex items-center gap-8 whitespace-nowrap text-xs font-semibold tracking-wider uppercase">
-            <span className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-red-500 shrink-0" /> 100% Authentic Seals & Tamper-Evident Packaging</span>
-            <span className="text-red-600">·</span>
-            <span className="flex items-center gap-2"><Truck className="w-4 h-4 text-red-500 shrink-0" /> Fast Nationwide Delivery Across All Pakistan Cities</span>
-            <span className="text-red-600">·</span>
-            <span className="flex items-center gap-2"><ShieldCheck className="w-4 h-4 text-red-500 shrink-0" /> Cash on Delivery (COD) Available</span>
-            <span className="text-red-600">·</span>
-            <span className="flex items-center gap-2"><Award className="w-4 h-4 text-red-500 shrink-0" /> 100% Original Clinical Sports Nutrition</span>
-            <span className="text-red-600">·</span>
-            <span className="flex items-center gap-2"><MessageCircle className="w-4 h-4 text-red-500 shrink-0" /> Dedicated WhatsApp Athlete Support (+92 325 2571589)</span>
-            <span className="text-red-600">·</span>
-            {/* Loop duplicates for seamless continuous loop */}
-            <span className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-red-500 shrink-0" /> 100% Authentic Seals & Tamper-Evident Packaging</span>
-            <span className="text-red-600">·</span>
-            <span className="flex items-center gap-2"><Truck className="w-4 h-4 text-red-500 shrink-0" /> Fast Nationwide Delivery Across All Pakistan Cities</span>
-            <span className="text-red-600">·</span>
-            <span className="flex items-center gap-2"><ShieldCheck className="w-4 h-4 text-red-500 shrink-0" /> Cash on Delivery (COD) Available</span>
-          </div>
-        </div>
       </div>
 
-      {/* 2. CATEGORY QUICK ACCESS */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-end justify-between mb-8">
-          <div>
-            <p className="text-xs font-bold uppercase tracking-wider text-red-600">
-              Targeted Supplement Categories
-            </p>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight uppercase font-heading mt-1">
-              Shop by Category
-            </h2>
-          </div>
-          <button
-            onClick={() => navigateTo('shop')}
-            className="text-xs font-bold text-slate-500 hover:text-red-600 uppercase tracking-wider flex items-center gap-1.5 transition-colors"
-          >
-            <span>View All</span>
-            <ArrowRight className="w-3.5 h-3.5 text-red-600" />
-          </button>
-        </div>
-
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
-          {categories
-            .filter((cat) => {
-              const count = products.filter(
-                (p) =>
-                  p.category === cat.slug ||
-                  ((p.category as string) === 'vitamins' &&
-                    (cat.slug === 'health-essentials' || cat.slug === 'vitamins'))
-              ).length || cat.itemCount || 0;
-              return count > 0;
-            })
-            .map((cat) => {
-              const count = products.filter(
-                (p) =>
-                  p.category === cat.slug ||
-                  ((p.category as string) === 'vitamins' &&
-                    (cat.slug === 'health-essentials' || cat.slug === 'vitamins'))
-              ).length || cat.itemCount || 0;
-              const CatIcon = getCategoryIcon(cat.slug);
-              return (
-                <div
-                  key={cat.id}
-                  onClick={() => navigateTo('category', { category: cat.slug })}
-                  className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200 hover:border-red-400 shadow-sm hover:shadow-md cursor-pointer text-center transition-all duration-200 group hover:-translate-y-1 hover:shadow-xl hover:shadow-red-950/20 flex flex-col items-center justify-center"
-                >
-                  <div className="w-12 h-12 rounded-xl bg-red-50 border border-red-200 flex items-center justify-center text-red-600 mb-3 group-hover:scale-110 group-hover:bg-red-100 group-hover:border-red-400 transition-all">
-                    <CatIcon className="w-5 h-5" />
-                  </div>
-                  <h3 className="text-xs sm:text-sm font-bold text-slate-800 group-hover:text-red-600 transition-colors uppercase tracking-wider">
-                    {cat.name}
-                  </h3>
-                  <p className="text-[11px] text-slate-400 mt-1 font-mono">
-                    {count} Products
-                  </p>
-                </div>
-              );
-            })}
-        </div>
-      </section>
-
-      {/* 3. BEST SELLERS */}
+      {/* 2. BEST SELLERS */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
           <div>
@@ -843,7 +762,7 @@ export const HomePage: React.FC = () => {
               </div>
               <h3 className="text-base font-bold text-slate-900">Dedicated WhatsApp Athlete Desk</h3>
               <p className="text-xs text-slate-500 leading-relaxed">
-                Reach human support instantly at +92 325 2571589 for dosing advice, flavor reviews, stack recommendations, and real-time shipment updates.
+                Reach human support instantly at +92 333 2499499 for dosing advice, flavor reviews, stack recommendations, and real-time shipment updates.
               </p>
             </div>
           </div>

@@ -1,11 +1,482 @@
 import { Product } from '../types';
 
 export const INITIAL_PRODUCTS: Product[] = [
-  // 1. BCAA
+  // 1. Whey 5 Lbs
   {
-    id: 'nautilus-bcaa-2-1-1-lemon-450g',
-    name: 'Nautilus BCAA 2:1:1 Intra-Workout Recovery Formula – Tangy Lemon (450g)',
-    slug: 'nautilus-bcaa-2-1-1-lemon-450g',
+    id: 'whey-5-lbs',
+    name: 'Whey 5 Lbs',
+    slug: 'whey-5-lbs',
+    brand: 'Nautilus Protein',
+    category: 'whey-protein',
+    categoryName: '100% Whey Protein',
+    price: 14700,
+    salePrice: 14700,
+    weight: '5 Lbs (2.27 kg)',
+    servings: 68,
+    servingSize: '33g (1 Level Scoop)',
+    flavors: ['Gourmet Chocolate', 'Creamy Vanilla', 'Cookies & Cream'],
+    stock: 45,
+    inStock: true,
+    isFeatured: true,
+    isBestSeller: true,
+    isNew: false,
+    image: '',
+    gallery: [],
+    shortDescription: '100% pure whey protein blend delivering 25g protein per serving with Creapure & DSM grade materials.',
+    description: 'Nautilus Whey 5 Lbs delivers 25g of ultra-filtered protein per scoop, loaded with naturally occurring BCAAs and EAAs for optimal muscle protein synthesis, rapid recovery, and lean muscle growth. Manufactured in an ISO and GMP certified facility in Karachi, 100% Halal and lab-tested with zero amino spiking.',
+    headline: 'Pure Whey Protein for Maximum Muscle Growth',
+    goal: 'muscle-building',
+    goalName: 'Muscle Building',
+    rating: 4.9,
+    reviewCount: 48,
+    tags: ['Whey', 'Protein', 'Muscle Building', 'Recovery', 'Halal'],
+    nutritionFacts: [
+      { label: 'Calories', amount: '130 kcal', dailyValue: '6.5%' },
+      { label: 'Protein', amount: '25 g', dailyValue: '50%' },
+      { label: 'Total Carbohydrates', amount: '2 g', dailyValue: '<1%' },
+      { label: 'Total Fat', amount: '1.5 g', dailyValue: '2%' },
+      { label: 'BCAAs', amount: '5.5 g', dailyValue: '†' },
+      { label: 'Glutamine & Precursors', amount: '4 g', dailyValue: '†' }
+    ],
+    ingredients: ['Cross-Flow Microfiltered Whey Protein Blend (Isolate, Concentrate)', 'Cocoa Powder', 'Natural & Artificial Flavors', 'Sunflower Lecithin', 'Digestive Enzyme Blend (Protease, Lactase)', 'Sucralose'],
+    directions: 'Mix 1 scoop (33g) with 200–250ml of cold water or milk. Consume 1–2 times daily, ideally post-workout and first thing in the morning.',
+    warnings: 'Store in a cool, dry place away from direct sunlight. Not intended as a sole source of nutrition. Keep out of reach of children.',
+    highlights: [
+      '25g Pure Protein per scoop',
+      '5.5g Branched Chain Amino Acids (BCAAs)',
+      'Zero Amino Spiking & 100% Halal Certified',
+      'Manufactured in Karachi under GMP & ISO 22000 standards'
+    ],
+    faqs: [
+      { question: 'When is the best time to consume Nautilus Whey?', answer: 'Within 30–45 minutes post-workout for optimal muscle recovery, or between meals to meet your daily protein target.' },
+      { question: 'Is this 100% Halal and verified?', answer: 'Yes, 100% Halal ingredients, zero pork-derived enzymes, and batch-verified with QR lab reports.' }
+    ]
+  },
+
+  // 2. Whey 2.2 Lbs
+  {
+    id: 'whey-2-2-lbs',
+    name: 'Whey 2.2 Lbs',
+    slug: 'whey-2-2-lbs',
+    brand: 'Nautilus Protein',
+    category: 'whey-protein',
+    categoryName: '100% Whey Protein',
+    price: 6500,
+    salePrice: 6500,
+    weight: '2.2 Lbs (1 kg)',
+    servings: 30,
+    servingSize: '33g (1 Level Scoop)',
+    flavors: ['Gourmet Chocolate', 'Creamy Vanilla'],
+    stock: 50,
+    inStock: true,
+    isFeatured: true,
+    isBestSeller: false,
+    isNew: true,
+    image: '',
+    gallery: [],
+    shortDescription: 'Pure whey protein in a compact 1kg (2.2 Lbs) tub. 25g protein per scoop for daily recovery.',
+    description: 'Convenient 2.2 Lbs size of Nautilus 100% Whey Protein. Delivers 25g of ultra-pure protein per serving to accelerate muscle recovery and athletic performance. 100% Halal, lab-tested with zero amino spiking.',
+    headline: 'Daily Whey Protein in a Compact 1kg Tub',
+    goal: 'muscle-building',
+    goalName: 'Muscle Building',
+    rating: 4.8,
+    reviewCount: 32,
+    tags: ['Whey', '1kg', 'Recovery', 'Protein', 'Halal'],
+    nutritionFacts: [
+      { label: 'Calories', amount: '130 kcal', dailyValue: '6.5%' },
+      { label: 'Protein', amount: '25 g', dailyValue: '50%' },
+      { label: 'Total Carbohydrates', amount: '2 g', dailyValue: '<1%' },
+      { label: 'Total Fat', amount: '1.5 g', dailyValue: '2%' },
+      { label: 'BCAAs', amount: '5.5 g', dailyValue: '†' }
+    ],
+    ingredients: ['Cross-Flow Microfiltered Whey Protein Blend', 'Cocoa Powder', 'Natural Flavors', 'Sunflower Lecithin', 'Sucralose'],
+    directions: 'Mix 1 scoop with 200ml cold water or milk post-workout or as a high-protein snack.',
+    warnings: 'Store sealed in a dry location below 30°C.',
+    highlights: [
+      '25g Fast-Acting Protein',
+      'Affordable 30-Serving Tub',
+      'Zero Fillers or Spiking',
+      'Smooth mixability with water'
+    ],
+    faqs: [
+      { question: 'How many servings are in the 2.2 Lbs jar?', answer: 'Exactly 30 full 33g servings, perfect for a 1-month supply.' }
+    ]
+  },
+
+  // 3. Mass 5 Lbs
+  {
+    id: 'mass-5-lbs',
+    name: 'Mass 5 Lbs',
+    slug: 'mass-5-lbs',
+    brand: 'Nautilus Protein',
+    category: 'mass-gainers',
+    categoryName: 'High-Calorie Mass Gainers',
+    price: 11900,
+    salePrice: 11900,
+    weight: '5 Lbs (2.27 kg)',
+    servings: 16,
+    servingSize: '140g (2 Scoops)',
+    flavors: ['Rich Chocolate Fudge', 'Creamy Vanilla Milkshake'],
+    stock: 40,
+    inStock: true,
+    isFeatured: true,
+    isBestSeller: true,
+    isNew: false,
+    image: '',
+    gallery: [],
+    shortDescription: 'High-calorie mass gainer formulated for hardgainers looking to build size and dense muscle.',
+    description: 'Nautilus Mass 5 Lbs provides a potent blend of high-quality complex carbs and multi-stage proteins engineered for serious mass and power gains without digestive discomfort or bloating.',
+    headline: 'Maximum Caloric Density for Serious Size',
+    goal: 'strength',
+    goalName: 'Strength & Size',
+    rating: 4.9,
+    reviewCount: 56,
+    tags: ['Mass Gainer', 'Weight Gain', 'Calories', 'Size', 'Halal'],
+    nutritionFacts: [
+      { label: 'Calories', amount: '580 kcal', dailyValue: '29%' },
+      { label: 'Protein', amount: '45 g', dailyValue: '90%' },
+      { label: 'Complex Carbohydrates', amount: '92 g', dailyValue: '33%' },
+      { label: 'Dietary Fiber', amount: '4 g', dailyValue: '14%' },
+      { label: 'Creatine Monohydrate', amount: '3,000 mg', dailyValue: '†' },
+      { label: 'MCT Oil Powder', amount: '2,500 mg', dailyValue: '†' }
+    ],
+    ingredients: ['Multi-Stage Clean Carbohydrate Complex (Oat Powder, Maltodextrin)', 'Protein Blend (Whey Concentrate, Micellar Casein)', 'Creapure Micronized Creatine', 'MCT Oil', 'Cocoa Powder', 'Sucralose'],
+    directions: 'Blend 2 scoops (140g) with 400–500ml whole milk or water. Consume once or twice daily between meals or post-workout.',
+    warnings: 'High caloric supplement. Recommended for individuals actively lifting weights or seeking healthy mass gain.',
+    highlights: [
+      '580 Quality Clean Calories per serving',
+      '45g Multi-Stage Protein Blend',
+      'Added 3g Creapure Creatine for strength',
+      'Easy digestion with zero heavy bloating'
+    ],
+    faqs: [
+      { question: 'Will this make me gain fat?', answer: 'It is formulated with clean complex carbs and proteins. Combined with resistance training, it builds solid muscular weight.' }
+    ]
+  },
+
+  // 4. Mass 2.2 Lbs
+  {
+    id: 'mass-2-2-lbs',
+    name: 'Mass 2.2 Lbs',
+    slug: 'mass-2-2-lbs',
+    brand: 'Nautilus Protein',
+    category: 'mass-gainers',
+    categoryName: 'High-Calorie Mass Gainers',
+    price: 6500,
+    salePrice: 6500,
+    weight: '2.2 Lbs (1 kg)',
+    servings: 7,
+    servingSize: '140g (2 Scoops)',
+    flavors: ['Rich Chocolate Fudge'],
+    stock: 35,
+    inStock: true,
+    isFeatured: false,
+    isBestSeller: false,
+    isNew: true,
+    image: '',
+    gallery: [],
+    shortDescription: 'Compact 1kg (2.2 Lbs) mass gainer tub for rapid muscular size and weight gain.',
+    description: 'Nautilus Mass 2.2 Lbs is ideal for starters or travelling athletes looking for calorie-dense protein and clean carbs to smash calorie targets and pack on muscle.',
+    headline: 'Quick Caloric Boost in a 1kg Jar',
+    goal: 'strength',
+    goalName: 'Strength & Size',
+    rating: 4.7,
+    reviewCount: 19,
+    tags: ['Mass Gainer', '1kg', 'Strength', 'Weight Gain'],
+    nutritionFacts: [
+      { label: 'Calories', amount: '580 kcal', dailyValue: '29%' },
+      { label: 'Protein', amount: '45 g', dailyValue: '90%' },
+      { label: 'Carbohydrates', amount: '92 g', dailyValue: '33%' }
+    ],
+    ingredients: ['Carbohydrate Complex', 'Whey Protein Blend', 'Cocoa', 'Flavoring', 'Lecithin'],
+    directions: 'Mix 2 scoops with 450ml milk or water. Drink daily.',
+    warnings: 'Store in a dry location away from humidity.',
+    highlights: [
+      'Compact size for trial and travel',
+      '45g Protein per serving',
+      'Delicious chocolate flavor'
+    ]
+  },
+
+  // 5. Fast Protein 5 Lbs
+  {
+    id: 'fast-protein-5-lbs',
+    name: 'Fast Protein 5 Lbs',
+    slug: 'fast-protein-5-lbs',
+    brand: 'Nautilus Protein',
+    category: 'whey-protein',
+    categoryName: '100% Whey Protein',
+    price: 15300,
+    salePrice: 15300,
+    weight: '5 Lbs (2.27 kg)',
+    servings: 70,
+    servingSize: '32g (1 Level Scoop)',
+    flavors: ['Double Rich Chocolate', 'Café Latte'],
+    stock: 42,
+    inStock: true,
+    isFeatured: true,
+    isBestSeller: true,
+    isNew: true,
+    image: '',
+    gallery: [],
+    shortDescription: 'Rapidly absorbing hydrolyzed & isolate whey protein for instant post-workout recovery.',
+    description: 'Nautilus Fast Protein 5 Lbs is formulated with hydrolyzed whey isolate for unmatched digestion speed and rapid amino acid delivery to tired muscles within 20 minutes of training.',
+    headline: 'Instant-Absorbing Hydrolyzed Isolate Formula',
+    goal: 'recovery',
+    goalName: 'Rapid Recovery',
+    rating: 5.0,
+    reviewCount: 64,
+    tags: ['Fast Protein', 'Hydrolyzed', 'Isolate', 'Rapid Recovery', 'Halal'],
+    nutritionFacts: [
+      { label: 'Calories', amount: '120 kcal', dailyValue: '6%' },
+      { label: 'Protein', amount: '27 g', dailyValue: '54%' },
+      { label: 'Total Carbohydrates', amount: '<1 g', dailyValue: '<1%' },
+      { label: 'Total Fat', amount: '0.5 g', dailyValue: '<1%' },
+      { label: 'BCAAs', amount: '6.2 g', dailyValue: '†' }
+    ],
+    ingredients: ['Hydrolyzed Whey Protein Isolate', 'Cross-Flow Whey Isolate', 'Natural Cocoa', 'Natural Flavors', 'DigeZyme Enzyme Complex', 'Stevia Leaf Extract'],
+    directions: 'Mix 1 scoop with 200ml cold water immediately following training.',
+    warnings: 'Consult your physician if you are pregnant or have liver/kidney conditions.',
+    highlights: [
+      'Hydrolyzed & Isolate ultra-fast absorption',
+      '27g Pure Protein per scoop',
+      'Virtually Zero Carbs & Fats',
+      'Enhanced with DigeZyme for zero digestive stress'
+    ],
+    faqs: [
+      { question: 'What makes Fast Protein different from regular Whey?', answer: 'Fast Protein uses hydrolyzed whey isolate, broken down into smaller peptides for immediate cellular absorption.' }
+    ]
+  },
+
+  // 6. Creatine Capsule
+  {
+    id: 'creatine-capsule',
+    name: 'Creatine Capsule',
+    slug: 'creatine-capsule',
+    brand: 'Nautilus Protein',
+    category: 'creatine',
+    categoryName: 'Creatine & Performance',
+    price: 4500,
+    salePrice: 4500,
+    weight: '60 Capsules',
+    servings: 30,
+    servingSize: '2 Capsules',
+    flavors: ['Unflavored (Easy Swallow)'],
+    stock: 60,
+    inStock: true,
+    isFeatured: true,
+    isBestSeller: false,
+    isNew: false,
+    image: '',
+    gallery: [],
+    shortDescription: 'Convenient micronized creatine capsules for cellular ATP regeneration and strength.',
+    description: 'Nautilus Creatine Capsules deliver pure Creapure-grade micronized creatine in easy-to-swallow capsules. No scooping, no messy powder, convenient for on-the-go training.',
+    headline: 'Pure Creatine Strength On The Go',
+    goal: 'strength',
+    goalName: 'Strength',
+    rating: 4.8,
+    reviewCount: 38,
+    tags: ['Creatine', 'Capsules', 'Strength', 'Power', 'ATP'],
+    nutritionFacts: [
+      { label: 'Creapure Micronized Creatine', amount: '2,500 mg', dailyValue: '†' },
+      { label: 'Sodium', amount: '25 mg', dailyValue: '1%' }
+    ],
+    ingredients: ['Creapure Micronized Creatine Monohydrate', 'Halal Gelatin Capsule', 'Magnesium Stearate'],
+    directions: 'Take 2 capsules daily with a glass of water or carbohydrate beverage.',
+    warnings: 'Drink at least 3 liters of water throughout the day while supplementing with creatine.',
+    highlights: [
+      '2,500mg Creapure Creatine per 2-capsule serving',
+      'Convenient travel-friendly bottle',
+      'Zero mixing required',
+      '100% Halal certified capsules'
+    ]
+  },
+
+  // 7. Multivitamin
+  {
+    id: 'multivitamin',
+    name: 'Multivitamin',
+    slug: 'multivitamin',
+    brand: 'Nautilus Protein',
+    category: 'vitamins',
+    categoryName: 'Vitamins & Health Essentials',
+    price: 4500,
+    salePrice: 4500,
+    weight: '60 Tablets',
+    servings: 60,
+    servingSize: '1 Tablet',
+    flavors: ['Tablets'],
+    stock: 75,
+    inStock: true,
+    isFeatured: false,
+    isBestSeller: true,
+    isNew: false,
+    image: '',
+    gallery: [],
+    shortDescription: 'Comprehensive daily multivitamin with essential micronutrients for athlete immunity and vitality.',
+    description: 'Nautilus Multivitamin contains 24 bioavailable vitamins and minerals designed specifically to replenish nutrient depletion from intense physical training and busy daily routines.',
+    headline: 'Daily Micronutrient Shield for Active Bodies',
+    goal: 'vitality',
+    goalName: 'Vitality',
+    rating: 4.9,
+    reviewCount: 52,
+    tags: ['Multivitamin', 'Immunity', 'Health', 'Vitamins', 'Vitality'],
+    nutritionFacts: [
+      { label: 'Vitamin A', amount: '900 mcg', dailyValue: '100%' },
+      { label: 'Vitamin C', amount: '120 mg', dailyValue: '133%' },
+      { label: 'Vitamin D3', amount: '2000 IU', dailyValue: '250%' },
+      { label: 'Vitamin E', amount: '20 mg', dailyValue: '133%' },
+      { label: 'Vitamin B-Complex (B1, B2, B3, B6, B12)', amount: '50 mg', dailyValue: '100%+' },
+      { label: 'Zinc', amount: '15 mg', dailyValue: '136%' }
+    ],
+    ingredients: ['Ascorbic Acid', 'Cholecalciferol', 'd-Alpha Tocopherol', 'Thiamine Mononitrate', 'Pyridoxine HCl', 'Cyanocobalamin', 'Microcrystalline Cellulose', 'Plant-based Film Coat'],
+    directions: 'Take 1 tablet daily with your morning breakfast and water.',
+    warnings: 'Do not exceed recommended dose. Keep away from small children.',
+    highlights: [
+      '24 Essential Vitamins and Minerals',
+      'High-potency Vitamin D3 and B-Complex',
+      'Boosts immune resistance and mental stamina',
+      'One tablet daily - 60 day supply'
+    ]
+  },
+
+  // 8. Zinc
+  {
+    id: 'zinc',
+    name: 'Zinc',
+    slug: 'zinc',
+    brand: 'Nautilus Protein',
+    category: 'vitamins',
+    categoryName: 'Vitamins & Health Essentials',
+    price: 3500,
+    salePrice: 3500,
+    weight: '60 Tablets',
+    servings: 60,
+    servingSize: '1 Tablet',
+    flavors: ['Tablets'],
+    stock: 80,
+    inStock: true,
+    isFeatured: false,
+    isBestSeller: false,
+    isNew: false,
+    image: '',
+    gallery: [],
+    shortDescription: 'High-absorption zinc gluconate for hormonal support, immune defense, and protein synthesis.',
+    description: 'Nautilus Zinc provides high-potency elemental zinc to promote healthy testosterone production, cellular tissue repair, immune vitality, and skin health.',
+    headline: 'Essential Elemental Mineral for Hormonal Health',
+    goal: 'vitality',
+    goalName: 'Vitality',
+    rating: 4.7,
+    reviewCount: 29,
+    tags: ['Zinc', 'Immunity', 'Testosterone Support', 'Minerals'],
+    nutritionFacts: [
+      { label: 'Elemental Zinc (as Zinc Gluconate)', amount: '30 mg', dailyValue: '272%' },
+      { label: 'Copper (as Copper Gluconate)', amount: '1 mg', dailyValue: '111%' }
+    ],
+    ingredients: ['Zinc Gluconate', 'Copper Gluconate', 'Dicalcium Phosphate', 'Cellulose', 'Magnesium Stearate'],
+    directions: 'Take 1 tablet daily with a meal.',
+    warnings: 'Take with food to prevent temporary stomach sensitivity.',
+    highlights: [
+      '30mg High-Potency Elemental Zinc',
+      'Balanced with Copper for safe daily use',
+      'Supports healthy testosterone levels and immunity',
+      '60-day full supply'
+    ]
+  },
+
+  // 9. Magnesium Glycinate
+  {
+    id: 'magnesium-glycinate',
+    name: 'Magnesium Glycinate',
+    slug: 'magnesium-glycinate',
+    brand: 'Nautilus Protein',
+    category: 'vitamins',
+    categoryName: 'Vitamins & Health Essentials',
+    price: 2495,
+    salePrice: 2495,
+    weight: '60 Tablets',
+    servings: 60,
+    servingSize: '1 Tablet',
+    flavors: ['Tablets'],
+    stock: 90,
+    inStock: true,
+    isFeatured: true,
+    isBestSeller: true,
+    isNew: false,
+    image: '',
+    gallery: [],
+    shortDescription: 'Gentle on stomach, highly bioavailable magnesium for deep restorative sleep and muscle relaxation.',
+    description: 'Nautilus Magnesium Glycinate is chelated for superior absorption without laxative effects. Relieves muscle cramps, reduces nervous system stress, and fosters deep restorative sleep.',
+    headline: 'Deep Sleep & Muscle Cramp Relief',
+    goal: 'recovery',
+    goalName: 'Recovery',
+    rating: 4.9,
+    reviewCount: 71,
+    tags: ['Magnesium', 'Sleep', 'Cramps', 'Recovery', 'Relaxation'],
+    nutritionFacts: [
+      { label: 'Elemental Magnesium (as Bisglycinate Chelate)', amount: '200 mg', dailyValue: '48%' },
+      { label: 'Vitamin B6', amount: '5 mg', dailyValue: '294%' }
+    ],
+    ingredients: ['Magnesium Bisglycinate Chelate', 'Pyridoxine HCl (Vitamin B6)', 'Vegetable Stearate', 'Silicon Dioxide'],
+    directions: 'Take 1 tablet 30–45 minutes before sleep with warm water.',
+    warnings: 'Store in a cool dry place.',
+    highlights: [
+      'Chelated Bisglycinate for maximum bioavailability',
+      'Zero laxative side effects',
+      'Eliminates nocturnal calf & muscle cramps',
+      'Promotes calm nervous system and deep REM sleep'
+    ]
+  },
+
+  // 10. Biotin
+  {
+    id: 'biotin',
+    name: 'Biotin',
+    slug: 'biotin',
+    brand: 'Nautilus Protein',
+    category: 'vitamins',
+    categoryName: 'Vitamins & Health Essentials',
+    price: 2800,
+    salePrice: 2800,
+    weight: '60 Tablets',
+    servings: 60,
+    servingSize: '1 Tablet',
+    flavors: ['Tablets'],
+    stock: 65,
+    inStock: true,
+    isFeatured: false,
+    isBestSeller: false,
+    isNew: false,
+    image: '',
+    gallery: [],
+    shortDescription: 'High-potency 10,000 mcg Biotin (Vitamin B7) for strong hair growth, nails, and healthy skin.',
+    description: 'Nautilus Biotin supports keratin infrastructure, preventing hair fall and brittle nails while optimizing metabolic energy conversion.',
+    headline: 'Nutritional Support for Thick Hair & Glowing Skin',
+    goal: 'vitality',
+    goalName: 'Vitality',
+    rating: 4.8,
+    reviewCount: 44,
+    tags: ['Biotin', 'Hair Growth', 'Skin', 'Nails', 'Vitality'],
+    nutritionFacts: [
+      { label: 'Biotin (Vitamin B7)', amount: '10,000 mcg', dailyValue: '33,333%' },
+      { label: 'Calcium (as Dicalcium Phosphate)', amount: '60 mg', dailyValue: '5%' }
+    ],
+    ingredients: ['Pure d-Biotin', 'Dicalcium Phosphate', 'Microcrystalline Cellulose', 'Plant-based Film Coat'],
+    directions: 'Take 1 tablet once daily with any meal.',
+    warnings: 'Consult doctor before taking if undergoing thyroid lab tests.',
+    highlights: [
+      '10,000 mcg Maximum Strength Biotin',
+      'Stimulates keratin production for hair & beard follicles',
+      'Fortifies weak and brittle fingernails',
+      '60-day supply'
+    ]
+  },
+
+  // 11. BCAA
+  {
+    id: 'bcaa',
+    name: 'BCAA',
+    slug: 'bcaa',
     brand: 'Nautilus Protein',
     category: 'amino-acids',
     categoryName: 'BCAA & Amino Acids',
@@ -14,1415 +485,87 @@ export const INITIAL_PRODUCTS: Product[] = [
     weight: '450 GM',
     servings: 45,
     servingSize: '10g (1 Level Scoop)',
-    flavors: ['Tangy Lemon'],
-    stock: 50,
+    flavors: ['Tangy Lemon', 'Watermelon Breeze'],
+    stock: 55,
     inStock: true,
     isFeatured: true,
     isBestSeller: true,
-    isNew: true,
+    isNew: false,
     image: '',
     gallery: [],
-    shortDescription: 'Advanced intra- and post-workout branched-chain amino acid recovery complex engineered to suppress muscle catabolism, accelerate tissue repair, and support sustained muscular endurance.',
-    description: 'Nautilus BCAA is an advanced intra- and post-workout branched-chain amino acid recovery complex engineered to suppress muscle catabolism, accelerate post-exercise tissue repair, and support sustained muscular endurance. Standardized to the clinically proven 2:1:1 ratio of L-Leucine, L-Isoleucine, and L-Valine, it activates the mTOR pathway for muscle protein synthesis while significantly decreasing Delayed Onset Muscle Soreness (DOMS). The formula is reinforced with L-Glutamine and essential cellular electrolytes for continuous hydration during high-intensity training.',
-    headline: 'Recover Faster. Train Harder. Zero Muscle Loss.',
+    shortDescription: 'Clinically dosed 2:1:1 intra-workout amino acids with electrolytes to stop catabolism.',
+    description: 'Nautilus BCAA provides instantized Leucine, Isoleucine, and Valine in the proven 2:1:1 ratio plus electrolytes for intra-workout hydration, endurance, and zero muscle breakdown.',
+    headline: 'Intra-Workout Muscle Preservation & Hydration',
     ratio: '2:1:1 (Leucine: Isoleucine: Valine)',
+    goal: 'recovery',
+    goalName: 'Recovery',
+    rating: 4.9,
+    reviewCount: 62,
+    tags: ['BCAA', 'Amino Acids', 'Recovery', 'Intra-Workout', 'Hydration'],
     nutritionFacts: [
-      { label: 'Calories', amount: '8 kcal', dailyValue: '<1%' },
       { label: 'Total BCAA (2:1:1)', amount: '6,000 mg', dailyValue: '†' },
       { label: 'L-Leucine', amount: '3,000 mg', dailyValue: '†' },
       { label: 'L-Isoleucine', amount: '1,500 mg', dailyValue: '†' },
       { label: 'L-Valine', amount: '1,500 mg', dailyValue: '†' },
       { label: 'L-Glutamine', amount: '1,000 mg', dailyValue: '†' },
-      { label: 'Electrolyte Hydration Blend', amount: '500 mg', dailyValue: '†' },
-      { label: 'Sodium', amount: '150 mg', dailyValue: '6.5%' },
-      { label: 'Potassium', amount: '100 mg', dailyValue: '2%' },
-      { label: 'Vitamin B6', amount: '1 mg', dailyValue: '59%' },
-      { label: 'Total Sugar', amount: '0 g', dailyValue: '0%' },
-      { label: 'Total Fat', amount: '0 g', dailyValue: '0%' }
+      { label: 'Electrolyte Hydration Complex', amount: '500 mg', dailyValue: '†' }
     ],
-    ingredients: [
-      'Branched-Chain Amino Acids (L-Leucine, L-Isoleucine, L-Valine)',
-      'L-Glutamine',
-      'Citric Acid',
-      'Natural and Artificial Lemon Flavors',
-      'Electrolyte Complex (Sodium Chloride, Potassium Citrate)',
-      'Pyridoxine HCl (Vitamin B6)',
-      'Silicon Dioxide (E551)',
-      'Sucralose'
-    ],
+    ingredients: ['Instantized BCAAs (L-Leucine, L-Isoleucine, L-Valine)', 'L-Glutamine', 'Citric Acid', 'Natural Flavors', 'Electrolyte Complex (Sodium Chloride, Potassium Citrate)', 'Sucralose'],
+    directions: 'Mix 1 level scoop (10g) with 300ml cold water. Sip continuously during your workout.',
+    warnings: 'Store sealed in a dry location below 30°C.',
     highlights: [
-      'Accelerated Tissue Repair: Reduces muscle fiber micro-trauma and post-training muscular stiffness',
-      'Anti-Catabolic Muscle Preservation: Protects lean muscle tissue from oxidation during calorie deficits or fasted sessions',
-      'Intra-Workout Hydration: Replenishes vital minerals lost through perspiration to mitigate fatigue and cramping',
-      'Instant Solubility: Fully instantized powder dissolves completely with zero sediment and no bitter aftertaste'
-    ],
-    directions: 'Mix 1 level scoop (10g) with 250–300ml of cold water.\n• Intra-Workout: Sip continuously throughout training for endurance and intra-cellular hydration.\n• Post-Workout: Consume immediately after exercise to initiate recovery.\n• Non-Training Days: Consume 1 serving between meals to preserve positive nitrogen balance.\nMaintain a total fluid intake of at least 3 liters of water daily.',
-    warnings: 'Dietary supplement only. Not intended to diagnose, treat, cure, or prevent any disease. Not suitable for individuals under 18 years of age. Consult a healthcare practitioner prior to use if pregnant or nursing. Do not exceed 20g (2 scoops) per day. Store in a cool, dry place below 30°C. Keep container tightly sealed away from moisture.',
-    goal: 'recovery',
-    goalName: 'Muscle Recovery & Anti-Catabolic',
-    rating: 5,
-    reviewCount: 28,
-    tags: ['2:1:1 Ratio', 'BCAA', 'Intra-Workout', 'Recovery', 'Hydration', 'Zero Sugar', 'Tangy Lemon'],
-    whoIsItFor: [
-      'Athletes undergoing intense resistance or endurance training',
-      'Individuals in a calorie deficit or cutting phase aiming to preserve lean muscle',
-      'Gym trainees experiencing severe delayed onset muscle soreness (DOMS)'
-    ],
-    faqs: [
-      {
-        question: 'Is BCAA a steroid or a banned substance?',
-        answer: 'No. Branched-chain amino acids are naturally occurring dietary nutrients found in dairy, poultry, and meat. This product is 100% legal, non-hormonal, and safe.'
-      },
-      {
-        question: 'Can I stack this with Whey Protein or Creatine?',
-        answer: 'Yes. BCAA is best used during workouts, while Whey Protein and Creatine can be consumed post-workout for maximum mass and strength development.'
-      },
-      {
-        question: 'Does Nautilus BCAA contain caffeine or stimulants?',
-        answer: 'No. It is completely stimulant-free and will not cause jitters or interfere with nighttime sleep.'
-      },
-      {
-        question: 'Will this product place stress on healthy kidneys?',
-        answer: 'No. When taken at the recommended dose of 1 to 2 scoops daily along with sufficient water intake (3 liters daily), it is completely safe.'
-      }
+      '6,000mg Premium Instantized 2:1:1 BCAAs',
+      'Added L-Glutamine & Electrolytes',
+      'Zero Sugars and Zero Carbs',
+      'Crisp, refreshing taste during intense workouts'
     ]
   },
 
-  // 2. Biotin
+  // 12. Creatine Powder
   {
-    id: 'nautilus-high-potency-d-biotin-5000mcg-60caps',
-    name: 'Nautilus High-Potency D-Biotin 5000 mcg – Advanced Hair, Skin & Nails Formula (60 Capsules)',
-    slug: 'nautilus-high-potency-d-biotin-5000mcg-60caps',
-    brand: 'Nautilus',
-    category: 'vitamins',
-    categoryName: 'Vitamins & Minerals',
-    price: 2800,
-    salePrice: 2800,
-    weight: '60 Capsules',
-    servings: 60,
-    servingSize: '1 Vegetable Capsule',
-    flavors: ['Unflavored'],
-    stock: 50,
-    inStock: true,
-    isFeatured: true,
-    isBestSeller: false,
-    isNew: true,
-    image: '',
-    gallery: [],
-    shortDescription: 'Therapeutic 5000 mcg (5 mg) clinical dose of pure, pharmaceutical-grade D-Biotin (Vitamin B7) per vegetable capsule to strengthen hair follicles, thickens nail plates, and support radiant skin.',
-    description: 'Nautilus Biotin provides a therapeutic 5000 mcg (5 mg) clinical dose of pure, pharmaceutical-grade D-Biotin (Vitamin B7) per vegetable capsule. Formulated to correct active deficiencies associated with diffuse hair thinning (Telogen Effluvium), weakened follicle bulbs, split ends, and brittle nails. Biotin serves as an essential coenzyme for carboxylases that synthesize keratin and long-chain fatty acids, strengthening the structural protein integrity of hair and dermal layers.',
-    headline: 'Therapeutic Keratin & Follicular Strengthening Formula',
-    nutritionFacts: [
-      { label: 'Biotin (as pure D-Biotin)', amount: '5,000 mcg', dailyValue: '16,666%' }
-    ],
-    ingredients: [
-      'Microcrystalline Cellulose (E460)',
-      'Hypromellose (Vegetable Capsule Shell E464)',
-      'Magnesium Stearate (E470b)'
-    ],
-    highlights: [
-      'Follicular Root Anchoring: Fortifies the keratin bulb matrix to reduce excessive daily hair shedding',
-      'Structural Hair Volumization: Stimulates keratin synthesis to increase hair shaft diameter and promote new growth',
-      'Nail Plate Hardening: Clinical trials demonstrate increased thickness and reduced splitting of brittle fingernails',
-      'Dermal Lipid Maintenance: Supports fatty acid metabolism to soothe dry scalps and support skin hydration'
-    ],
-    directions: 'Take 1 capsule daily after breakfast or lunch with a full glass of water. Consume alongside a meal containing dietary protein or healthy fats for optimal assimilation. Recommended Course: Use consistently for a minimum of 90 to 120 days to align with the complete human hair growth cycle. Drink 2.5 to 3 liters of water daily.',
-    warnings: 'Dietary supplement only. Not intended to treat androgenetic alopecia (genetic male-pattern baldness) alone. Do not exceed 1 capsule per day. Keep out of reach of children.\nDiagnostic Precaution: High-potency biotin can cross-react with immunoassay blood panels (Thyroid markers including TSH, T3, T4, and Cardiac Troponin). Cease supplementation 48 to 72 hours prior to scheduled blood work. Store below 30°C in a dry area away from direct sunlight.',
-    goal: 'vitality',
-    goalName: 'Hair, Skin, Nails & Vitality',
-    rating: 5,
-    reviewCount: 19,
-    tags: ['Biotin 5000mcg', 'Vitamin B7', 'Hair Growth', 'Nails Hardening', 'Halal', 'Vegan'],
-    whoIsItFor: [
-      'Individuals experiencing excessive hair shedding, thinning, or brittle nails',
-      'Athletes with heightened nutrient turnover needing dermal and keratin support',
-      'Anyone seeking radiant skin hydration and fortified follicle roots'
-    ],
-    faqs: [
-      {
-        question: 'How long before visible improvements appear?',
-        answer: 'A reduction in daily hair shedding is typically observed within weeks 4 to 6. Noticeable follicle regrowth and improved nail strength occur between weeks 8 and 12.'
-      },
-      {
-        question: 'Does Biotin stimulate facial or unwanted body hair growth?',
-        answer: 'No. Biotin does not interact with androgenic hormonal pathways; it supports existing terminal hair follicles on the scalp and reinforces nail keratin.'
-      },
-      {
-        question: 'Why is 5000 mcg used instead of standard RDA?',
-        answer: 'Standard RDA (30 mcg) only prevents basic dietary deficiency. A 5000 mcg therapeutic dose is clinically recognized to reverse active shedding and restore keratin deficits.'
-      }
-    ]
-  },
-
-  // 3. Creatine
-  {
-    id: 'nautilus-micronized-creatine-monohydrate-405g',
-    name: 'Nautilus Ultra-Pure Micronized Creatine Monohydrate – Creapure Grade (405g / 90 Servings)',
-    slug: 'nautilus-micronized-creatine-monohydrate-405g',
-    brand: 'Nautilus',
+    id: 'creatine-powder',
+    name: 'Creatine Powder',
+    slug: 'creatine-powder',
+    brand: 'Nautilus Protein',
     category: 'creatine',
     categoryName: 'Creatine & Performance',
     price: 6400,
     salePrice: 6400,
-    weight: '405g',
-    servings: 90,
-    servingSize: '4.5g (1 Level Scoop)',
-    flavors: ['Unflavored'],
-    stock: 50,
-    inStock: true,
-    isFeatured: true,
-    isBestSeller: true,
-    isNew: true,
-    image: '',
-    gallery: [],
-    shortDescription: '100% pure 200-mesh ultra-micronized creatine monohydrate Creapure grade for rapid dissolution, ATP energy regeneration, and lean muscle fullness.',
-    description: 'Nautilus Creatine Monohydrate delivers 100% pure, 200-mesh ultra-micronized creatine monohydrate manufactured for rapid dissolution, superior suspension, and maximum cellular uptake. Standardized to a science-backed 4.5g daily maintenance scoop, this formula matches the precise intramuscular saturation threshold for an adult without causing gastrointestinal distress or urinary wastage. It supplies a full 90-day cycle in a single jar.',
-    headline: '99.99% Creapure Grade 200-Mesh Micronized Powder',
-    nutritionFacts: [
-      { label: 'Calories', amount: '0 kcal', dailyValue: '0%' },
-      { label: 'Creatine Monohydrate (Creapure Grade)', amount: '4,500 mg', dailyValue: '†' },
-      { label: 'Total Carbohydrates', amount: '0 g', dailyValue: '0%' },
-      { label: 'Total Fat', amount: '0 g', dailyValue: '0%' }
-    ],
-    ingredients: [
-      '100% Pure Micronized Creatine Monohydrate (Zero fillers, zero flavorings)'
-    ],
-    highlights: [
-      'Cellular ATP Regeneration: Replenishes intramuscular phosphocreatine (PCr) stores to maximize explosive lifting power',
-      'Intracellular Volumization: Drives water directly into the muscle cells, enhancing cell volume and stimulating protein synthesis',
-      'Accelerated Muscular Recovery: Lowers post-exercise markers of muscle damage',
-      'Cerebral Energetics: Supports neurological bioenergetics, reducing mental fatigue during intense workloads'
-    ],
-    directions: 'Mix 1 level scoop (4.5g) with 250ml of cold water, protein shake, or carbohydrate-containing juice.\n• On Workout Days: Consume within 30 minutes post-training.\n• On Non-Workout Days: Consume with your morning meal.\nNo loading phase is required; full muscle saturation is reached steadily within 28 days. Maintain a dedicated fluid intake of 3.5 to 4 liters of water daily.',
-    warnings: 'Dietary supplement only. Not intended for use by individuals with pre-existing renal disease or liver dysfunction. Keep tightly sealed in a dry location below 30°C. Always use a clean, completely dry scoop.',
-    goal: 'strength',
-    goalName: 'Strength, Power & ATP Energy',
-    rating: 5,
-    reviewCount: 34,
-    tags: ['Creapure Grade', 'Creatine Monohydrate', 'ATP Energy', 'Muscle Fullness', 'Unflavored', '90 Servings'],
-    whoIsItFor: [
-      'Strength athletes, powerlifters, and bodybuilders seeking explosive strength',
-      'Sprinters and field athletes requiring rapid power burst recovery',
-      'Trainees looking to increase intracellular muscle fullness and lean mass'
-    ],
-    faqs: [
-      {
-        question: 'Is a 20g loading phase necessary?',
-        answer: 'No. Continuous daily supplementation with 4.5g achieves complete intramuscular saturation within 28 days without the stomach distress common to high-dose loading.'
-      },
-      {
-        question: 'Does Creatine cause facial water retention?',
-        answer: 'No. Creatine draws water into the muscle cell fibers (intracellularly), yielding a fuller muscle appearance rather than subcutaneous facial bloat.'
-      },
-      {
-        question: 'Can Creatine be taken long term?',
-        answer: 'Yes. Extensive longitudinal studies demonstrate that consistent creatine monohydrate supplementation is safe for healthy adults when accompanied by adequate hydration.'
-      }
-    ]
-  },
-
-  // 4. Creatine + Co Q10
-  {
-    id: 'nautilus-3-in-1-cellular-energy-creatine-omega3-coq10',
-    name: 'Nautilus 3-in-1 Cellular Energy Complex – Creatine, Omega-3 & CoQ10 (60 Softgels)',
-    slug: 'nautilus-3-in-1-cellular-energy-creatine-omega3-coq10',
-    brand: 'Nautilus',
-    category: 'creatine',
-    categoryName: 'Creatine & Performance',
-    price: 4500,
-    salePrice: 4500,
-    weight: '60 Softgels',
+    weight: '300 GM',
     servings: 60,
-    servingSize: '1 Enteric-Coated Softgel',
-    flavors: ['Unflavored'],
-    stock: 50,
+    servingSize: '5g (1 Level Scoop)',
+    flavors: ['Pure Micronized Unflavored'],
+    stock: 70,
     inStock: true,
-    isFeatured: false,
-    isBestSeller: false,
-    isNew: true,
+    isFeatured: true,
+    isBestSeller: true,
+    isNew: false,
     image: '',
     gallery: [],
-    shortDescription: 'Breakthrough synergistic matrix combining micronized creatine monohydrate, molecularly distilled Omega-3 fish oil, and Coenzyme Q10 in enteric-coated softgels.',
-    description: 'A breakthrough multi-nutrient softgel combining micronized creatine monohydrate, molecularly distilled Omega-3 fish oil, and Coenzyme Q10 (Ubiquinone). This synergistic matrix addresses the entire biological ATP cycle: Coenzyme Q10 synthesizes cellular energy within the mitochondrial electron transport chain, Creatine buffers and transfers this energy across muscular and neurological tissues, and Omega-3 fatty acids optimize cellular membrane fluidity for rapid nutrient delivery.',
-    headline: 'Triple ATP Mitochondrial Matrix: Creatine + Omega-3 + CoQ10',
-    nutritionFacts: [
-      { label: 'Micronized Creatine Monohydrate', amount: '1,000 mg', dailyValue: '†' },
-      { label: 'Omega-3 Fish Oil Concentrate', amount: '500 mg', dailyValue: '†' },
-      { label: 'EPA (Eicosapentaenoic Acid)', amount: '180 mg', dailyValue: '†' },
-      { label: 'DHA (Docosahexaenoic Acid)', amount: '120 mg', dailyValue: '†' },
-      { label: 'Coenzyme Q10 (Ubiquinone)', amount: '50 mg', dailyValue: '†' }
-    ],
-    ingredients: [
-      'Micronized Creatine Monohydrate',
-      'Molecularly Distilled Omega-3 Fish Oil Concentrate',
-      'Coenzyme Q10 (Ubiquinone)',
-      'Bovine Gelatin (Halal)',
-      'Glycerin',
-      'Enteric Aqueous Coating Solution',
-      'Purified Water'
-    ],
-    highlights: [
-      'Mitochondrial & Cardiovascular Support: CoQ10 energizes high-demand cardiac muscle tissue',
-      'Vascular Flexibility: High-potency EPA and DHA support healthy blood lipid levels and arterial elasticity',
-      'Neurological Clarity: The combination of DHA and Creatine fuels cerebral energy pools for memory and focus',
-      'Maximum Digestive Comfort: Micronized creatine suspended in healthy lipids eliminates stomach discomfort'
-    ],
-    directions: 'Take 1 softgel daily with a meal containing dietary fats. For High-Performance Support: Take 1 softgel after breakfast and 1 softgel after dinner. Drink at least 2 liters of water daily. Recommended continuous use: Minimum 90 days.',
-    warnings: 'Dietary supplement only. If taking prescription anticoagulant or antiplatelet drugs (such as Warfarin or Aspirin), consult your physician prior to use due to the natural anti-thrombotic properties of Omega-3. Store below 25°C in a dry environment. Protect from heat and direct sunlight.',
+    shortDescription: '100% pure Creapure-grade micronized creatine monohydrate for strength, power, and muscle fullness.',
+    description: 'Nautilus Creatine Powder is 200-mesh ultra-micronized creatine monohydrate that dissolves instantly in water or juice. Clinically proven to boost ATP synthesis, raw lifting power, and muscular endurance.',
+    headline: '100% Pure Micronized Creapure Monohydrate',
     goal: 'strength',
-    goalName: 'Cellular ATP, Heart & Endurance',
-    rating: 5,
-    reviewCount: 16,
-    tags: ['Creatine Softgels', 'CoQ10', 'Omega-3 EPA DHA', 'Mitochondrial Energy', 'Cardiovascular Support'],
-    whoIsItFor: [
-      'Athletes looking for cellular ATP boost without drinking powder mixes',
-      'Individuals aiming for joint flexibility, heart health, and cognitive stamina',
-      'Users who experience digestive sensitivity with standard creatine powders'
-    ],
-    faqs: [
-      {
-        question: 'Does this softgel cause fishy burps or an unpleasant aftertaste?',
-        answer: 'No. The enteric coating ensures the softgel bypasses stomach acid and dissolves in the small intestine, preventing reflux and fishy odors.'
-      },
-      {
-        question: 'Can this softgel replace standard creatine powder?',
-        answer: 'Yes. For individuals prioritizing steady muscular maintenance, cardiac health, and cognitive stamina without drinking 5g powder mixtures, this softgel is ideal.'
-      },
-      {
-        question: 'Why must it be consumed with food?',
-        answer: 'Both Omega-3 and CoQ10 are lipid-soluble nutrients that require dietary fats for optimal gastrointestinal absorption.'
-      }
-    ]
-  },
-
-  // 5. Fast Protein (Chocolate)
-  {
-    id: 'nautilus-fast-protein-whey-chocolate-5lbs',
-    name: 'Nautilus Fast Protein 100% Whey Protein Concentrate – Rich Dutch Chocolate (5 Lbs / 2.27 kg)',
-    slug: 'nautilus-fast-protein-whey-chocolate-5lbs',
-    brand: 'Nautilus',
-    category: 'whey-protein',
-    categoryName: '100% Whey Protein',
-    price: 15300,
-    salePrice: 15300,
-    weight: '5 LBS (2.27 KG)',
-    servings: 75,
-    servingSize: '30g (1 Level Scoop)',
-    flavors: ['Rich Dutch Chocolate'],
-    stock: 50,
-    inStock: true,
-    isFeatured: true,
-    isBestSeller: true,
-    isNew: true,
-    image: '',
-    gallery: [],
-    shortDescription: 'Ultra-filtered Whey Protein Concentrate (WPC 80%) engineered to digest within 30 to 45 minutes, delivering 25g net protein and 5.8g BCAAs per scoop.',
-    description: 'Nautilus Fast Protein (Rich Dutch Chocolate) is an ultra-filtered Whey Protein Concentrate (WPC 80%) engineered to digest within 30 to 45 minutes, rapidly delivering amino acids to damaged muscle fibers during the critical post-workout anabolic window. Cold-membrane cross-flow filtration retains fragile bioactive whey micro-fractions (Beta-Lactoglobulin, Alpha-Lactalbumin, and Immunoglobulins). Each 30g scoop delivers 25g of net, lab-verified protein with exceptional mixability.',
-    headline: 'High-Velocity Cross-Flow Ultra-Filtered WPC 80% (25g Protein)',
+    goalName: 'Strength',
+    rating: 5.0,
+    reviewCount: 95,
+    tags: ['Creatine', 'Creapure', 'Strength', 'Power', 'Muscle Fullness'],
     nutritionFacts: [
-      { label: 'Energy', amount: '125 kcal', dailyValue: '6%' },
-      { label: 'Protein', amount: '25 g', dailyValue: '50%' },
-      { label: 'Total Carbohydrates', amount: '2.5 g', dailyValue: '<1%' },
-      { label: 'Sugars', amount: '1 g', dailyValue: '†' },
-      { label: 'Total Fat', amount: '1.2 g', dailyValue: '2%' },
-      { label: 'Total BCAAs', amount: '5.8 g', dailyValue: '†' },
-      { label: 'Total Essential Amino Acids (EAAs)', amount: '12.5 g', dailyValue: '†' },
-      { label: 'L-Glutamine + Glutamic Acid', amount: '4.2 g', dailyValue: '†' },
-      { label: 'Calcium', amount: '130 mg', dailyValue: '10%' },
-      { label: 'Sodium', amount: '70 mg', dailyValue: '3%' }
+      { label: 'Micronized Creatine Monohydrate', amount: '5,000 mg', dailyValue: '†' },
+      { label: 'Calories', amount: '0 kcal', dailyValue: '0%' }
     ],
-    ingredients: [
-      'Cross-Flow Cold Ultra-Filtered Whey Protein Concentrate (Milk)',
-      'Soy Lecithin (Instantizing Agent)',
-      'Dutch Process Cocoa Powder',
-      'Silicon Dioxide (E551)',
-      'Sodium Chloride',
-      'Natural and Artificial Flavors',
-      'Sucralose (E955)'
-    ],
+    ingredients: ['100% Pure Creapure Micronized Creatine Monohydrate (200 Mesh)'],
+    directions: 'Mix 1 scoop (5g) daily with 250ml of water, juice, or your post-workout whey shake. Consume consistently every day.',
+    warnings: 'Maintain daily hydration of at least 3 to 4 liters of water.',
     highlights: [
-      'Rapid Anabolic Delivery: Reaches peak plasma amino acid levels within 30–45 minutes to halt muscle breakdown',
-      'Leucine Threshold Activation: Provides 2.7g of natural L-Leucine per scoop to trigger the mTOR pathway',
-      'Lean Muscle Definition: Provides high-yield complete protein with minimal carbohydrates and fats',
-      'Guaranteed Purity: Zero amino spiking, zero added maltodextrin, and zero banned substances'
-    ],
-    directions: 'Mix 1 scoop (30g) with 200–250ml of cold water or skim milk in a shaker cup; shake for 20 seconds.\n• Post-Workout: Consume within 45 minutes of training.\n• Supplemental Use: Take 1 scoop in the morning or between meals to maintain positive nitrogen balance.\nMaintain a daily water intake of 3 to 4 liters.',
-    warnings: 'Contains Milk and Soy derivatives. Not suitable for individuals with dairy allergies. Store below 30°C in low humidity (<60% RH). Reseal the zip-lock pouch securely after each use.',
-    goal: 'muscle-building',
-    goalName: 'Fast-Acting Muscle Protein Synthesis',
-    rating: 5,
-    reviewCount: 42,
-    tags: ['Whey Protein', 'Fast Digestion', 'WPC 80', 'Dutch Chocolate', '25g Protein', '5 LBS'],
-    whoIsItFor: [
-      'Serious lifters wanting immediate post-workout muscle protein synthesis',
-      'Athletes aiming for lean muscle definition with zero added sugars',
-      'Anyone needing a clean, rapid-absorbing daily protein supplement'
+      '5,000mg Creapure Pharmaceutical Grade Creatine per scoop',
+      'Ultra-micronized 200 Mesh for instant solubility',
+      'Unflavored - blends cleanly into any beverage',
+      '60 full servings per 300g tub'
     ],
     faqs: [
-      {
-        question: 'How does Fast Protein differ from whole food protein sources?',
-        answer: 'Whole proteins like beef or eggs require 2 to 4 hours to digest. Fast Protein enters systemic circulation in 30 to 45 minutes, delivering amino acids when muscular recovery demands are highest.'
-      },
-      {
-        question: 'Is there any added sugar in this product?',
-        answer: 'No. It contains only 1g of naturally occurring milk sugar (lactose) per serving, with zero added sucrose or corn syrup solids.'
-      },
-      {
-        question: 'Can Fast Protein be used during a cutting or fat-loss phase?',
-        answer: 'Yes. At just 125 calories and 25g of protein per serving, it promotes muscle retention and supports metabolic satiety during a caloric deficit.'
-      }
-    ]
-  },
-
-  // 6. Fast Protein Vanilla
-  {
-    id: 'nautilus-fast-protein-whey-vanilla-5lbs',
-    name: 'Nautilus Fast Protein 100% Whey Protein Concentrate – French Vanilla Cream (5 Lbs / 2.27 kg)',
-    slug: 'nautilus-fast-protein-whey-vanilla-5lbs',
-    brand: 'Nautilus',
-    category: 'whey-protein',
-    categoryName: '100% Whey Protein',
-    price: 15300,
-    salePrice: 15300,
-    weight: '5 LBS (2.27 KG)',
-    servings: 75,
-    servingSize: '30g (1 Level Scoop)',
-    flavors: ['French Vanilla Cream'],
-    stock: 50,
-    inStock: true,
-    isFeatured: true,
-    isBestSeller: false,
-    isNew: true,
-    image: '',
-    gallery: [],
-    shortDescription: 'High-velocity ultra-filtered 83.3% Whey Protein Concentrate in French Vanilla Cream. 25g pure protein, 5.8g BCAAs, digests in 30-45 minutes.',
-    description: 'Nautilus Fast Protein (French Vanilla Cream) provides the identical high-velocity, ultra-filtered 83.3% Whey Protein Concentrate formulation as our chocolate edition, paired with a smooth natural vanilla flavor. Designed for rapid post-workout digestion, it delivers 25g of pure protein to skeletal muscle tissue within 30 to 45 minutes, supporting lean hypertrophy, high nitrogen retention, and swift muscle recovery.',
-    headline: 'French Vanilla Cream 83.3% High-Velocity Whey Concentrate',
-    nutritionFacts: [
-      { label: 'Energy', amount: '125 kcal', dailyValue: '6%' },
-      { label: 'Protein', amount: '25 g', dailyValue: '50%' },
-      { label: 'Total Carbohydrates', amount: '2.5 g', dailyValue: '<1%' },
-      { label: 'Sugars', amount: '1 g', dailyValue: '†' },
-      { label: 'Total Fat', amount: '1.2 g', dailyValue: '2%' },
-      { label: 'Total BCAAs', amount: '5.8 g', dailyValue: '†' },
-      { label: 'Total EAAs', amount: '12.5 g', dailyValue: '†' },
-      { label: 'L-Glutamine + Glutamic Acid', amount: '4.2 g', dailyValue: '†' },
-      { label: 'Calcium', amount: '130 mg', dailyValue: '10%' },
-      { label: 'Sodium', amount: '65 mg', dailyValue: '3%' }
-    ],
-    ingredients: [
-      'Cross-Flow Cold Ultra-Filtered Whey Protein Concentrate (Milk)',
-      'Soy Lecithin (Instantizing Agent)',
-      'Natural and Artificial Vanilla Flavors',
-      'Silicon Dioxide (E551)',
-      'Sodium Chloride',
-      'Sucralose (E955)'
-    ],
-    highlights: [
-      'Rapid Gastric Uptake: Rapidly metabolizes into functional di- and tri-peptides for immediate post-training muscle recovery',
-      'High EAA Profile: Delivers 12.5g of EAAs, including the critical 2.7g L-Leucine dose required to initiate muscle protein synthesis',
-      'Versatile Clean Flavor: Smooth vanilla profile mixes cleanly with water and blends smoothly into oats, smoothies, or baking recipes',
-      'Pure Quality Standard: Unadulterated dairy protein free of added glycine, taurine, or filler carbohydrates'
-    ],
-    directions: 'Mix 1 scoop (30g) with 200–250ml of cold water or low-fat milk. Shake for 20 seconds.\n• Post-Workout: Consume within 45 minutes of exercise.\n• Between Meals: Consume 1 serving to fulfill calculated daily protein goals.\nDrink 3 to 4 liters of water daily.',
-    warnings: 'Contains Milk and Soy. Store below 30°C away from humidity and heat. Reseal pouch tightly after each opening.',
-    goal: 'muscle-building',
-    goalName: 'Fast-Acting Muscle Protein Synthesis',
-    rating: 5,
-    reviewCount: 31,
-    tags: ['French Vanilla', 'Whey Protein', 'Fast Protein', 'Lean Muscle', 'WPC 80', '5 LBS'],
-    whoIsItFor: [
-      'Athletes preferring a smooth, versatile vanilla base for shakes and oats',
-      'Trainees focused on accelerated post-workout muscle recovery',
-      'Fitness enthusiasts striving for a clean protein boost with low fat'
-    ],
-    faqs: [
-      {
-        question: 'Does this vanilla protein contain artificial food dyes?',
-        answer: 'No. It contains zero synthetic colorants and mixes into a natural, light milky shake.'
-      },
-      {
-        question: 'Does this product differ nutritionally from the chocolate version?',
-        answer: 'Both variants offer identical macronutrient profiles, delivering 25g of net protein and 5.8g of BCAAs per 30g serving.'
-      },
-      {
-        question: 'Can this be blended with fruit or oatmeal?',
-        answer: 'Yes. The French Vanilla profile is engineered to blend easily with fresh fruits, oats, and nut butters without clumping.'
-      }
-    ]
-  },
-
-  // 7. Magnesium
-  {
-    id: 'nautilus-triple-magnesium-complex-60tabs',
-    name: 'Nautilus Triple Magnesium Complex – Glycinate, Citrate & Oxide (60 Tablets)',
-    slug: 'nautilus-triple-magnesium-complex-60tabs',
-    brand: 'Nautilus',
-    category: 'vitamins',
-    categoryName: 'Vitamins & Minerals',
-    price: 2495,
-    salePrice: 2495,
-    weight: '60 Tablets',
-    servings: 60,
-    servingSize: '1 to 2 Film-Coated Tablets',
-    flavors: ['Unflavored'],
-    stock: 50,
-    inStock: true,
-    isFeatured: false,
-    isBestSeller: false,
-    isNew: true,
-    image: '',
-    gallery: [],
-    shortDescription: 'Chelated Glycinate, bioavailable Citrate, and elemental Oxide delivering 400mg pure elemental magnesium per 2 tablets for deep restorative sleep, cramp relief, and GABA support.',
-    description: 'Nautilus Triple Magnesium Complex combines three distinct forms of magnesium—chelated Glycinate, bioavailable Citrate, and elemental Oxide—to deliver complete systemic absorption without gastrointestinal distress. Engineered to deliver 400mg of pure elemental magnesium per 2 tablets, this multi-pathway complex calms central nervous system activity via GABA support, alleviates persistent muscle spasms, supports cardiovascular function, and activates endogenous Vitamin D3.',
-    headline: '400mg Pure Elemental Magnesium (Glycinate + Citrate + Oxide)',
-    nutritionFacts: [
-      { label: 'Elemental Magnesium (from Glycinate, Citrate, Oxide)', amount: '400 mg', dailyValue: '95%' }
-    ],
-    ingredients: [
-      'Magnesium Glycinate (Chelated)',
-      'Magnesium Citrate',
-      'Magnesium Oxide',
-      'Microcrystalline Cellulose (E460)',
-      'Croscarmellose Sodium (E468)',
-      'Magnesium Stearate (E470b)',
-      'Hypromellose Coating (E464)',
-      'Purified Talc'
-    ],
-    highlights: [
-      'Restorative Deep Sleep: Supports natural GABA neurotransmission to ease physical tension and shorten sleep onset latency',
-      'Muscular Cramp Suppression: Acts as a natural calcium channel antagonist to relieve chronic muscle twitching, night cramps, and post-workout tightness',
-      'Vitamin D3 Bioactivation: Provides the required mineral cofactor to enzymatically convert circulating Vitamin D into active form',
-      'Non-Habit Forming: Pure mineral nutrition containing zero synthetic sedatives, melatonin, or addictive compounds'
-    ],
-    directions: 'For Sleep & Relaxation: Take 1 to 2 tablets with water 30 to 60 minutes before bedtime after dinner.\n• For Muscle Spasms / Physical Fatigue: Take 1 tablet after lunch and 1 tablet before sleep.\nAvoid taking at the exact same time as high-calcium meals or dairy supplements, as calcium competes for intestinal absorption pathways.',
-    warnings: 'Dietary supplement only. Do not exceed 2 tablets per day. High doses of magnesium may produce loose stools in sensitive individuals; reduce dosage to 1 tablet daily if this occurs. Store below 30°C in a dry environment. Keep bottle tightly closed.',
-    goal: 'recovery',
-    goalName: 'Restorative Sleep, Cramp Relief & Recovery',
-    rating: 5,
-    reviewCount: 24,
-    tags: ['Magnesium Glycinate', 'Deep Sleep', 'No Cramps', 'GABA Support', 'Muscle Relaxation', 'Tablets'],
-    whoIsItFor: [
-      'Athletes suffering from nocturnal leg cramps, muscle twitches, or chronic tension',
-      'Individuals struggling with poor sleep quality or high daytime stress levels',
-      'Anyone taking Vitamin D3 needing the crucial magnesium cofactor for activation'
-    ],
-    faqs: [
-      {
-        question: 'Will this tablet cause digestive upset or diarrhea?',
-        answer: 'No. Unlike cheap drugstore supplements made entirely of low-grade magnesium oxide, Nautilus balances its formula with gentle, chelated Glycinate and Citrate to ensure digestive tolerance.'
-      },
-      {
-        question: 'Can this product be taken alongside Vitamin D3?',
-        answer: 'Yes. Magnesium is biologically essential for the hepatic and renal activation of Vitamin D3. Taking them together enhances therapeutic efficacy.'
-      },
-      {
-        question: 'Is it safe for continuous, long-term use?',
-        answer: 'Yes. Magnesium is a vital essential mineral that is safe for ongoing daily supplementation at the recommended dose.'
-      }
-    ]
-  },
-
-  // 8. Mass 25 (Chocolate 1kg)
-  {
-    id: 'nautilus-clean-calorie-mass-gainer-chocolate-1kg',
-    name: 'Nautilus Clean Calorie Mass Gainer – Rich Dutch Chocolate (1 kg / 25 Servings)',
-    slug: 'nautilus-clean-calorie-mass-gainer-chocolate-1kg',
-    brand: 'Nautilus Protein',
-    category: 'mass-gainers',
-    categoryName: 'High-Calorie Mass Gainers',
-    price: 6500,
-    salePrice: 6500,
-    weight: '1 KG (2.2 Lbs)',
-    servings: 25,
-    servingSize: '45g (2 Level Scoops)',
-    flavors: ['Rich Dutch Chocolate'],
-    stock: 50,
-    inStock: true,
-    isFeatured: true,
-    isBestSeller: false,
-    isNew: true,
-    image: '',
-    gallery: [],
-    shortDescription: 'Clean calorie mass gainer with optimal 1:2 anabolic protein-to-carbohydrate ratio (15g Protein / 30g Complex Carbs / 1.2g Fat) for lean mass without bloating.',
-    description: 'Nautilus Clean Calorie Mass Gainer (Chocolate) is formulated for athletes, hardgainers, and individuals with elevated metabolic rates who struggle to achieve a caloric surplus through whole food alone. Utilizing an optimal 1:2 anabolic protein-to-carbohydrate ratio, every 45g serving provides 15g of multi-source protein and 30g of complex carbohydrates to fuel hypertrophic muscle growth while limiting unwanted body fat accumulation.',
-    headline: 'Optimal 1:2 Anabolic Macro Ratio (15g Protein : 30g Complex Carbs)',
-    nutritionFacts: [
-      { label: 'Energy', amount: '189 kcal', dailyValue: '9%' },
-      { label: 'Protein', amount: '15 g', dailyValue: '30%' },
-      { label: 'Total Carbohydrates', amount: '30 g', dailyValue: '10%' },
-      { label: 'Sugars', amount: '4 g', dailyValue: '†' },
-      { label: 'Total Fat', amount: '1.2 g', dailyValue: '2%' },
-      { label: 'Fiber', amount: '1 g', dailyValue: '4%' }
-    ],
-    ingredients: [
-      'Complex Carbohydrate Matrix (Maltodextrin, Dextrose Monohydrate)',
-      'Multi-Source Protein Blend (Cross-Flow Whey Protein Concentrate, Milk Protein Isolate, Non-GMO Soy Protein Isolate)',
-      'Skimmed Milk Powder',
-      'Dutch Cocoa Powder',
-      'Natural and Artificial Flavors'
-    ],
-    highlights: [
-      'Controlled Caloric Surplus: Two daily servings deliver an additional 378 clean calories and 30g of protein to facilitate steady, consistent weight gain',
-      'Anabolic 1:2 Macro Ratio: Directs dietary energy toward muscle glycogen synthesis and tissue recovery rather than visceral fat storage',
-      'Multi-Phase Protein Delivery: Blends fast, medium, and sustained-release proteins to keep muscle tissue nourished for hours',
-      'High Digestibility: Mixes cleanly without heavy abdominal bloating or gastric heaviness'
-    ],
-    directions: 'Mix 2 scoops (45g) with 200–250ml of cold water or whole milk. Shake for 20 seconds.\n• Standard Protocol: Consume 1 serving immediately post-workout.\n• Accelerated Weight Gain: Consume 2 servings daily—one mid-morning between meals and one post-workout.\nMixing with whole milk provides additional calories, healthy fats, and a richer milkshake consistency.',
-    warnings: 'Dietary supplement only. Not intended for children under 18 years. Contains Milk and Soy. Store below 30°C in a dry environment. Keep pouch securely sealed.',
-    goal: 'muscle-building',
-    goalName: 'Lean Mass & Healthy Weight Gain',
-    rating: 5,
-    reviewCount: 22,
-    tags: ['Mass Gainer', '1:2 Ratio', 'Clean Calories', 'Weight Gain', 'Dutch Chocolate', '1 KG'],
-    whoIsItFor: [
-      'Hardgainers and skinny athletes struggling to consume enough daily calories',
-      'Trainees seeking lean mass accumulation without excess belly fat',
-      'Individuals with fast metabolisms needing an easy-to-digest caloric surplus'
-    ],
-    faqs: [
-      {
-        question: 'Will this mass gainer result in excess abdominal fat?',
-        answer: 'No, provided it is paired with resistance training. The controlled 1:2 ratio and low 1.2g fat profile are formulated to promote functional lean mass rather than unwanted fat gain.'
-      },
-      {
-        question: 'What is the average expected monthly weight gain?',
-        answer: 'When supported by consistent training and a balanced diet, most users see a steady gain of 2 to 4 kg per month when consuming 2 servings daily.'
-      },
-      {
-        question: 'Are there any unlisted hormones or anabolic steroids in this product?',
-        answer: 'Absolutely not. The formulation is 100% natural, food-derived, and free from any hormones, steroids, or unlisted stimulants.'
-      }
-    ]
-  },
-
-  // 9. Mass 50 (Chocolate 2.25kg)
-  {
-    id: 'nautilus-clean-calorie-mass-gainer-chocolate-2-25kg',
-    name: 'Nautilus Clean Calorie Mass Gainer – Rich Dutch Chocolate (2.25 kg / 50 Servings)',
-    slug: 'nautilus-clean-calorie-mass-gainer-chocolate-2-25kg',
-    brand: 'Nautilus Protein',
-    category: 'mass-gainers',
-    categoryName: 'High-Calorie Mass Gainers',
-    price: 11900,
-    salePrice: 11900,
-    weight: '2.25 KG (5 LBS)',
-    servings: 50,
-    servingSize: '45g (2 Level Scoops)',
-    flavors: ['Rich Dutch Chocolate'],
-    stock: 50,
-    inStock: true,
-    isFeatured: true,
-    isBestSeller: true,
-    isNew: true,
-    image: '',
-    gallery: [],
-    shortDescription: '50 full servings economy pack of Nautilus Mass Gainer. Verified 1:2 ratio (15g Protein / 30g Carbs) for continuous 30-50 day bulking cycles.',
-    description: 'The extended 50-serving economy pack of Nautilus Mass Gainer (Chocolate) is designed for comprehensive 30 to 50-day mass-gaining cycles. Built on the same verified 1:2 protein-to-carbohydrate foundation as the 1 kg edition, this size delivers continuous caloric and macronutrient support to help hardgainers break through stubborn plateaus without excessive sugar intake.',
-    headline: '50-Serving Economy Bulking Pack (15g Protein : 30g Carbs)',
-    nutritionFacts: [
-      { label: 'Energy', amount: '189 kcal', dailyValue: '9%' },
-      { label: 'Protein', amount: '15 g', dailyValue: '30%' },
-      { label: 'Total Carbohydrates', amount: '30 g', dailyValue: '10%' },
-      { label: 'Sugars', amount: '4 g', dailyValue: '†' },
-      { label: 'Total Fat', amount: '1.2 g', dailyValue: '2%' },
-      { label: 'Fiber', amount: '1 g', dailyValue: '4%' }
-    ],
-    ingredients: [
-      'Complex Carbohydrate Blend (Maltodextrin, Dextrose)',
-      'Multi-Stage Protein Blend (Whey Protein Concentrate, Milk Protein, Soy Protein)',
-      'Dutch Cocoa',
-      'Natural and Artificial Flavors',
-      'Emulsifier'
-    ],
-    highlights: [
-      'Sustained Bulking Cycle: 50 full servings provide continuous nutritional support for progressive weight gain',
-      'Muscle Fiber Restoration: Natural BCAAs and glutamine repair broken muscle fibers after heavy training sessions',
-      'Smooth Gastric Transit: Clean carbohydrate sources digest comfortably without post-shake sluggishness',
-      'Cost-Efficient Nutrition: Provides clean mass-building calories at an economical price per serving'
-    ],
-    directions: 'Mix 2 scoops (45g) into 250–300ml of cold water or milk. Shake for 25 seconds.\n• Take 1 serving between breakfast and lunch, and a second serving immediately after exercise.\n• Maintain a total daily fluid intake of at least 3 liters of water.',
-    warnings: 'Store in a cool, dry place below 30°C. Protect from humidity and direct sunlight. Keep package sealed tightly between uses.',
-    goal: 'muscle-building',
-    goalName: 'Extended Bulking Cycle & Muscle Size',
-    rating: 5,
-    reviewCount: 38,
-    tags: ['Mass Gainer 50 Servings', '5 LBS Gainer', 'Bulking Cycle', '1:2 Macro Ratio', 'Dutch Chocolate'],
-    whoIsItFor: [
-      'Athletes embarking on a full 4 to 8 week disciplined bulking cycle',
-      'Gym members looking for the best price-per-serving in clean weight gainers',
-      'Hardgainers needing consistent daily caloric replenishment'
-    ],
-    faqs: [
-      {
-        question: 'How long will this 2.25 kg container last?',
-        answer: 'At 1 serving daily, it provides 50 days of nutritional support. At 2 servings daily (recommended for accelerated mass gains), it covers a 25-day cycle.'
-      },
-      {
-        question: 'Is it better to mix this powder with water or milk?',
-        answer: 'Mixing with milk adds extra protein, calories, and healthy fats, making it ideal for weight gain. Water is best for a lighter, faster-digesting shake.'
-      },
-      {
-        question: 'Can women safely use this mass gainer?',
-        answer: 'Yes. Women seeking to build muscle or achieve a healthy body weight can safely consume 1 serving daily.'
-      }
-    ]
-  },
-
-  // 10. Mass 50 Special Gourmet Edition
-  {
-    id: 'nautilus-mass-gainer-special-gourmet-chocolate-2-25kg',
-    name: 'Nautilus Mass Gainer Special Gourmet Edition – Rich Chocolate (2.25 kg / 50 Servings)',
-    slug: 'nautilus-mass-gainer-special-gourmet-chocolate-2-25kg',
-    brand: 'Nautilus Protein',
-    category: 'mass-gainers',
-    categoryName: 'High-Calorie Mass Gainers',
-    price: 11900,
-    salePrice: 11900,
-    weight: '2.25 KG (5 LBS)',
-    servings: 50,
-    servingSize: '45g (2 Level Scoops)',
-    flavors: ['Special Gourmet Cocoa'],
-    stock: 50,
-    inStock: true,
-    isFeatured: false,
-    isBestSeller: false,
-    isNew: true,
-    image: '',
-    gallery: [],
-    shortDescription: 'Upgraded artisanal gourmet cocoa flavor system for exceptional taste and creaminess. 1:2 anabolic ratio (15g Protein / 30g Carbs) with zero abdominal bloating.',
-    description: 'Nautilus Mass Gainer Special Edition (50 Servings / 2.25 kg) features an upgraded, artisanal flavor system developed to deliver exceptional taste and creaminess. It retains our signature 1:2 anabolic macro ratio (15g Protein to 30g Carbs per serving), fueling muscle hypertrophy and glycogen replenishment while preventing the heavy abdominal bloating common to low-grade gainers.',
-    headline: 'Artisanal Gourmet Cocoa Formulation with Enhanced Solubility',
-    nutritionFacts: [
-      { label: 'Energy', amount: '189 kcal', dailyValue: '9%' },
-      { label: 'Protein', amount: '15 g', dailyValue: '30%' },
-      { label: 'Total Carbohydrates', amount: '30 g', dailyValue: '10%' },
-      { label: 'Sugars', amount: '4 g', dailyValue: '†' },
-      { label: 'Total Fat', amount: '1.2 g', dailyValue: '2%' },
-      { label: 'Fiber', amount: '1 g', dailyValue: '4%' }
-    ],
-    ingredients: [
-      'Precision Carbohydrate Matrix (Maltodextrin, Dextrose)',
-      'Tri-Protein Complex (Cross-Flow WPC, Milk Protein Isolate, Non-GMO Soy Protein)',
-      'Special Edition Gourmet Cocoa Flavor System',
-      'Emulsifier',
-      'Sucralose'
-    ],
-    highlights: [
-      'Upgraded Shake Texture: Formulated for improved solubility, mixing smoothly into a gourmet milkshake consistency',
-      'Reliable Caloric Density: Easily adds 378 to 500 clean calories daily to support positive energy balance',
-      'Sustained Amino Delivery: Whey, milk, and soy proteins ensure prolonged amino acid delivery to muscle tissue',
-      'Controlled Lipids: Low 1.2g fat content ensures gains come primarily from lean mass rather than unwanted fat'
-    ],
-    directions: 'Mix 2 scoops (45g) into 250–300ml of cold milk or water.\n• Consume 1 to 2 servings daily: mid-morning and immediately post-workout.\n• Drink at least 3 liters of water throughout the day.',
-    warnings: 'Dietary supplement only. Store in a cool, dry place below 30°C. Keep container tightly sealed away from moisture.',
-    goal: 'muscle-building',
-    goalName: 'Gourmet Taste & Lean Mass Growth',
-    rating: 5,
-    reviewCount: 20,
-    tags: ['Gourmet Edition', 'Mass Gainer', 'Creamy Milkshake', '50 Servings', 'Rich Chocolate'],
-    whoIsItFor: [
-      'Gourmet milkshake lovers who want rich, indulgent chocolate flavor without artificial aftertaste',
-      'Athletes looking for a smooth, high-calorie shake that mixes effortlessly',
-      'Hardgainers who struggle with standard gainer chalkiness'
-    ],
-    faqs: [
-      {
-        question: 'How does the "Special Edition" differ from standard Mass 50?',
-        answer: 'The Special Edition features an upgraded gourmet flavor profile for superior taste and creaminess, while keeping the same verified nutritional ratios.'
-      },
-      {
-        question: 'Does the Special Edition cost more than the standard Mass 50?',
-        answer: 'No, the price remains identical (PKR 11,900/-) to give customers the best value.'
-      },
-      {
-        question: 'Can this be taken on non-workout days?',
-        answer: 'Yes, take 1 serving between meals on rest days to maintain the caloric surplus required for steady weight gain.'
-      }
-    ]
-  },
-
-  // 11. Mass Vanilla 25 (1kg)
-  {
-    id: 'nautilus-clean-calorie-mass-gainer-vanilla-1kg',
-    name: 'Nautilus Clean Calorie Mass Gainer – French Vanilla Cream (1 kg / 25 Servings)',
-    slug: 'nautilus-clean-calorie-mass-gainer-vanilla-1kg',
-    brand: 'Nautilus Protein',
-    category: 'mass-gainers',
-    categoryName: 'High-Calorie Mass Gainers',
-    price: 6500,
-    salePrice: 6500,
-    weight: '1 KG (2.2 Lbs)',
-    servings: 25,
-    servingSize: '45g (2 Level Scoops)',
-    flavors: ['French Vanilla Cream'],
-    stock: 50,
-    inStock: true,
-    isFeatured: false,
-    isBestSeller: false,
-    isNew: true,
-    image: '',
-    gallery: [],
-    shortDescription: 'Balanced 1:2 bulking nutrition (15g Protein / 30g Carbs) in smooth French Vanilla Cream. Blends easily with oats, peanut butter, and fruit smoothies.',
-    description: 'Nautilus Mass Gainer (French Vanilla Cream) delivers clean, balanced bulking nutrition in a classic, light vanilla flavor. Providing 15g of multi-source protein and 30g of complex carbohydrates per 45g serving, it offers an ideal base for users who prefer a versatile vanilla shake that blends easily with milk, oats, peanut butter, and fruit smoothies.',
-    headline: 'French Vanilla Cream 1:2 Balanced Clean Gainer (1kg)',
-    nutritionFacts: [
-      { label: 'Energy', amount: '189 kcal', dailyValue: '9%' },
-      { label: 'Protein', amount: '15 g', dailyValue: '30%' },
-      { label: 'Total Carbohydrates', amount: '30 g', dailyValue: '10%' },
-      { label: 'Sugars', amount: '4 g', dailyValue: '†' },
-      { label: 'Total Fat', amount: '1.2 g', dailyValue: '2%' },
-      { label: 'Fiber', amount: '0.8 g', dailyValue: '3%' }
-    ],
-    ingredients: [
-      'Complex Carbohydrate Blend (Maltodextrin, Dextrose)',
-      'Multi-Source Protein Blend (Whey Protein Concentrate, Milk Protein, Soy Protein)',
-      'Skimmed Milk Powder',
-      'Natural and Artificial Vanilla Flavors',
-      'Emulsifier (Soy Lecithin)',
-      'Sucralose'
-    ],
-    highlights: [
-      'Clean Hypertrophy Fuel: Supplies the calories and nutrients required to support positive energy balance and muscle growth',
-      'Ideal 1:2 Ratio: Promotes muscle tissue recovery and glycogen replenishment rather than unwanted fat storage',
-      'Versatile Vanilla Base: Complements high-calorie additions like peanut butter, oats, and bananas for homemade calorie shakes',
-      'Steady Amino Release: Whey, milk, and soy proteins support continuous muscle repair over several hours'
-    ],
-    directions: 'Mix 2 scoops (45g) with 200–250ml of whole milk or water in a shaker cup.\n• Consume 1 serving post-workout and/or 1 serving mid-morning.\n• Drink 3 liters of water daily.',
-    warnings: 'Contains Milk and Soy. Store in a cool, dry place below 30°C. Keep pouch tightly sealed.',
-    goal: 'muscle-building',
-    goalName: 'Lean Mass & Muscle Growth',
-    rating: 5,
-    reviewCount: 15,
-    tags: ['Vanilla Mass Gainer', 'Clean Calories', 'Hardgainer', 'Smooth Taste', '1 KG'],
-    whoIsItFor: [
-      'Trainees who love to customize their shakes with fresh banana, peanut butter, and oats',
-      'Athletes preferring a smooth, refreshing vanilla shake over chocolate',
-      'Beginners looking for an approachable 25-serving starter pack'
-    ],
-    faqs: [
-      {
-        question: 'Does the vanilla flavor have an overly sweet or artificial aftertaste?',
-        answer: 'No. It is formulated with a balanced, smooth creaminess that avoids excessive sweetness.'
-      },
-      {
-        question: 'Is the protein content identical to the chocolate variant?',
-        answer: 'Yes, it delivers the exact same 15g protein and 30g carbohydrates per serving.'
-      },
-      {
-        question: 'Can I mix this with oats for breakfast?',
-        answer: 'Yes, the vanilla flavor mixes well into warm or cold oats to create a calorie-dense breakfast.'
-      }
-    ]
-  },
-
-  // 12. Mass Vanilla 50 (2.25kg)
-  {
-    id: 'nautilus-clean-calorie-mass-gainer-vanilla-2-25kg',
-    name: 'Nautilus Clean Calorie Mass Gainer – French Vanilla Cream (2.25 kg / 50 Servings)',
-    slug: 'nautilus-clean-calorie-mass-gainer-vanilla-2-25kg',
-    brand: 'Nautilus Protein',
-    category: 'mass-gainers',
-    categoryName: 'High-Calorie Mass Gainers',
-    price: 11900,
-    salePrice: 11900,
-    weight: '2.25 KG (5 LBS)',
-    servings: 50,
-    servingSize: '45g (2 Level Scoops)',
-    flavors: ['French Vanilla Cream'],
-    stock: 50,
-    inStock: true,
-    isFeatured: false,
-    isBestSeller: false,
-    isNew: true,
-    image: '',
-    gallery: [],
-    shortDescription: 'Large 50-serving economy pack of Nautilus Mass Gainer in French Vanilla Cream. Consistent daily caloric support without excessive sugars or heavy bloating.',
-    description: 'The large 50-serving economy pack of Nautilus Mass Gainer in French Vanilla Cream. Formulated for full 30 to 50-day bulking cycles, it supplies 15g of multi-source protein and 30g of complex carbohydrates per serving. It offers consistent daily caloric support without excessive sugars or heavy digestive bloating.',
-    headline: '50-Serving Economy French Vanilla Clean Calorie Gainer',
-    nutritionFacts: [
-      { label: 'Energy', amount: '189 kcal', dailyValue: '9%' },
-      { label: 'Protein', amount: '15 g', dailyValue: '30%' },
-      { label: 'Total Carbohydrates', amount: '30 g', dailyValue: '10%' },
-      { label: 'Sugars', amount: '4 g', dailyValue: '†' },
-      { label: 'Total Fat', amount: '1.2 g', dailyValue: '2%' },
-      { label: 'Fiber', amount: '0.8 g', dailyValue: '3%' }
-    ],
-    ingredients: [
-      'Complex Carbohydrate Blend (Maltodextrin, Dextrose Monohydrate)',
-      'Protein Matrix (WPC, Milk Protein, Soy Protein)',
-      'Natural and Artificial Vanilla Flavors',
-      'Emulsifier',
-      'Sucralose'
-    ],
-    highlights: [
-      'Extended 50-Serving Supply: Ensures caloric consistency throughout a full mass-building regimen',
-      'Post-Workout Recovery: Rich in natural BCAAs and glutamine to repair muscle tissue after heavy workouts',
-      'Light on Digestion: Formulated to digest smoothly without leaving a heavy, bloated feeling',
-      'Custom Shake Base: Blends easily with whole milk, honey, nut butters, and oats for extra calories'
-    ],
-    directions: 'Mix 2 scoops (45g) into 250–300ml of cold water or milk. Shake for 25 seconds.\n• Consume 1 to 2 servings daily based on personal caloric needs.\n• Maintain a minimum daily water intake of 3 liters.',
-    warnings: 'Store in a cool, dry place below 30°C. Protect from humidity. Keep package sealed tightly between uses.',
-    goal: 'muscle-building',
-    goalName: 'Full Bulking Cycle & Muscle Mass',
-    rating: 5,
-    reviewCount: 26,
-    tags: ['Vanilla 50 Servings', '5 LBS Gainer', 'Bulking Cycle', 'Smooth Shake', 'Mass Gainer'],
-    whoIsItFor: [
-      'Serious lifters running a sustained 2-month bulking regimen',
-      'Individuals who want versatility in flavor to combine with whole food smoothies',
-      'Hardgainers who want high-value caloric density per rupee'
-    ],
-    faqs: [
-      {
-        question: 'Why choose the 2.25 kg pack over the 1 kg pack?',
-        answer: 'The 2.25 kg pack delivers double the servings at a better price per serving, ensuring you maintain a consistent surplus throughout your bulking cycle.'
-      },
-      {
-        question: 'Does it mix easily in a standard shaker cup?',
-        answer: 'Yes, the instantized powders dissolve completely within 25 seconds without clumping.'
-      },
-      {
-        question: 'Will it cause digestive discomfort?',
-        answer: 'No, its balanced carbohydrate and protein profile is formulated for smooth gastric emptying.'
-      }
-    ]
-  },
-
-  // 13. Multivitamin
-  {
-    id: 'nautilus-complete-daily-multivitamin-90tabs',
-    name: 'Nautilus Complete Daily Multivitamin & Mineral Complex (90 Tablets)',
-    slug: 'nautilus-complete-daily-multivitamin-90tabs',
-    brand: 'Nautilus',
-    category: 'vitamins',
-    categoryName: 'Vitamins & Minerals',
-    price: 4500,
-    salePrice: 4500,
-    weight: '90 Tablets',
-    servings: 90,
-    servingSize: '1 Tablet Daily',
-    flavors: ['Unflavored'],
-    stock: 50,
-    inStock: true,
-    isFeatured: true,
-    isBestSeller: false,
-    isNew: true,
-    image: '',
-    gallery: [],
-    shortDescription: 'Comprehensive daily micronutrient formula providing 22 bioavailable vitamins and minerals tailored for everyday metabolic, immune, and vitality support (3 months supply).',
-    description: 'Nautilus Multivitamin is a comprehensive daily micronutrient formula providing 22 bioavailable vitamins and minerals tailored for everyday metabolic and immune support. Designed to address common nutritional gaps, it delivers balanced doses that are safe for daily long-term use—free from excessive mega-doses that can cause nausea or mineral imbalances.',
-    headline: '22 Bioavailable Vitamins & Essential Minerals for Daily Peak Vitality',
-    nutritionFacts: [
-      { label: 'Vitamin B1 (Thiamine)', amount: '2 mg', dailyValue: '182%' },
-      { label: 'Vitamin B2 (Riboflavin)', amount: '2 mg', dailyValue: '154%' },
-      { label: 'Vitamin B3 (Niacinamide)', amount: '20 mg', dailyValue: '125%' },
-      { label: 'Vitamin B5 (Pantothenic Acid)', amount: '5 mg', dailyValue: '83%' },
-      { label: 'Vitamin B6 (Pyridoxine HCl)', amount: '2 mg', dailyValue: '118%' },
-      { label: 'Vitamin B7 (Biotin)', amount: '100 mcg', dailyValue: '200%' },
-      { label: 'Vitamin B9 (Folic Acid)', amount: '400 mcg', dailyValue: '100%' },
-      { label: 'Vitamin B12 (Cyanocobalamin)', amount: '10 mcg', dailyValue: '400%' },
-      { label: 'Vitamin C', amount: '80 mg', dailyValue: '100%' },
-      { label: 'Vitamin D3 (Cholecalciferol)', amount: '1,000 IU (25 mcg)', dailyValue: '167%' },
-      { label: 'Vitamin E', amount: '15 mg', dailyValue: '100%' },
-      { label: 'Vitamin A (Retinol)', amount: '800 mcg', dailyValue: '100%' },
-      { label: 'Zinc (as Zinc Sulphate)', amount: '15 mg', dailyValue: '136%' },
-      { label: 'Magnesium', amount: '250 mg', dailyValue: '65%' },
-      { label: 'Calcium', amount: '100 mg', dailyValue: '10%' },
-      { label: 'Iron (Safe Non-Constipating)', amount: '5 mg', dailyValue: '36%' },
-      { label: 'Selenium', amount: '55 mcg', dailyValue: '100%' },
-      { label: 'Iodine', amount: '150 mcg', dailyValue: '100%' },
-      { label: 'Copper', amount: '0.9 mg', dailyValue: '90%' },
-      { label: 'Manganese', amount: '2 mg', dailyValue: '100%' },
-      { label: 'Chromium', amount: '40 mcg', dailyValue: '100%' }
-    ],
-    ingredients: [
-      'Microcrystalline Cellulose (E460)',
-      'Croscarmellose Sodium (E468)',
-      'Magnesium Stearate (E470b)',
-      'Hypromellose Coating',
-      '22 Essential Bioactive Vitamins and Chelated Minerals'
-    ],
-    highlights: [
-      'Cellular Energy Production: Complete B-vitamin profile aids the enzymatic conversion of food into ATP, reducing daytime fatigue',
-      'Immune System Defense: Synergistic doses of Vitamin C, D3, Zinc, and Selenium support white blood cell activity',
-      'Balanced Iron Profile: Contains a safe 5mg dose of iron, avoiding constipation and iron-overload risks',
-      'Hair, Skin & Nails: Delivers targeted amounts of Biotin, Zinc, and Vitamin E to support healthy collagen and keratin structures'
-    ],
-    directions: 'Take 1 tablet daily with a full glass of water immediately following breakfast or lunch.\n• Always take with or right after a meal for optimal absorption of fat-soluble vitamins (A, D, E).\n• Avoid taking with strong tea or coffee, as tannins can interfere with mineral absorption.',
-    warnings: 'Dietary supplement only. Keep out of reach of children (contains iron). Do not exceed 1 tablet per day. If taking thyroid medications (e.g., Levothyroxine), keep a 4-hour window between doses. Store below 30°C in a dry area.',
-    goal: 'vitality',
-    goalName: 'Immune Defense, Micronutrients & Energy',
-    rating: 5,
-    reviewCount: 35,
-    tags: ['Daily Multivitamin', 'Immune Support', 'B-Complex', 'Vitamin D3 1000IU', 'Zinc 15mg', '90 Tablets'],
-    whoIsItFor: [
-      'Active trainees with elevated metabolic micronutrient requirements',
-      'Working professionals seeking sustained daily focus and stamina',
-      'Anyone looking to cover dietary nutritional gaps with clean, safe daily dosing'
-    ],
-    faqs: [
-      {
-        question: 'Can men take this multivitamin safely given that it contains iron?',
-        answer: 'Yes. Many generic multivitamins carry 18mg of iron, which can accumulate in men. Nautilus uses a low 5mg dose that supports daily red blood cell health without risking iron overload.'
-      },
-      {
-        question: 'Why should it be taken after a meal?',
-        answer: 'Fat-soluble vitamins (A, D, E) require dietary lipids for proper absorption, and taking vitamins on an empty stomach can occasionally cause mild nausea.'
-      },
-      {
-        question: 'Does this product contain any stimulants or caffeine?',
-        answer: 'No. All energy-supporting benefits come entirely from essential B-vitamins that facilitate natural cellular energy production.'
-      }
-    ]
-  },
-
-  // 14. Nautilus Shaker Bottle
-  {
-    id: 'nautilus-premium-leak-proof-gym-shaker-700ml',
-    name: 'Nautilus Premium Leak-Proof Gym Shaker Bottle (700 ml / 24 oz)',
-    slug: 'nautilus-premium-leak-proof-gym-shaker-700ml',
-    brand: 'Nautilus Protein',
-    category: 'accessories',
-    categoryName: 'Accessories & Gear',
-    price: 950,
-    salePrice: 950,
-    weight: '700 ml (24 oz)',
-    servings: 'N/A',
-    servingSize: '700ml Capacity',
-    flavors: ['Black & Red Accent'],
-    stock: 100,
-    inStock: true,
-    isFeatured: false,
-    isBestSeller: false,
-    isNew: true,
-    image: '',
-    gallery: [],
-    shortDescription: '100% BPA-free and DEHP-free leak-proof gym shaker bottle with surgical stainless steel wire whisk ball for instant clump-free mixing of protein and gainers.',
-    description: 'The Nautilus Premium Gym Shaker Bottle is engineered for smooth, clump-free protein and supplement mixing. Manufactured from 100% food-grade, BPA-free and DEHP-free plastic, it features an embossed measurement scale (in both ml and oz), a secure leak-proof flip cap, and a heavy-duty stainless steel wire whisk ball that breaks down thick powders in seconds.',
-    headline: '100% Leak-Proof BPA-Free Shaker with Stainless Steel Whisk Ball',
-    nutritionFacts: [],
-    ingredients: [
-      '100% BPA-Free & Non-Toxic Food Grade Polypropylene (PP)',
-      'Surgical Grade Stainless Steel Wire Whisk Ball'
-    ],
-    highlights: [
-      '100% Leak-Proof Guarantee: Precision screw-on lid and locking flip cap prevent spills in gym bags',
-      'Clump-Free Shakes: Wire whisk ball breaks up stubborn powders like mass gainers, whey protein, and BCAAs in under 20 seconds',
-      'Odor-Resistant Material: High-density, food-safe plastic resists residual protein shake odors with regular washing',
-      'Easy-to-Read Markings: Clear embossed milliliter (ml) and ounce (oz) markings for accurate liquid measurement'
-    ],
-    directions: 'Add liquid first, then add your scoop of supplement powder. Insert the wire whisk ball, screw lid on tightly, snap the flip cap shut, and shake vigorously for 20 seconds. Wash with warm soapy water immediately after each use. Dishwasher safe (top rack recommended). Do not use with boiling water or carbonated beverages.',
-    warnings: 'Do not use with boiling water or hot liquids as pressure buildup can cause the lid to open. Top-rack dishwasher safe. Do not place in microwave.',
-    goal: 'recovery',
-    goalName: 'Hydration & Supplement Mixing',
-    rating: 5,
-    reviewCount: 45,
-    tags: ['Gym Shaker', 'BPA Free', 'Whisk Ball', 'Leak Proof', '700ml', 'Accessories'],
-    whoIsItFor: [
-      'Gym-goers needing a reliable, spill-proof bottle for workout shakes',
-      'Athletes mixing mass gainers, whey protein, or intra-workout BCAAs',
-      'Anyone needing accurate volume measurement for fitness nutrition'
-    ],
-    faqs: [
-      {
-        question: 'Is this shaker bottle microwave or dishwasher safe?',
-        answer: 'It is top-rack dishwasher safe. Do not place in the microwave.'
-      },
-      {
-        question: 'Is the plastic safe and chemical-free?',
-        answer: 'Yes, it is 100% free of BPA, DEHP, and harmful plastic toxins.'
-      },
-      {
-        question: 'Can it handle thick mass gainer shakes?',
-        answer: 'Yes, the included stainless steel whisk ball easily breaks down dense mass gainer powders without leaving lumps.'
-      }
-    ]
-  },
-
-  // 15. Whey 33 (Chocolate 1kg)
-  {
-    id: 'nautilus-pure-whey-concentrate-chocolate-1kg',
-    name: 'Nautilus 100% Pure Whey Protein Concentrate – Rich Dutch Chocolate (1 kg / 33 Servings)',
-    slug: 'nautilus-pure-whey-concentrate-chocolate-1kg',
-    brand: 'Nautilus Protein',
-    category: 'whey-protein',
-    categoryName: '100% Whey Protein',
-    price: 6500,
-    salePrice: 6500,
-    weight: '1 KG (1000g)',
-    servings: 33,
-    servingSize: '30g (1 Level Scoop)',
-    flavors: ['Rich Dutch Chocolate'],
-    stock: 50,
-    inStock: true,
-    isFeatured: true,
-    isBestSeller: false,
-    isNew: true,
-    image: '',
-    gallery: [],
-    shortDescription: 'Ultra-filtered WPC 80 delivering 25g net protein (83.3% concentration), 5.8g BCAAs, and 2.7g Leucine per 30g scoop with minimal carbs and fat.',
-    description: 'Nautilus 100% Whey Protein (Chocolate) provides an ultra-filtered Whey Protein Concentrate (WPC 80%) designed for muscle recovery, strength development, and lean physique goals. Each 30g scoop delivers 25g of net protein (83.3% concentration) while keeping carbohydrates and fats low. Cold-filtration processing preserves native bioactive fractions like immunoglobulins and lactoferrin, ensuring complete bioavailability and smooth mixability.',
-    headline: 'Pure Ultra-Filtered WPC 80% (25g Protein per 30g Scoop)',
-    nutritionFacts: [
-      { label: 'Calories', amount: '125 kcal', dailyValue: '6%' },
-      { label: 'Protein', amount: '25 g', dailyValue: '50%' },
-      { label: 'Total Carbohydrates', amount: '2.5 g', dailyValue: '<1%' },
-      { label: 'Sugars', amount: '1 g', dailyValue: '†' },
-      { label: 'Total Fat', amount: '1.2 g', dailyValue: '2%' },
-      { label: 'Total BCAAs', amount: '5.8 g', dailyValue: '†' },
-      { label: 'Total Essential Amino Acids (EAAs)', amount: '12.5 g', dailyValue: '†' },
-      { label: 'L-Leucine', amount: '2.7 g', dailyValue: '†' },
-      { label: 'Glutamine & Precursors', amount: '4.2 g', dailyValue: '†' },
-      { label: 'Calcium', amount: '130 mg', dailyValue: '10%' },
-      { label: 'Cholesterol', amount: '45 mg', dailyValue: '15%' }
-    ],
-    ingredients: [
-      'Cross-Flow Ultra-Filtered Whey Protein Concentrate (Milk)',
-      'Soy Lecithin (Instantizer)',
-      'Dutch Cocoa Powder',
-      'Silicon Dioxide (E551)',
-      'Flavors',
-      'Sucralose (E955)'
-    ],
-    highlights: [
-      'Optimal Leucine Content: Supplies 2.7g of natural L-Leucine per scoop to trigger muscle protein synthesis (MPS)',
-      'Superior Absorption: High Biological Value (BV 104) ensures rapid uptake and efficient nitrogen retention',
-      'Lean Muscle Support: High protein yield with minimal sugars and fats, ideal for lean muscle growth or cutting phases',
-      'Clean Quality Standards: Zero amino spiking (no added glycine or taurine), zero maltodextrin, and zero banned substances'
-    ],
-    directions: 'Mix 1 scoop (30g) with 200–250ml of cold water or skim milk in a shaker cup. Shake for 20 seconds.\n• Post-Workout: Consume within 45 minutes of training during the recovery window.\n• Non-Training Days: Consume 1 scoop between meals to help meet daily protein requirements.\nMaintain a daily water intake of 3 to 4 liters.',
-    warnings: 'Contains Milk and Soy derivatives. Not suitable for individuals with dairy allergies. Store below 30°C in low humidity (<60% RH). Keep container tightly sealed. Use within 90 days of opening.',
-    goal: 'muscle-building',
-    goalName: 'Lean Muscle Hypertrophy & Recovery',
-    rating: 5,
-    reviewCount: 30,
-    tags: ['Pure Whey', 'Dutch Chocolate', '25g Protein', 'WPC 80', '1 KG', '33 Servings'],
-    whoIsItFor: [
-      'Gym lifters seeking pure muscle protein without extra sugars or bulk calories',
-      'Athletes in a cutting or body recomp phase prioritizing protein purity',
-      'Anyone wanting a convenient 1-month supply of clean whey protein'
-    ],
-    faqs: [
-      {
-        question: 'Has this protein been amino spiked?',
-        answer: 'No. Every batch is lab-tested. The 25g protein claim represents complete, intact dairy protein, with no free-form amino acids added to artificially inflate protein readings.'
-      },
-      {
-        question: 'Is it better to mix with water or milk?',
-        answer: 'Water is recommended post-workout for faster digestion and absorption. Skim or low-fat milk can be used between meals for added thickness, calories, and a creamier taste.'
-      },
-      {
-        question: 'Is Nautilus Whey Protein Halal?',
-        answer: 'Yes. It is 100% Halal certified, manufactured using microbial, non-animal rennet during the whey separation process.'
-      }
-    ]
-  },
-
-  // 16. Whey 75 (Chocolate 2.25kg)
-  {
-    id: 'nautilus-pure-whey-concentrate-chocolate-2-25kg',
-    name: 'Nautilus 100% Pure Whey Protein Concentrate – Rich Dutch Chocolate (2.25 kg / 75 Servings)',
-    slug: 'nautilus-pure-whey-concentrate-chocolate-2-25kg',
-    brand: 'Nautilus Protein',
-    category: 'whey-protein',
-    categoryName: '100% Whey Protein',
-    price: 14700,
-    salePrice: 14700,
-    weight: '2.25 KG (2250g / 5 LBS)',
-    servings: 75,
-    servingSize: '30g (1 Level Scoop)',
-    flavors: ['Rich Dutch Chocolate'],
-    stock: 50,
-    inStock: true,
-    isFeatured: true,
-    isBestSeller: true,
-    isNew: true,
-    image: '',
-    gallery: [],
-    shortDescription: 'Large-format 75-serving container of Nautilus 100% Whey Protein (Chocolate). 25g pure protein, 5.8g BCAAs, cold-membrane filtered WPC 80.',
-    description: 'The large-format 75-serving container of Nautilus 100% Whey Protein (Chocolate). Designed for regular trainees and athletes requiring an uninterrupted supply of clean whey protein. It provides the same verified 83.3% protein concentration as the 1 kg version, delivering 25g of pure protein per 30g scoop with minimal fat and lactose.',
-    headline: '75-Serving Economy Tub: 25g Complete Bioactive Protein',
-    nutritionFacts: [
-      { label: 'Energy', amount: '125 kcal', dailyValue: '6%' },
-      { label: 'Protein', amount: '25 g', dailyValue: '50%' },
-      { label: 'Total Carbohydrates', amount: '2.5 g', dailyValue: '<1%' },
-      { label: 'Sugars', amount: '1 g', dailyValue: '†' },
-      { label: 'Total Fat', amount: '1.2 g', dailyValue: '2%' },
-      { label: 'Total BCAAs', amount: '5.8 g', dailyValue: '†' },
-      { label: 'Total EAAs', amount: '12.5 g', dailyValue: '†' },
-      { label: 'L-Leucine', amount: '2.7 g', dailyValue: '†' },
-      { label: 'Glutamine & Precursors', amount: '4.2 g', dailyValue: '†' },
-      { label: 'Calcium', amount: '130 mg', dailyValue: '10%' },
-      { label: 'Cholesterol', amount: '45 mg', dailyValue: '15%' }
-    ],
-    ingredients: [
-      'Ultra-Filtered Whey Protein Concentrate (Milk)',
-      'Soy Lecithin (E322)',
-      'Dutch Cocoa Powder',
-      'Silicon Dioxide (E551)',
-      'Sodium Chloride',
-      'Flavors',
-      'Sweetener (Sucralose)'
-    ],
-    highlights: [
-      '75 Full Servings: Large-format size offers reliable value for extended training cycles',
-      'Accelerated Recovery: Delivers complete essential amino acids to reduce post-exercise muscle soreness (DOMS)',
-      'Preserved Bio-Fractions: Cold-filtration preserves natural immunoglobulins to support immune health during periods of heavy training',
-      'Instant Mixability: Formulated to dissolve easily with a shaker cup, leaving zero chalky residue'
-    ],
-    directions: 'Mix 1 scoop (30g) with 200–250ml of cold water or low-fat milk. Shake for 20 seconds.\n• Consume 1 to 2 servings daily based on your total daily protein target (typically 1.6g–2.0g of protein per kg of body weight).\n• Ensure adequate daily hydration (3 to 4 liters of water).',
-    warnings: 'Contains Milk and Soy. Store in a cool, dry place below 30°C. Protect from excess humidity. Always use a clean, dry scoop and reseal tightly after each use.',
-    goal: 'muscle-building',
-    goalName: 'Lean Muscle Hypertrophy & Strength',
-    rating: 5,
-    reviewCount: 48,
-    tags: ['Whey 75 Servings', '5 LBS Tub', 'Dutch Chocolate', '25g Protein', 'WPC 80'],
-    whoIsItFor: [
-      'Serious lifters wanting continuous 2.5 months of top-tier protein supply',
-      'Athletes with high daily protein demands needing the best cost efficiency',
-      'Trainers and bodybuilders dedicated to continuous muscle protein synthesis'
-    ],
-    faqs: [
-      {
-        question: 'How long will this 5 Lbs container last?',
-        answer: 'When consuming 1 scoop daily, it provides a 75-day supply (2.5 months). At 2 scoops daily, it provides over 5 weeks of continuous supplementation.'
-      },
-      {
-        question: 'Can I use this protein if I am lactose sensitive?',
-        answer: 'Cross-flow ultrafiltration reduces lactose to under 4% per serving, making it easily tolerated by most individuals with mild dairy sensitivities. Those with diagnosed dairy allergies should avoid it.'
-      },
-      {
-        question: 'Does it mix easily without a blender?',
-        answer: 'Yes. The powder is instantized with lecithin, allowing it to dissolve completely in a regular shaker cup within 20 seconds.'
-      }
-    ]
-  },
-
-  // 17. Whey Vanilla 33 (1kg)
-  {
-    id: 'nautilus-pure-whey-concentrate-vanilla-1kg',
-    name: 'Nautilus 100% Pure Whey Protein Concentrate – French Vanilla Cream (1 kg / 33 Servings)',
-    slug: 'nautilus-pure-whey-concentrate-vanilla-1kg',
-    brand: 'Nautilus Protein',
-    category: 'whey-protein',
-    categoryName: '100% Whey Protein',
-    price: 6500,
-    salePrice: 6500,
-    weight: '1 KG (1000g)',
-    servings: 33,
-    servingSize: '30g (1 Level Scoop)',
-    flavors: ['French Vanilla Cream'],
-    stock: 50,
-    inStock: true,
-    isFeatured: false,
-    isBestSeller: false,
-    isNew: true,
-    image: '',
-    gallery: [],
-    shortDescription: '25g pure ultra-filtered whey protein concentrate per 30g scoop in a smooth, light vanilla cream flavor (83.3% purity grade).',
-    description: 'Nautilus 100% Whey Protein (French Vanilla) provides 25g of pure, ultra-filtered whey protein concentrate per 30g scoop in a smooth, light vanilla cream flavor. It delivers the same verified 83.3% protein purity as our chocolate variant, ensuring rapid amino acid uptake and maximum muscle protein synthesis with zero grittiness.',
-    headline: 'French Vanilla Cream 83.3% WPC (1kg / 33 Servings)',
-    nutritionFacts: [
-      { label: 'Calories', amount: '125 kcal', dailyValue: '6%' },
-      { label: 'Protein', amount: '25 g', dailyValue: '50%' },
-      { label: 'Total Carbohydrates', amount: '2.5 g', dailyValue: '<1%' },
-      { label: 'Sugars', amount: '1 g', dailyValue: '†' },
-      { label: 'Total Fat', amount: '1.2 g', dailyValue: '2%' },
-      { label: 'Total BCAAs', amount: '5.8 g', dailyValue: '†' },
-      { label: 'Total EAAs', amount: '12.5 g', dailyValue: '†' },
-      { label: 'L-Leucine', amount: '2.7 g', dailyValue: '†' },
-      { label: 'Glutamine & Glutamic Acid', amount: '4.2 g', dailyValue: '†' },
-      { label: 'Calcium', amount: '130 mg', dailyValue: '10%' },
-      { label: 'Cholesterol', amount: '45 mg', dailyValue: '15%' }
-    ],
-    ingredients: [
-      'Cross-Flow Ultra-Filtered Whey Protein Concentrate (Milk)',
-      'Soy Lecithin (E322)',
-      'Natural and Artificial Vanilla Flavors',
-      'Silicon Dioxide (E551)',
-      'Salt',
-      'Sucralose'
-    ],
-    highlights: [
-      'Fast Digestive Uptake: Absorbs within 30 to 45 minutes to initiate post-workout tissue repair',
-      'Complete Amino Profile: Supplies all 9 essential amino acids to support lean muscle hypertrophy',
-      'Smooth Vanilla Profile: Clean and versatile flavor that blends easily into smoothies, shakes, or breakfast bowls',
-      'Low Carb & Fat: Supports muscle retention during fat-loss cutting phases'
-    ],
-    directions: 'Mix 1 scoop (30g) with 200–250ml of cold water or milk in a shaker cup. Shake for 20 seconds.\n• Post-Workout: Take within 45 minutes of training.\n• Drink 3 to 4 liters of water daily.',
-    warnings: 'Contains Milk and Soy. Store in a cool, dry place below 30°C. Reseal pouch tightly after each use.',
-    goal: 'muscle-building',
-    goalName: 'Lean Muscle Hypertrophy & Recovery',
-    rating: 5,
-    reviewCount: 18,
-    tags: ['Vanilla Whey', 'WPC 80', '1 KG', '33 Servings', '25g Protein'],
-    whoIsItFor: [
-      'Athletes preferring light, natural vanilla shakes with zero artificial aftertaste',
-      'Smoothie and oatmeal enthusiasts who want an easy-blending protein powder',
-      'Fitness enthusiasts striving for lean muscle tone'
-    ],
-    faqs: [
-      {
-        question: 'Is the protein quality the same as the chocolate flavor?',
-        answer: 'Yes, both variants use identical WPC 80% raw material and deliver exactly 25g of protein per 30g scoop.'
-      },
-      {
-        question: 'Can this be taken with milk?',
-        answer: 'Yes, mixing with skim or low-fat milk produces a rich vanilla milkshake flavor.'
-      },
-      {
-        question: 'Does it leave a chemical aftertaste?',
-        answer: 'No, it is formulated with natural vanilla extracts for a clean, natural taste.'
-      }
-    ]
-  },
-
-  // 18. Whey Vanilla 75 (2.25kg)
-  {
-    id: 'nautilus-pure-whey-concentrate-vanilla-2-25kg',
-    name: 'Nautilus 100% Pure Whey Protein Concentrate – French Vanilla Cream (2.25 kg / 75 Servings)',
-    slug: 'nautilus-pure-whey-concentrate-vanilla-2-25kg',
-    brand: 'Nautilus Protein',
-    category: 'whey-protein',
-    categoryName: '100% Whey Protein',
-    price: 14700,
-    salePrice: 14700,
-    weight: '2.25 KG (2250g / 5 LBS)',
-    servings: 75,
-    servingSize: '30g (1 Level Scoop)',
-    flavors: ['French Vanilla Cream'],
-    stock: 50,
-    inStock: true,
-    isFeatured: false,
-    isBestSeller: false,
-    isNew: true,
-    image: '',
-    gallery: [],
-    shortDescription: 'Large 75-serving value tub of Nautilus 100% Whey Protein in French Vanilla Cream. 25g protein, 5.8g BCAAs, 2.7g Leucine per scoop.',
-    description: 'The large 75-serving value pack of Nautilus 100% Whey Protein in French Vanilla Cream. Formulated with ultra-filtered Whey Protein Concentrate (83.3% net protein), each scoop supplies 25g of high-biological-value protein with 5.8g of naturally occurring BCAAs. Designed for serious trainees who require a consistent, long-term supply of clean protein.',
-    headline: '75 Servings French Vanilla Cream Economy Pack (5 LBS)',
-    nutritionFacts: [
-      { label: 'Calories', amount: '125 kcal', dailyValue: '6%' },
-      { label: 'Protein', amount: '25 g', dailyValue: '50%' },
-      { label: 'Total Carbohydrates', amount: '2.5 g', dailyValue: '<1%' },
-      { label: 'Sugars', amount: '1 g', dailyValue: '†' },
-      { label: 'Total Fat', amount: '1.2 g', dailyValue: '2%' },
-      { label: 'Total BCAAs', amount: '5.8 g', dailyValue: '†' },
-      { label: 'Total EAAs', amount: '12.5 g', dailyValue: '†' },
-      { label: 'L-Leucine', amount: '2.7 g', dailyValue: '†' },
-      { label: 'Glutamine & Glutamic Acid', amount: '4.2 g', dailyValue: '†' },
-      { label: 'Calcium', amount: '130 mg', dailyValue: '10%' },
-      { label: 'Cholesterol', amount: '45 mg', dailyValue: '15%' }
-    ],
-    ingredients: [
-      'Cross-Flow Ultra-Filtered Whey Protein Concentrate (Milk)',
-      'Soy Lecithin',
-      'Vanilla Flavor System',
-      'Silicon Dioxide',
-      'Sodium Chloride',
-      'Sucralose'
-    ],
-    highlights: [
-      '75 Servings Economy Tub: Sustained supply for up to 2.5 months of consistent daily supplementation',
-      'Anabolic Trigger: Delivers 2.7g of natural L-Leucine per serving to activate muscle protein synthesis',
-      'Rapid Muscle Repair: Helps decrease recovery time and alleviate post-exercise soreness',
-      'Clean Formulation: Zero amino spiking, zero added sugars, and zero banned ingredients'
-    ],
-    directions: 'Mix 1 scoop (30g) with 200–250ml of cold water or low-fat milk. Shake for 20 seconds.\n• Take 1 to 2 servings daily based on your daily protein requirements.\n• Maintain adequate daily water intake (3 to 4 liters).',
-    warnings: 'Contains Milk and Soy. Store in a cool, dry place below 30°C. Protect from moisture and direct sunlight.',
-    goal: 'muscle-building',
-    goalName: 'Lean Muscle Hypertrophy & Strength',
-    rating: 5,
-    reviewCount: 22,
-    tags: ['Vanilla 75 Servings', '5 LBS Tub', 'French Vanilla', 'WPC 80', 'Clean Protein'],
-    whoIsItFor: [
-      'Athletes looking for a bulk economy tub of versatile vanilla protein',
-      'Trainees who consume multiple protein shakes daily',
-      'Anyone wanting lab-verified pure protein at an economical price'
-    ],
-    faqs: [
-      {
-        question: 'How long will 75 servings last?',
-        answer: 'At 1 scoop per day, it provides a full 75-day supply. At 2 scoops daily, it covers a 37-day training block.'
-      },
-      {
-        question: 'Does this vanilla flavor contain added sugar?',
-        answer: 'No, it contains only 1g of naturally occurring milk sugar per scoop and zero added refined sugars.'
-      },
-      {
-        question: 'Can this be taken before sleeping?',
-        answer: 'Yes, though it is fast-digesting. For overnight recovery, taking it with milk helps slow digestion.'
-      }
-    ]
-  },
-
-  // 19. Zinc
-  {
-    id: 'nautilus-high-absorption-elemental-zinc-20mg-90tabs',
-    name: 'Nautilus High-Absorption Elemental Zinc 20 mg – Advanced Zinc Sulphate Formula (90 Tablets)',
-    slug: 'nautilus-high-absorption-elemental-zinc-20mg-90tabs',
-    brand: 'Nautilus',
-    category: 'vitamins',
-    categoryName: 'Vitamins & Minerals',
-    price: 3500,
-    salePrice: 3500,
-    weight: '90 Tablets',
-    servings: 90,
-    servingSize: '1 Film-Coated Tablet Daily',
-    flavors: ['Unflavored'],
-    stock: 50,
-    inStock: true,
-    isFeatured: false,
-    isBestSeller: false,
-    isNew: true,
-    image: '',
-    gallery: [],
-    shortDescription: 'Optimized 20mg clinical dose of pure elemental zinc per tablet (Zinc Sulphate Monohydrate). Regulates immune T-cells, testosterone synthesis, and hair follicle stability without nausea.',
-    description: 'Nautilus Zinc provides an optimized 20mg dose of pure elemental zinc per film-coated tablet, derived from bioavailable Zinc Sulphate Monohydrate. Zinc is an essential trace mineral and a vital cofactor for over 300 enzymatic reactions in the body, regulating immune cell activity, dermal tissue repair, hair follicle stability, and testosterone production. The 20mg clinical potency corrects nutritional deficiencies safely, avoiding the stomach discomfort and copper depletion often caused by excessive 50mg doses.',
-    headline: '20mg Optimized Clinical Elemental Zinc (from Zinc Sulphate Monohydrate)',
-    nutritionFacts: [
-      { label: 'Elemental Zinc (from Zinc Sulphate Monohydrate)', amount: '20 mg', dailyValue: '182%' }
-    ],
-    ingredients: [
-      'Zinc Sulphate Monohydrate',
-      'Microcrystalline Cellulose (E460)',
-      'Croscarmellose Sodium (E468)',
-      'Magnesium Stearate (E470b)',
-      'Hypromellose Coating (E464)',
-      'Purified Talc (E553b)'
-    ],
-    highlights: [
-      'Strengthens Immune Defense: Essential for the activation of T-lymphocytes and natural killer cells, helping reduce the duration of seasonal colds',
-      'Hormonal Support: Plays a key role in the production of Luteinizing Hormone (LH), helping maintain healthy testosterone levels in active men',
-      'Follicular & Scalp Health: Supports protein synthesis in the hair matrix, helping reduce telogen-phase hair shedding',
-      'Skin Clarifying: Helps regulate sebaceous gland activity and reduces inflammatory skin responses'
-    ],
-    directions: 'Take 1 tablet daily with a glass of water.\n• For Maximum Absorption: Take on an empty stomach (1 hour before or 2 hours after meals).\n• For Sensitive Stomachs: If mild stomach sensitivity occurs, take alongside a meal (avoiding dairy).\n• Keep a 2-hour window away from iron supplements, calcium tablets, or caffeine, as they can reduce zinc absorption.',
-    warnings: 'Dietary supplement only. Do not exceed 1 tablet per day. Long-term use of zinc without copper should be limited to 3–6 months continuous cycles. If taking antibiotics (Quinolones or Tetracyclines), take at least 4 hours apart. Store below 30°C in a dry place. Keep bottle tightly closed.',
-    goal: 'vitality',
-    goalName: 'Immune Defense, Testosterone & Cellular Health',
-    rating: 5,
-    reviewCount: 27,
-    tags: ['Elemental Zinc', 'Zinc 20mg', 'Testosterone Support', 'Immune Health', 'Anti-Hair Shedding', '90 Tablets'],
-    whoIsItFor: [
-      'Athletes looking to optimize natural testosterone synthesis and recovery',
-      'Individuals dealing with seasonal immune stress or slow wound healing',
-      'Anyone suffering from telogen effluvium hair shedding and skin blemishes'
-    ],
-    faqs: [
-      {
-        question: 'Why is this formula 20mg instead of 50mg?',
-        answer: 'The body\'s daily requirement is 11mg, with an upper limit of 40mg. Daily doses of 50mg often cause nausea and can lead to copper deficiency. A 20mg dose provides effective support safely for daily long-term use.'
-      },
-      {
-        question: 'Can this help with hair loss?',
-        answer: 'Yes. Zinc deficiency is a recognized cause of diffuse hair shedding (Telogen Effluvium). Supplementing with zinc helps restore normal cellular turnover in the hair follicle.'
-      },
-      {
-        question: 'Can I take Zinc together with my Multivitamin?',
-        answer: 'If your multivitamin already provides 15mg of zinc, you do not need to take a separate zinc supplement at the same time unless recommended by a healthcare professional.'
-      }
+      { question: 'Do I need a loading phase?', answer: 'A loading phase is optional. 5g daily consistently builds and saturates muscle phosphocreatine stores within 2–3 weeks.' },
+      { question: 'Will it dissolve completely?', answer: 'Yes! Because it is 200-mesh micronized, it dissolves with a simple stir.' }
     ]
   }
 ];

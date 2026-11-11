@@ -17,7 +17,7 @@ export const FaqsPage: React.FC = () => {
     },
     {
       q: 'What payment options do you support?',
-      a: 'We support Cash on Delivery (COD) across Pakistan. In addition, we accept Direct Online Bank Transfers (Meezan Bank & HBL), JazzCash (0325 2571589), and Easypaisa (0325 2571589).'
+      a: 'We support Cash on Delivery (COD) across Pakistan. In addition, we accept Direct Online Bank Transfers (Meezan Bank & HBL), JazzCash (0333 2499499), and Easypaisa (0333 2499499).'
     },
     {
       q: 'What is the Free Delivery policy?',
@@ -25,7 +25,7 @@ export const FaqsPage: React.FC = () => {
     },
     {
       q: 'What should I do if I have specific dietary goals or allergies?',
-      a: 'Every product page contains our verified nutrition facts, ingredient lists, and allergen warnings. You can also message our WhatsApp Athlete Support team at +92 325 2571589 for personalized stack guidance.'
+      a: 'Every product page contains our verified nutrition facts, ingredient lists, and allergen warnings. You can also message our WhatsApp Athlete Support team at +92 333 2499499 for personalized stack guidance.'
     },
     {
       q: 'Can I track my order once dispatched?',
@@ -97,13 +97,13 @@ export const FaqsPage: React.FC = () => {
         </p>
         <div className="flex flex-wrap justify-center gap-3 pt-2">
           <a
-            href="https://wa.me/923252571589?text=Hello%20Nautilus%20Protein,%20I%20have%20a%20question%20not%20covered%20in%20the%20FAQs."
+            href="https://wa.me/923332499499?text=Hello%20Nautilus%20Protein,%20I%20have%20a%20question%20not%20covered%20in%20the%20FAQs."
             target="_blank"
             rel="noopener noreferrer"
             className="px-6 py-3 bg-[#ba0202] hover:bg-red-700 text-white rounded-xl text-xs font-bold uppercase tracking-wider flex items-center gap-2 transition-all shadow-md shadow-red-600/30 font-heading"
           >
             <MessageCircle className="w-4 h-4" />
-            <span>Chat on WhatsApp (+92 325 2571589)</span>
+            <span>Chat on WhatsApp (+92 333 2499499)</span>
           </a>
           <button
             onClick={() => navigateTo('contact')}

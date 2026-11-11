@@ -21,7 +21,7 @@ export const OrderConfirmationPage: React.FC = () => {
   }
 
   const order = lastConfirmedOrder;
-  const whatsappInquiryUrl = `https://wa.me/923252571589?text=${encodeURIComponent(
+  const whatsappInquiryUrl = `https://wa.me/923332499499?text=${encodeURIComponent(
     `Hello Nautilus Protein, I just placed Order #${order.orderNumber} for PKR ${order.total.toLocaleString()} (${order.customerName}, ${order.city}). Please confirm receipt.`
   )}`;
 

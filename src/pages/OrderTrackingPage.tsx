@@ -273,7 +273,7 @@ export const OrderTrackingPage: React.FC = () => {
                     <span>Need to modify delivery address or verify rider timing?</span>
                   </div>
                   <a
-                    href={`https://wa.me/923252571589?text=${encodeURIComponent(
+                    href={`https://wa.me/923332499499?text=${encodeURIComponent(
                       `Hello Nautilus Protein, I am checking the status of Order #${ord.orderNumber}.`
                     )}`}
                     target="_blank"
@@ -298,7 +298,7 @@ export const OrderTrackingPage: React.FC = () => {
           <span>Nautilus Official Pakistan Logistics Network</span>
         </div>
         <p>Direct shipments dispatched across all cities and towns in Pakistan.</p>
-        <p>Support hotline: +92 325 2571589 · nautilusprotein@gmail.com</p>
+        <p>Support hotline: +92 333 2499499 · nautilusprotein@gmail.com</p>
       </div>
 
     </div>

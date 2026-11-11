@@ -254,7 +254,7 @@ export const ProductDetailPage: React.FC = () => {
               </div>
             </div>
 
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight font-heading uppercase leading-tight">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight font-heading uppercase leading-tight">
               {product.name}
             </h1>
 
@@ -394,7 +394,7 @@ export const ProductDetailPage: React.FC = () => {
               <span>Questions regarding dosing or stacks?</span>
             </div>
             <a
-              href={`https://wa.me/923252571589?text=${encodeURIComponent(
+              href={`https://wa.me/923332499499?text=${encodeURIComponent(
                 `Hello Nautilus Protein, I would like to order/inquire about ${product.name} (${currentFlavor}) priced at PKR ${price.toLocaleString()}.`
               )}`}
               target="_blank"

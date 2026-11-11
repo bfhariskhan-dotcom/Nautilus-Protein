@@ -54,48 +54,8 @@ export const Header: React.FC = () => {
 
   const totalCartCount = cart.reduce((acc, item) => acc + item.quantity, 0);
 
-  const marqueeItems = [
-    { icon: Truck, text: 'FREE NATIONWIDE DELIVERY ON ORDERS OVER PKR 5,000' },
-    { icon: ShieldCheck, text: '100% AUTHENTIC SPORTS NUTRITION WITH TAMPER-EVIDENT SEALS' },
-    { icon: Zap, text: 'EXPRESS DISPATCH ACROSS ALL CITIES IN PAKISTAN' },
-    { icon: Phone, text: 'WHATSAPP ATHLETE DESK & INQUIRIES: +92 325 2571589' },
-    { icon: Flame, text: 'USE PROMO CODE "POWER500" FOR INSTANT PKR 500 DISCOUNT' },
-    { icon: ShieldCheck, text: 'CASH ON DELIVERY & INSTANT JAZZCASH / EASYPAISA SUPPORTED' },
-  ];
-
   return (
     <header className="sticky top-0 z-40 w-full transition-all duration-300 shadow-md">
-      
-      {/* Top Banner Bar - Clean High-Contrast Sports Ticker (Jet Black with White Text & Red Accents) */}
-      <div className="bg-black text-white border-b border-black/40 overflow-hidden py-1.5 select-none relative w-full">
-        {/* Left and right gradient fade masks */}
-        <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-8 sm:w-16 bg-gradient-to-r from-black to-transparent z-10" />
-        <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-8 sm:w-16 bg-gradient-to-l from-black to-transparent z-10" />
-
-        <div className="nautilus-marquee-track flex items-center gap-8 sm:gap-12 whitespace-nowrap text-[11px] font-bold tracking-wider uppercase text-white/90">
-          {marqueeItems.map((item, idx) => {
-            const Icon = item.icon;
-            return (
-              <div key={`m1-${idx}`} className="flex items-center gap-2 shrink-0">
-                <Icon className="w-3.5 h-3.5 text-red-500 shrink-0" />
-                <span>{item.text}</span>
-                <span className="text-red-500 ml-4 font-mono">◆</span>
-              </div>
-            );
-          })}
-          {marqueeItems.map((item, idx) => {
-            const Icon = item.icon;
-            return (
-              <div key={`m2-${idx}`} className="flex items-center gap-2 shrink-0">
-                <Icon className="w-3.5 h-3.5 text-red-500 shrink-0" />
-                <span>{item.text}</span>
-                <span className="text-red-500 ml-4 font-mono">◆</span>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-
       {/* Main Red Header Row */}
       <div className="bg-[#ba0202] text-white border-b border-red-800/40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
