@@ -12,7 +12,7 @@ export const OrderConfirmationPage: React.FC = () => {
         <p className="text-xs text-slate-500">If you already placed an order, you can look it up using our tracking tool.</p>
         <button
           onClick={() => navigateTo('track')}
-          className="px-6 py-2.5 bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-xs font-bold uppercase tracking-wider shadow-md shadow-purple-600/20 transition-colors"
+          className="px-6 py-2.5 bg-red-600 hover:bg-red-700 text-white rounded-xl text-xs font-bold uppercase tracking-wider shadow-md shadow-red-600/20 transition-colors"
         >
           Track An Order
         </button>
@@ -29,12 +29,12 @@ export const OrderConfirmationPage: React.FC = () => {
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-8">
       
       {/* Success Hero Header */}
-      <div className="bg-white border border-slate-200 rounded-3xl p-8 sm:p-12 text-center space-y-4 relative overflow-hidden">
-        <div className="w-16 h-16 rounded-full bg-purple-950/80 border border-purple-800 text-purple-400 flex items-center justify-center mx-auto shadow-xl shadow-purple-950/50">
+      <div className="bg-white border border-slate-200 rounded-3xl p-8 sm:p-12 text-center space-y-4 relative overflow-hidden shadow-sm">
+        <div className="w-16 h-16 rounded-full bg-red-50 border border-red-200 text-red-600 flex items-center justify-center mx-auto shadow-md">
           <CheckCircle2 className="w-8 h-8" />
         </div>
         <div className="space-y-1">
-          <p className="text-xs font-bold uppercase tracking-widest text-purple-400">
+          <p className="text-xs font-bold uppercase tracking-widest text-red-600">
             Order Successfully Placed
           </p>
           <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight uppercase font-heading">
@@ -46,11 +46,11 @@ export const OrderConfirmationPage: React.FC = () => {
         </div>
 
         {/* Order Reference Box */}
-        <div className="inline-block mt-2 p-4 rounded-2xl bg-white border border-slate-200 text-center">
+        <div className="inline-block mt-2 p-4 rounded-2xl bg-white border border-slate-200 text-center shadow-sm">
           <span className="text-[11px] font-bold uppercase tracking-wider text-slate-500 block mb-0.5">
             Order Reference Number
           </span>
-          <span className="text-xl sm:text-2xl font-black text-purple-400 font-mono tracking-wider">
+          <span className="text-xl sm:text-2xl font-black text-red-600 font-mono tracking-wider">
             {order.orderNumber}
           </span>
         </div>
@@ -61,9 +61,9 @@ export const OrderConfirmationPage: React.FC = () => {
         
         {/* Left: Destination & Payment Method */}
         <div className="space-y-6">
-          <div className="bg-white border border-slate-200 rounded-3xl p-6 space-y-4">
+          <div className="bg-white border border-slate-200 rounded-3xl p-6 space-y-4 shadow-sm">
             <h3 className="text-sm font-bold uppercase tracking-wider text-slate-900 border-b border-slate-200 pb-3 flex items-center gap-2">
-              <PackageCheck className="w-4 h-4 text-purple-400" />
+              <PackageCheck className="w-4 h-4 text-red-600" />
               <span>Delivery Information</span>
             </h3>
             <div className="text-xs text-slate-600 space-y-2">
@@ -76,9 +76,9 @@ export const OrderConfirmationPage: React.FC = () => {
             </div>
           </div>
 
-          <div className="bg-white border border-slate-200 rounded-3xl p-6 space-y-3">
+          <div className="bg-white border border-slate-200 rounded-3xl p-6 space-y-3 shadow-sm">
             <h3 className="text-sm font-bold uppercase tracking-wider text-slate-900 border-b border-slate-200 pb-3 flex items-center gap-2">
-              <ShieldCheck className="w-4 h-4 text-purple-400" />
+              <ShieldCheck className="w-4 h-4 text-red-600" />
               <span>Payment Protocol</span>
             </h3>
             <div className="text-xs text-slate-600 space-y-1.5">
@@ -89,12 +89,12 @@ export const OrderConfirmationPage: React.FC = () => {
               {order.paymentReference && (
                 <p>
                   <span className="text-slate-400">Transaction Ref:</span>{' '}
-                  <span className="font-mono text-purple-300">{order.paymentReference}</span>
+                  <span className="font-mono text-red-600 font-semibold">{order.paymentReference}</span>
                 </p>
               )}
               <p>
                 <span className="text-slate-400">Payment Status:</span>{' '}
-                <span className="text-purple-300 font-semibold">{order.paymentStatus}</span>
+                <span className="text-red-600 font-semibold">{order.paymentStatus}</span>
               </p>
               {order.paymentMethod === 'cod' ? (
                 <p className="text-[11px] text-slate-500 pt-1">
@@ -110,12 +110,12 @@ export const OrderConfirmationPage: React.FC = () => {
         </div>
 
         {/* Right: Purchased Products & Total Receipt */}
-        <div className="bg-white border border-slate-200 rounded-3xl p-6 space-y-4 flex flex-col justify-between">
+        <div className="bg-white border border-slate-200 rounded-3xl p-6 space-y-4 flex flex-col justify-between shadow-sm">
           <div>
             <h3 className="text-sm font-bold uppercase tracking-wider text-slate-900 border-b border-slate-200 pb-3">
               Itemized Receipt
             </h3>
-            <div className="divide-y divide-neutral-900 py-2 space-y-3">
+            <div className="divide-y divide-slate-100 py-2 space-y-3">
               {order.items.map((item, idx) => (
                 <div key={idx} className="pt-3 first:pt-0 flex items-center gap-3">
                   <img
@@ -141,21 +141,21 @@ export const OrderConfirmationPage: React.FC = () => {
             <div className="border-t border-slate-200 pt-3 space-y-1.5 text-xs text-slate-600">
               <div className="flex justify-between">
                 <span>Subtotal</span>
-                <span className="tabular-nums">PKR {order.subtotal.toLocaleString()}</span>
+                <span className="tabular-nums font-semibold">PKR {order.subtotal.toLocaleString()}</span>
               </div>
               <div className="flex justify-between">
                 <span>Nationwide Shipping</span>
-                <span className="tabular-nums">{order.shippingFee === 0 ? 'FREE' : `PKR ${order.shippingFee}`}</span>
+                <span className="tabular-nums font-semibold">{order.shippingFee === 0 ? 'FREE' : `PKR ${order.shippingFee}`}</span>
               </div>
               {order.discount > 0 && (
-                <div className="flex justify-between text-purple-400">
+                <div className="flex justify-between text-red-600">
                   <span>Discount ({order.couponCode})</span>
-                  <span className="tabular-nums">-PKR {order.discount.toLocaleString()}</span>
+                  <span className="tabular-nums font-semibold">-PKR {order.discount.toLocaleString()}</span>
                 </div>
               )}
               <div className="flex justify-between pt-2 border-t border-slate-200 text-sm font-extrabold text-slate-900">
                 <span>Final Total Paid/Due</span>
-                <span className="text-purple-400 tabular-nums">PKR {order.total.toLocaleString()}</span>
+                <span className="text-red-600 tabular-nums">PKR {order.total.toLocaleString()}</span>
               </div>
             </div>
           </div>
@@ -166,7 +166,7 @@ export const OrderConfirmationPage: React.FC = () => {
               href={whatsappInquiryUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full py-3 px-4 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all shadow-md shadow-purple-600/30"
+              className="w-full py-3 px-4 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all shadow-md shadow-red-600/30"
             >
               <MessageCircle className="w-4 h-4" />
               <span>Inquire / Send WhatsApp Slip</span>

@@ -124,7 +124,7 @@ export const PolicyPages: React.FC<PolicyPageProps> = ({ type }) => {
         </button>
 
         <div className="space-y-2">
-          <div className="flex items-center gap-2 text-purple-400 text-xs font-bold uppercase tracking-wider">
+          <div className="flex items-center gap-2 text-[#ba0202] text-xs font-bold uppercase tracking-wider">
             <Shield className="w-4 h-4" />
             <span>Nautilus Trust & Compliance</span>
           </div>

@@ -72,11 +72,11 @@ export const SearchModal: React.FC = () => {
             <div className="py-6 text-center text-xs text-slate-400 space-y-3">
               <p className="text-slate-500 font-medium">Quick suggestions:</p>
               <div className="flex flex-wrap justify-center gap-2">
-                {['Fast Protein', 'Mass Gainer', 'Creatine Omega-3', 'Volt Pre-Workout', 'Whey Isolate'].map(term => (
+                {['Fast Protein', 'Mass Gainer', 'Micronized Creatine', 'BCAA', 'Whey Concentrate'].map(term => (
                   <button
                     key={term}
                     onClick={() => setQuery(term)}
-                    className="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-purple-100 text-slate-700 hover:text-purple-800 transition-colors border border-slate-200 text-xs font-medium"
+                    className="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-red-50 text-slate-700 hover:text-red-700 transition-colors border border-slate-200 text-xs font-medium"
                   >
                     {term}
                   </button>
@@ -97,7 +97,7 @@ export const SearchModal: React.FC = () => {
                 <div
                   key={product.id}
                   onClick={() => handleSelect(product.slug)}
-                  className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-purple-50 cursor-pointer transition-colors group"
+                  className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-red-50 cursor-pointer transition-colors group"
                 >
                   <img
                     src={product.image}
@@ -106,8 +106,8 @@ export const SearchModal: React.FC = () => {
                     referrerPolicy="no-referrer"
                   />
                   <div className="flex-1 min-w-0">
-                    <p className="text-xs text-purple-400 font-medium">{product.brand}</p>
-                    <p className="text-sm font-semibold text-slate-900 group-hover:text-purple-300 truncate">
+                    <p className="text-xs text-red-600 font-medium">{product.brand}</p>
+                    <p className="text-sm font-semibold text-slate-900 group-hover:text-red-700 truncate">
                       {product.name}
                     </p>
                     <div className="flex items-center gap-2 mt-0.5 text-xs text-slate-500">
@@ -118,7 +118,7 @@ export const SearchModal: React.FC = () => {
                       <span>{product.weight}</span>
                     </div>
                   </div>
-                  <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-purple-600 group-hover:translate-x-1 transition-all" />
+                  <ArrowRight className="w-4 h-4 text-slate-400 group-hover:text-red-600 group-hover:translate-x-1 transition-all" />
                 </div>
               ))}
             </div>

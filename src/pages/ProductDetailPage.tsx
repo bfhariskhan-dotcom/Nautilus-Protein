@@ -15,7 +15,8 @@ import {
   ChevronDown,
   ChevronUp,
   Award,
-  Zap
+  Zap,
+  Package
 } from 'lucide-react';
 import { useStore } from '../context/StoreContext';
 import { ProductCard } from '../components/ProductCard';
@@ -73,7 +74,7 @@ export const ProductDetailPage: React.FC = () => {
         <p className="text-lg text-slate-900 font-bold">Product not found.</p>
         <button
           onClick={() => navigateTo('shop')}
-          className="mt-4 px-6 py-2.5 bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-xs font-bold shadow-md shadow-purple-600/20 transition-colors"
+          className="mt-4 px-6 py-2.5 bg-red-600 hover:bg-red-700 text-white rounded-xl text-xs font-bold shadow-md shadow-red-600/20 transition-colors"
         >
           Return to Shop
         </button>
@@ -87,8 +88,17 @@ export const ProductDetailPage: React.FC = () => {
   const savings = hasDiscount ? product.price - (product.salePrice || 0) : 0;
   const currentFlavor = selectedFlavor || product.flavors?.[0] || '';
 
-  // Consolidate all images (primary + gallery)
-  const allImages = Array.from(new Set([product.image, ...(product.gallery || [])])).filter(Boolean);
+  // Consolidate all images (primary + gallery), strictly excluding default logo URLs
+  const isLogo = (url?: string) =>
+    !url ||
+    url.includes('Nautilus-Logo-Edited') ||
+    url.includes('Nautilus-Protein-Black-Purple-Logo');
+
+  const allImages = Array.from(new Set([product.image, ...(product.gallery || [])]))
+    .filter(Boolean)
+    .filter(img => !isLogo(img));
+
+  const currentDisplayImage = (!isLogo(activeImage) && activeImage) || allImages[0] || '';
 
   const relatedProducts = products
     .filter(p => p.id !== product.id && (p.category === product.category || p.brand === product.brand))
@@ -164,23 +174,32 @@ export const ProductDetailPage: React.FC = () => {
         
         {/* Left: Sticky Media Gallery with Thumbnail Selector */}
         <div className="lg:sticky lg:top-24 space-y-4">
-          <div className="aspect-square bg-white border border-slate-200/90 rounded-3xl p-6 sm:p-10 flex items-center justify-center relative overflow-hidden shadow-lg shadow-purple-950/5">
-            <img
-              src={activeImage || product.image}
-              alt={product.name}
-              className="max-h-full max-w-full object-contain transition-all duration-300"
-              referrerPolicy="no-referrer"
-              onError={(e) => {
-                (e.target as HTMLImageElement).src = '/images/nautilus-logo.jpg';
-              }}
-            />
+          <div className="aspect-square bg-white border border-slate-200/90 rounded-3xl p-6 sm:p-10 flex items-center justify-center relative overflow-hidden shadow-lg shadow-red-950/5">
+            {currentDisplayImage ? (
+              <img
+                src={currentDisplayImage}
+                alt={product.name}
+                className="max-h-full max-w-full object-contain transition-all duration-300"
+                referrerPolicy="no-referrer"
+              />
+            ) : (
+              <div className="flex flex-col items-center justify-center text-slate-300 py-10 text-center p-4">
+                <Package className="w-16 h-16 sm:w-20 sm:h-20 stroke-[1.2] text-slate-300 mb-3" />
+                <p className="text-sm font-bold text-slate-600 uppercase tracking-wider font-heading">
+                  Product Photo to be uploaded
+                </p>
+                <p className="text-xs text-slate-400 max-w-xs mt-1">
+                  Authentic container & seal photos can be selected via the Admin Panel.
+                </p>
+              </div>
+            )}
             
             {product.isBestSeller ? (
-              <span className="absolute top-4 left-4 text-[11px] font-bold uppercase tracking-wider text-purple-700 bg-purple-100 border border-purple-200 px-3 py-1 rounded-lg shadow-sm">
+              <span className="absolute top-4 left-4 text-[11px] font-bold uppercase tracking-wider text-white bg-red-600 border border-red-700 px-3 py-1 rounded-lg shadow-sm">
                 Best Seller
               </span>
             ) : product.isNew ? (
-              <span className="absolute top-4 left-4 text-[11px] font-bold uppercase tracking-wider text-indigo-700 bg-indigo-100 border border-indigo-200 px-3 py-1 rounded-lg shadow-sm">
+              <span className="absolute top-4 left-4 text-[11px] font-bold uppercase tracking-wider text-neutral-900 bg-neutral-100 border border-neutral-300 px-3 py-1 rounded-lg shadow-sm">
                 New Arrival
               </span>
             ) : null}
@@ -189,12 +208,12 @@ export const ProductDetailPage: React.FC = () => {
               onClick={() => toggleWishlist(product.id)}
               className={`absolute top-4 right-4 p-3 rounded-full backdrop-blur-md transition-colors ${
                 wishlisted
-                  ? 'bg-purple-600 text-white shadow-md shadow-purple-600/30'
-                  : 'bg-white/95 text-slate-400 hover:text-purple-600 hover:bg-white border border-slate-200 shadow-sm'
+                  ? 'bg-red-600 text-white shadow-md shadow-red-600/30'
+                  : 'bg-white/95 text-slate-400 hover:text-red-600 hover:bg-white border border-slate-200 shadow-sm'
               }`}
               aria-label="Wishlist"
             >
-              <Heart className={`w-5 h-5 ${wishlisted ? 'fill-current' : ''}`} />
+              <Heart className={`w-5 h-5 ${wishlisted ? 'fill-current text-white' : ''}`} />
             </button>
           </div>
 
@@ -207,7 +226,7 @@ export const ProductDetailPage: React.FC = () => {
                   onClick={() => setActiveImage(imgUrl)}
                   className={`w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-white border-2 p-1.5 flex items-center justify-center shrink-0 transition-all ${
                     (activeImage || product.image) === imgUrl
-                      ? 'border-purple-600 shadow-md shadow-purple-600/20 scale-105'
+                      ? 'border-red-600 shadow-md shadow-red-600/20 scale-105'
                       : 'border-slate-200 opacity-70 hover:opacity-100 hover:border-slate-300'
                   }`}
                   aria-label={`Switch to image ${idx + 1}`}
@@ -226,10 +245,10 @@ export const ProductDetailPage: React.FC = () => {
         {/* Right: Purchase & Variant Selection */}
         <div className="space-y-6">
           <div>
-            <div className="flex items-center justify-between gap-2 text-xs font-bold uppercase tracking-wider text-purple-600 mb-1.5">
+            <div className="flex items-center justify-between gap-2 text-xs font-bold uppercase tracking-wider text-red-600 mb-1.5">
               <span>{product.brand} · {product.categoryName}</span>
-              <div className="flex items-center gap-1.5 bg-purple-50 px-2.5 py-0.5 rounded-full border border-purple-200/80">
-                <Star className="w-3.5 h-3.5 fill-current text-purple-600" />
+              <div className="flex items-center gap-1.5 bg-red-50 px-2.5 py-0.5 rounded-full border border-red-200/80">
+                <Star className="w-3.5 h-3.5 fill-current text-amber-500" />
                 <span className="text-slate-900 font-extrabold tabular-nums">{product.rating}</span>
                 <span className="text-slate-500 font-normal">({product.reviewCount} reviews)</span>
               </div>
@@ -240,7 +259,7 @@ export const ProductDetailPage: React.FC = () => {
             </h1>
 
             {product.headline && (
-              <p className="text-xs sm:text-sm font-semibold text-purple-700 mt-2">
+              <p className="text-xs sm:text-sm font-semibold text-red-600 mt-2">
                 {product.headline}
               </p>
             )}
@@ -267,7 +286,7 @@ export const ProductDetailPage: React.FC = () => {
             </div>
 
             {hasDiscount && (
-              <span className="px-3 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider bg-purple-600 text-white shadow-sm">
+              <span className="px-3 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider bg-red-600 text-white shadow-sm">
                 Save PKR {savings.toLocaleString()}
               </span>
             )}
@@ -284,7 +303,7 @@ export const ProductDetailPage: React.FC = () => {
               </span>
             )}
             {product.ratio && (
-              <span className="px-3 py-1.5 rounded-xl bg-purple-50 border border-purple-200 text-xs font-bold text-purple-800 shadow-sm">
+              <span className="px-3 py-1.5 rounded-xl bg-red-50 border border-red-200 text-xs font-bold text-red-800 shadow-sm">
                 Clinical Ratio: {product.ratio}
               </span>
             )}
@@ -300,7 +319,7 @@ export const ProductDetailPage: React.FC = () => {
             <div className="space-y-2.5">
               <div className="flex items-center justify-between text-xs font-bold uppercase tracking-wider text-slate-700">
                 <span>Select Flavor</span>
-                <span className="text-purple-600 font-bold normal-case text-xs">
+                <span className="text-red-600 font-bold normal-case text-xs">
                   {currentFlavor}
                 </span>
               </div>
@@ -312,8 +331,8 @@ export const ProductDetailPage: React.FC = () => {
                     onClick={() => setSelectedFlavor(flv)}
                     className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider border transition-all ${
                       currentFlavor === flv
-                        ? 'border-purple-600 bg-purple-600 text-white shadow-md shadow-purple-600/30'
-                        : 'border-slate-200 bg-white text-slate-700 hover:border-purple-300 hover:text-purple-700'
+                        ? 'border-red-600 bg-red-600 text-white shadow-md shadow-red-600/30'
+                        : 'border-slate-200 bg-white text-slate-700 hover:border-red-300 hover:text-red-600'
                     }`}
                   >
                     {flv}
@@ -351,9 +370,9 @@ export const ProductDetailPage: React.FC = () => {
               <button
                 onClick={handleAddToCart}
                 disabled={!product.inStock}
-                className="flex-1 py-3.5 px-6 bg-purple-50 hover:bg-purple-100 border border-purple-200 text-purple-900 rounded-xl text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all active:scale-95"
+                className="flex-1 py-3.5 px-6 bg-red-50 hover:bg-red-100 border border-red-200 text-red-900 rounded-xl text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all active:scale-95"
               >
-                <ShoppingBag className="w-4 h-4 text-purple-700" />
+                <ShoppingBag className="w-4 h-4 text-red-600" />
                 <span>Add to Cart</span>
               </button>
             </div>
@@ -362,7 +381,7 @@ export const ProductDetailPage: React.FC = () => {
             <button
               onClick={handleBuyNow}
               disabled={!product.inStock}
-              className="w-full py-4 px-6 bg-purple-600 hover:bg-purple-700 disabled:bg-slate-200 disabled:text-slate-400 text-white rounded-xl text-xs sm:text-sm font-extrabold uppercase tracking-widest shadow-lg shadow-purple-600/30 transition-all active:scale-95 flex items-center justify-center gap-2"
+              className="w-full py-4 px-6 bg-red-600 hover:bg-red-700 disabled:bg-slate-200 disabled:text-slate-400 text-white rounded-xl text-xs sm:text-sm font-extrabold uppercase tracking-widest shadow-lg shadow-red-600/30 transition-all active:scale-95 flex items-center justify-center gap-2"
             >
               <span>Buy Now with Cash on Delivery</span>
             </button>
@@ -371,7 +390,7 @@ export const ProductDetailPage: React.FC = () => {
           {/* Direct WhatsApp Consultation */}
           <div className="p-3.5 rounded-2xl bg-white border border-slate-200 flex items-center justify-between text-xs shadow-sm">
             <div className="flex items-center gap-2 text-slate-600">
-              <MessageCircle className="w-4 h-4 text-purple-600 shrink-0" />
+              <MessageCircle className="w-4 h-4 text-red-600 shrink-0" />
               <span>Questions regarding dosing or stacks?</span>
             </div>
             <a
@@ -380,7 +399,7 @@ export const ProductDetailPage: React.FC = () => {
               )}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-bold text-purple-600 hover:text-purple-700 transition-colors uppercase tracking-wider text-[11px]"
+              className="font-bold text-red-600 hover:text-red-700 transition-colors uppercase tracking-wider text-[11px]"
             >
               Chat on WhatsApp →
             </a>
@@ -389,17 +408,17 @@ export const ProductDetailPage: React.FC = () => {
           {/* Trust Value Badges */}
           <div className="pt-4 border-t border-slate-200 grid grid-cols-3 gap-3 text-center text-xs text-slate-500">
             <div className="p-3 rounded-2xl bg-white border border-slate-200 shadow-sm">
-              <ShieldCheck className="w-4 h-4 text-purple-600 mx-auto mb-1" />
+              <ShieldCheck className="w-4 h-4 text-red-600 mx-auto mb-1" />
               <p className="font-bold text-slate-900 text-[11px]">100% Genuine</p>
               <p className="text-[10px] text-slate-500">Tamper-evident seal</p>
             </div>
             <div className="p-3 rounded-2xl bg-white border border-slate-200 shadow-sm">
-              <Truck className="w-4 h-4 text-purple-600 mx-auto mb-1" />
+              <Truck className="w-4 h-4 text-red-600 mx-auto mb-1" />
               <p className="font-bold text-slate-900 text-[11px]">Fast Dispatch</p>
               <p className="text-[10px] text-slate-500">Karachi Warehouse</p>
             </div>
             <div className="p-3 rounded-2xl bg-white border border-slate-200 shadow-sm">
-              <RefreshCw className="w-4 h-4 text-purple-600 mx-auto mb-1" />
+              <RefreshCw className="w-4 h-4 text-red-600 mx-auto mb-1" />
               <p className="font-bold text-slate-900 text-[11px]">COD Delivery</p>
               <p className="text-[10px] text-slate-500">All Pakistan Cities</p>
             </div>
@@ -415,7 +434,7 @@ export const ProductDetailPage: React.FC = () => {
         {( (product.highlights && product.highlights.length > 0) || (product.whoIsItFor && product.whoIsItFor.length > 0) ) && (
           <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 space-y-6 shadow-sm">
             <div>
-              <p className="text-xs font-bold uppercase tracking-wider text-purple-600">Clinical Formulation</p>
+              <p className="text-xs font-bold uppercase tracking-wider text-red-600">Clinical Formulation</p>
               <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 uppercase font-heading mt-1">
                 Why Choose This Formula
               </h2>
@@ -424,8 +443,8 @@ export const ProductDetailPage: React.FC = () => {
             {product.highlights && product.highlights.length > 0 && (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {product.highlights.map((item, idx) => (
-                  <div key={idx} className="p-4 rounded-2xl bg-purple-50/50 border border-purple-200/70 flex items-start gap-3">
-                    <div className="w-7 h-7 rounded-lg bg-purple-600 text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-sm">
+                  <div key={idx} className="p-4 rounded-2xl bg-red-50/50 border border-red-200/70 flex items-start gap-3">
+                    <div className="w-7 h-7 rounded-lg bg-red-600 text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-sm">
                       <Check className="w-4 h-4" />
                     </div>
                     <p className="text-xs sm:text-sm text-slate-800 leading-relaxed font-medium">
@@ -444,7 +463,7 @@ export const ProductDetailPage: React.FC = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   {product.whoIsItFor.map((target, idx) => (
                     <div key={idx} className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center gap-2.5">
-                      <Users className="w-4 h-4 text-purple-600 shrink-0" />
+                      <Users className="w-4 h-4 text-red-600 shrink-0" />
                       <span className="text-xs font-semibold text-slate-800">{target}</span>
                     </div>
                   ))}
@@ -459,7 +478,7 @@ export const ProductDetailPage: React.FC = () => {
           <div className="bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-sm">
             <div className="p-6 border-b border-slate-200 bg-slate-50 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
               <div>
-                <p className="text-xs font-bold uppercase tracking-wider text-purple-600">Transparent Labeling</p>
+                <p className="text-xs font-bold uppercase tracking-wider text-red-600">Transparent Labeling</p>
                 <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 uppercase font-heading mt-1">
                   Supplement Facts
                 </h2>
@@ -483,7 +502,7 @@ export const ProductDetailPage: React.FC = () => {
                     <tr key={idx} className="hover:bg-slate-50/80 transition-colors">
                       <td className="py-3 px-6 font-semibold text-slate-900">{fact.label}</td>
                       <td className="py-3 px-6 font-mono text-slate-700">{fact.amount}</td>
-                      <td className="py-3 px-6 font-mono text-right text-purple-600 font-bold">
+                      <td className="py-3 px-6 font-mono text-right text-red-600 font-bold">
                         {fact.dailyValue || '†'}
                       </td>
                     </tr>
@@ -502,18 +521,18 @@ export const ProductDetailPage: React.FC = () => {
         {product.directions && (
           <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 space-y-4 shadow-sm">
             <div>
-              <p className="text-xs font-bold uppercase tracking-wider text-purple-600">Protocol & Timing</p>
+              <p className="text-xs font-bold uppercase tracking-wider text-red-600">Protocol & Timing</p>
               <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 uppercase font-heading mt-1">
                 How To Use
               </h2>
             </div>
-            <div className="p-5 rounded-2xl bg-purple-50/40 border border-purple-200/60">
+            <div className="p-5 rounded-2xl bg-red-50/40 border border-red-200/60">
               <p className="text-xs sm:text-sm text-slate-800 leading-relaxed font-medium whitespace-pre-line">
                 {product.directions}
               </p>
             </div>
             <div className="flex items-center gap-2.5 text-xs text-slate-500 pt-1">
-              <Zap className="w-4 h-4 text-purple-600 shrink-0" />
+              <Zap className="w-4 h-4 text-red-600 shrink-0" />
               <span>For best results, mix with chilled water in a Nautilus Shaker Cup for 20-30 seconds.</span>
             </div>
           </div>
@@ -528,7 +547,7 @@ export const ProductDetailPage: React.FC = () => {
             <p className="text-xs text-slate-600 leading-relaxed">
               {product.ingredients?.join(', ') || 'Pure pharmaceutical grade supplement formula with natural and artificial flavors.'}
             </p>
-            <p className="text-[11px] text-purple-700 font-semibold pt-2">
+            <p className="text-[11px] text-red-600 font-semibold pt-2">
               ✓ Zero Sugar · Zero Fat · Halal Certified Purity
             </p>
           </div>
@@ -547,7 +566,7 @@ export const ProductDetailPage: React.FC = () => {
         {product.faqs && product.faqs.length > 0 && (
           <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 space-y-6 shadow-sm">
             <div>
-              <p className="text-xs font-bold uppercase tracking-wider text-purple-600">Product FAQs</p>
+              <p className="text-xs font-bold uppercase tracking-wider text-red-600">Product FAQs</p>
               <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 uppercase font-heading mt-1">
                 Frequently Asked Questions
               </h2>
@@ -566,11 +585,11 @@ export const ProductDetailPage: React.FC = () => {
                       className="w-full p-4 sm:p-5 text-left flex items-center justify-between gap-4 bg-slate-50/60 hover:bg-slate-50 transition-colors"
                     >
                       <span className="text-xs sm:text-sm font-bold text-slate-900 flex items-center gap-2.5">
-                        <HelpCircle className="w-4 h-4 text-purple-600 shrink-0" />
+                        <HelpCircle className="w-4 h-4 text-red-600 shrink-0" />
                         {faq.question}
                       </span>
                       {isOpen ? (
-                        <ChevronUp className="w-4 h-4 text-purple-600 shrink-0" />
+                        <ChevronUp className="w-4 h-4 text-red-600 shrink-0" />
                       ) : (
                         <ChevronDown className="w-4 h-4 text-slate-400 shrink-0" />
                       )}
@@ -602,7 +621,7 @@ export const ProductDetailPage: React.FC = () => {
           </div>
           <button
             onClick={() => setIsReviewModalOpen(true)}
-            className="px-5 py-2.5 bg-white hover:bg-purple-50 border border-slate-200 hover:border-purple-300 text-slate-800 hover:text-purple-700 rounded-xl text-xs font-bold uppercase tracking-wider transition-colors shadow-sm self-start sm:self-auto"
+            className="px-5 py-2.5 bg-white hover:bg-red-50 border border-slate-200 hover:border-red-300 text-slate-800 hover:text-red-600 rounded-xl text-xs font-bold uppercase tracking-wider transition-colors shadow-sm self-start sm:self-auto"
           >
             Write a Review
           </button>
@@ -631,7 +650,7 @@ export const ProductDetailPage: React.FC = () => {
                     value={reviewName}
                     onChange={(e) => setReviewName(e.target.value)}
                     placeholder="e.g. Asad Khan"
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-slate-900 focus:outline-none focus:border-purple-500"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-slate-900 focus:outline-none focus:border-red-600"
                   />
                 </div>
 
@@ -640,7 +659,7 @@ export const ProductDetailPage: React.FC = () => {
                   <select
                     value={reviewRating}
                     onChange={(e) => setReviewRating(Number(e.target.value))}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-slate-900 focus:outline-none focus:border-purple-500"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-slate-900 focus:outline-none focus:border-red-600"
                   >
                     <option value={5}>⭐⭐⭐⭐⭐ (5/5) - Outstanding Quality</option>
                     <option value={4}>⭐⭐⭐⭐ (4/5) - Very Good</option>
@@ -657,7 +676,7 @@ export const ProductDetailPage: React.FC = () => {
                     value={reviewHeadline}
                     onChange={(e) => setReviewHeadline(e.target.value)}
                     placeholder="e.g. Clean mixability and authentic seal"
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-slate-900 focus:outline-none focus:border-purple-500"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-slate-900 focus:outline-none focus:border-red-600"
                   />
                 </div>
 
@@ -669,7 +688,7 @@ export const ProductDetailPage: React.FC = () => {
                     value={reviewComment}
                     onChange={(e) => setReviewComment(e.target.value)}
                     placeholder="Describe flavor, energy response, mixability, and packaging..."
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-slate-900 focus:outline-none focus:border-purple-500"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-slate-900 focus:outline-none focus:border-red-600"
                   />
                 </div>
 
@@ -684,7 +703,7 @@ export const ProductDetailPage: React.FC = () => {
                   <button
                     type="submit"
                     disabled={isSubmittingReview}
-                    className="px-6 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-xl font-bold uppercase tracking-wider shadow-md shadow-purple-600/20 transition-colors"
+                    className="px-6 py-2 bg-red-600 hover:bg-red-700 text-white rounded-xl font-bold uppercase tracking-wider shadow-md shadow-red-600/20 transition-colors"
                   >
                     {isSubmittingReview ? 'Submitting...' : 'Post Review'}
                   </button>
@@ -706,9 +725,9 @@ export const ProductDetailPage: React.FC = () => {
                 </span>
                 <span className="text-sm font-bold text-slate-400">/ 5.0</span>
               </div>
-              <div className="flex items-center justify-center md:justify-start gap-1 text-purple-600 my-2">
+              <div className="flex items-center justify-center md:justify-start gap-1 text-amber-500 my-2">
                 {[1, 2, 3, 4, 5].map((s) => (
-                  <Star key={s} className="w-5 h-5 fill-current text-purple-600" />
+                  <Star key={s} className="w-5 h-5 fill-current text-amber-500" />
                 ))}
               </div>
               <p className="text-xs text-slate-500 font-medium">
@@ -718,7 +737,7 @@ export const ProductDetailPage: React.FC = () => {
 
             {/* Recommendation Metric */}
             <div className="text-center md:border-r border-slate-200 md:px-6 space-y-1">
-              <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-purple-50 text-purple-700 font-extrabold text-base mb-1 border border-purple-200">
+              <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-red-50 text-red-600 font-extrabold text-base mb-1 border border-red-200">
                 100%
               </div>
               <p className="text-xs font-bold text-slate-900 uppercase tracking-wider">
@@ -734,14 +753,14 @@ export const ProductDetailPage: React.FC = () => {
               <div className="flex items-center gap-2">
                 <span className="w-8 font-semibold text-slate-600">5 ★</span>
                 <div className="flex-1 h-2 bg-slate-100 rounded-full overflow-hidden">
-                  <div className="h-full bg-purple-600 rounded-full w-[94%]" />
+                  <div className="h-full bg-red-600 rounded-full w-[94%]" />
                 </div>
                 <span className="w-8 text-right font-medium text-slate-500">94%</span>
               </div>
               <div className="flex items-center gap-2">
                 <span className="w-8 font-semibold text-slate-600">4 ★</span>
                 <div className="flex-1 h-2 bg-slate-100 rounded-full overflow-hidden">
-                  <div className="h-full bg-purple-600/70 rounded-full w-[6%]" />
+                  <div className="h-full bg-red-600/70 rounded-full w-[6%]" />
                 </div>
                 <span className="w-8 text-right font-medium text-slate-500">6%</span>
               </div>
@@ -762,14 +781,14 @@ export const ProductDetailPage: React.FC = () => {
           {productReviews.map((rev) => (
             <div
               key={rev.id}
-              className="bg-white border border-slate-200/90 hover:border-purple-300 rounded-3xl p-6 flex flex-col justify-between shadow-sm hover:shadow-md transition-all space-y-4"
+              className="bg-white border border-slate-200/90 hover:border-red-300 rounded-3xl p-6 flex flex-col justify-between shadow-sm hover:shadow-md transition-all space-y-4"
             >
               <div className="space-y-3">
                 
                 {/* Header: Avatar, Name, Verified Badge, City */}
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-2xl bg-purple-100 border border-purple-200 text-purple-700 font-extrabold flex items-center justify-center text-sm shadow-sm">
+                    <div className="w-10 h-10 rounded-2xl bg-red-50 border border-red-200 text-red-600 font-extrabold flex items-center justify-center text-sm shadow-sm">
                       {rev.customerName.charAt(0).toUpperCase()}
                     </div>
                     <div>
@@ -798,7 +817,7 @@ export const ProductDetailPage: React.FC = () => {
                         key={idx}
                         className={`w-3.5 h-3.5 ${
                           idx < rev.rating
-                            ? 'fill-current text-purple-600'
+                            ? 'fill-current text-amber-500'
                             : 'text-slate-300'
                         }`}
                       />
@@ -824,8 +843,8 @@ export const ProductDetailPage: React.FC = () => {
 
               {/* Bottom Card Footer */}
               <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
-                <span className="flex items-center gap-1 text-purple-700 font-semibold">
-                  <Award className="w-3.5 h-3.5 text-purple-600" />
+                <span className="flex items-center gap-1 text-red-600 font-semibold">
+                  <Award className="w-3.5 h-3.5 text-red-600" />
                   Verified Purity
                 </span>
                 <span className="text-slate-400">Nautilus Pakistan</span>
@@ -840,14 +859,14 @@ export const ProductDetailPage: React.FC = () => {
         <div className="pt-10 border-t border-slate-200 space-y-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-xs font-bold uppercase tracking-wider text-purple-600">Complete The Stack</p>
+              <p className="text-xs font-bold uppercase tracking-wider text-red-600">Complete The Stack</p>
               <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 uppercase font-heading mt-1">
                 Frequently Stacked Together
               </h3>
             </div>
             <button
               onClick={() => navigateTo('shop')}
-              className="text-xs font-bold text-slate-500 hover:text-purple-700 uppercase tracking-wider"
+              className="text-xs font-bold text-slate-500 hover:text-red-600 uppercase tracking-wider"
             >
               View More →
             </button>

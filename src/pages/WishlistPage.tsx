@@ -1,5 +1,5 @@
 import React from 'react';
-import { Heart, Trash2, ShoppingBag, ArrowRight } from 'lucide-react';
+import { Heart, Trash2, ShoppingBag, ArrowRight, Package } from 'lucide-react';
 import { useStore } from '../context/StoreContext';
 
 export const WishlistPage: React.FC = () => {
@@ -11,7 +11,7 @@ export const WishlistPage: React.FC = () => {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
       
       <div className="border-b border-slate-200 pb-4">
-        <p className="text-xs font-bold uppercase tracking-wider text-purple-400">
+        <p className="text-xs font-bold uppercase tracking-wider text-[#ba0202]">
           Saved Supplements
         </p>
         <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight uppercase font-heading mt-1">
@@ -30,7 +30,7 @@ export const WishlistPage: React.FC = () => {
           </p>
           <button
             onClick={() => navigateTo('shop')}
-            className="px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-xs font-bold uppercase tracking-wider shadow-md shadow-purple-600/20 transition-colors"
+            className="px-6 py-3 bg-[#ba0202] hover:bg-red-700 text-white rounded-xl text-xs font-bold uppercase tracking-wider shadow-md shadow-red-600/20 transition-colors font-heading"
           >
             Explore Supplements
           </button>
@@ -45,13 +45,23 @@ export const WishlistPage: React.FC = () => {
                 className="bg-slate-50/50 border border-slate-200 rounded-2xl overflow-hidden flex flex-col justify-between p-4 space-y-4"
               >
                 <div className="relative aspect-square bg-white rounded-xl p-4 flex items-center justify-center">
-                  <img
-                    src={p.image}
-                    alt={p.name}
-                    className="max-h-full max-w-full object-contain cursor-pointer"
-                    onClick={() => navigateTo('product', { slug: p.slug })}
-                    referrerPolicy="no-referrer"
-                  />
+                  {p.image && !p.image.includes('Nautilus-Logo-Edited') && !p.image.includes('Nautilus-Protein-Black-Purple-Logo') ? (
+                    <img
+                      src={p.image}
+                      alt={p.name}
+                      className="max-h-full max-w-full object-contain cursor-pointer"
+                      onClick={() => navigateTo('product', { slug: p.slug })}
+                      referrerPolicy="no-referrer"
+                    />
+                  ) : (
+                    <div
+                      className="flex flex-col items-center justify-center text-slate-300 cursor-pointer"
+                      onClick={() => navigateTo('product', { slug: p.slug })}
+                    >
+                      <Package className="w-10 h-10 stroke-[1.3] text-slate-300 mb-1" />
+                      <span className="text-[10px] text-slate-400 font-semibold uppercase">No Photo</span>
+                    </div>
+                  )}
                   <button
                     onClick={() => toggleWishlist(p.id)}
                     className="absolute top-2 right-2 p-1.5 rounded-lg bg-slate-50/80 text-rose-500 hover:text-slate-900 transition-colors"
@@ -62,12 +72,12 @@ export const WishlistPage: React.FC = () => {
                 </div>
 
                 <div className="space-y-1.5 flex-1">
-                  <p className="text-[10px] font-bold uppercase tracking-wider text-purple-400">
+                  <p className="text-[10px] font-bold uppercase tracking-wider text-[#ba0202]">
                     {p.brand}
                   </p>
                   <h3
                     onClick={() => navigateTo('product', { slug: p.slug })}
-                    className="text-sm font-bold text-slate-900 hover:text-purple-300 cursor-pointer transition-colors line-clamp-1"
+                    className="text-sm font-bold text-slate-900 hover:text-[#ba0202] cursor-pointer transition-colors line-clamp-1"
                   >
                     {p.name}
                   </h3>
@@ -79,7 +89,7 @@ export const WishlistPage: React.FC = () => {
                 <button
                   onClick={() => addToCart(p, 1)}
                   disabled={!p.inStock}
-                  className="w-full py-2.5 px-4 bg-purple-600 hover:bg-purple-700 disabled:bg-slate-200 disabled:text-slate-400 text-white rounded-xl text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-sm transition-colors"
+                  className="w-full py-2.5 px-4 bg-[#ba0202] hover:bg-red-700 disabled:bg-slate-200 disabled:text-slate-400 text-white rounded-xl text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-sm transition-colors font-heading"
                 >
                   <ShoppingBag className="w-3.5 h-3.5" />
                   <span>{p.inStock ? 'Add to Cart' : 'Out of Stock'}</span>
@@ -100,7 +110,7 @@ export const WishlistPage: React.FC = () => {
           </button>
           <button
             onClick={() => navigateTo('cart')}
-            className="text-purple-400 hover:text-purple-300 font-semibold flex items-center gap-1 transition-colors"
+            className="text-[#ba0202] hover:text-red-700 font-semibold flex items-center gap-1 transition-colors"
           >
             <span>Go to Shopping Cart</span>
             <ArrowRight className="w-3.5 h-3.5" />

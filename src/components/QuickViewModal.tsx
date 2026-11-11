@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Star, ShoppingBag, Plus, Minus, ArrowRight, MessageCircle } from 'lucide-react';
+import { X, Star, ShoppingBag, Plus, Minus, ArrowRight, MessageCircle, Package } from 'lucide-react';
 import { useStore } from '../context/StoreContext';
 
 export const QuickViewModal: React.FC = () => {
@@ -38,18 +38,27 @@ export const QuickViewModal: React.FC = () => {
 
         {/* Media Column */}
         <div className="md:w-1/2 bg-white p-8 flex items-center justify-center border-b md:border-b-0 md:border-r border-slate-200">
-          <img
-            src={quickViewProduct.image}
-            alt={quickViewProduct.name}
-            className="max-h-80 w-auto object-contain"
-            referrerPolicy="no-referrer"
-          />
+          {quickViewProduct.image && !quickViewProduct.image.includes('Nautilus-Logo-Edited') && !quickViewProduct.image.includes('Nautilus-Protein-Black-Purple-Logo') ? (
+            <img
+              src={quickViewProduct.image}
+              alt={quickViewProduct.name}
+              className="max-h-80 w-auto object-contain"
+              referrerPolicy="no-referrer"
+            />
+          ) : (
+            <div className="flex flex-col items-center justify-center text-slate-300 py-12 text-center">
+              <Package className="w-16 h-16 stroke-[1.2] text-slate-300 mb-2" />
+              <p className="text-xs font-bold text-slate-500 uppercase tracking-wider font-heading">
+                Photo to be uploaded
+              </p>
+            </div>
+          )}
         </div>
 
         {/* Info & Purchase Column */}
         <div className="md:w-1/2 p-6 md:p-8 flex flex-col justify-between overflow-y-auto">
           <div>
-            <span className="text-xs font-bold uppercase tracking-wider text-purple-400">
+            <span className="text-xs font-bold uppercase tracking-wider text-red-600">
               {quickViewProduct.brand} · {quickViewProduct.categoryName}
             </span>
             <h2 className="text-xl md:text-2xl font-bold text-slate-900 mt-1 leading-tight">
@@ -57,14 +66,14 @@ export const QuickViewModal: React.FC = () => {
             </h2>
 
             <div className="flex items-center gap-2 mt-2 text-xs text-slate-500">
-              <div className="flex items-center text-purple-400">
+              <div className="flex items-center text-red-600">
                 <Star className="w-4 h-4 fill-current" />
                 <span className="ml-1 font-bold text-slate-900 tabular-nums">{quickViewProduct.rating}</span>
               </div>
               <span>·</span>
               <span>{quickViewProduct.reviewCount} customer reviews</span>
               <span>·</span>
-              <span className="text-purple-300 font-semibold">
+              <span className="text-red-700 font-semibold">
                 {quickViewProduct.inStock ? 'In Stock' : 'Out of Stock'}
               </span>
             </div>
@@ -98,7 +107,7 @@ export const QuickViewModal: React.FC = () => {
                       onClick={() => setSelectedFlavor(flv)}
                       className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors ${
                         currentFlavor === flv
-                          ? 'border-purple-500 bg-purple-950/40 text-slate-900 font-semibold'
+                          ? 'border-red-600 bg-red-600 text-white font-semibold'
                           : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300'
                       }`}
                     >
@@ -136,7 +145,7 @@ export const QuickViewModal: React.FC = () => {
               <button
                 onClick={handleAddToCart}
                 disabled={!quickViewProduct.inStock}
-                className="flex-1 py-2.5 px-4 bg-purple-600 hover:bg-purple-700 disabled:bg-slate-200 disabled:text-slate-400 text-white rounded-xl text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-colors shadow-md shadow-purple-600/30"
+                className="flex-1 py-2.5 px-4 bg-red-600 hover:bg-red-700 disabled:bg-slate-200 disabled:text-slate-400 text-white rounded-xl text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-colors shadow-md shadow-red-600/30"
               >
                 <ShoppingBag className="w-4 h-4" />
                 <span>Add to Cart</span>
@@ -158,7 +167,7 @@ export const QuickViewModal: React.FC = () => {
                 )}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-purple-600 hover:text-purple-700 font-semibold inline-flex items-center gap-1 transition-colors"
+                className="text-red-600 hover:text-red-700 font-semibold inline-flex items-center gap-1 transition-colors"
               >
                 <MessageCircle className="w-3.5 h-3.5" />
                 <span>WhatsApp inquiry</span>

@@ -145,25 +145,45 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     }
   }, [wishlist]);
 
+  // Helper to remove legacy default logo URLs from product images/gallery
+  const cleanProductImage = (p: Product): Product => {
+    const isLogo = (url?: string) =>
+      !url ||
+      url.includes('Nautilus-Logo-Edited') ||
+      url.includes('Nautilus-Protein-Black-Purple-Logo');
+
+    const cleanGallery = (p.gallery || []).filter(img => !isLogo(img));
+    const cleanImg = isLogo(p.image) ? (cleanGallery[0] || '') : p.image;
+
+    return {
+      ...p,
+      image: cleanImg,
+      gallery: cleanGallery
+    };
+  };
+
   // Load initial store data from Firestore with server fallback
   const refreshProducts = async () => {
     try {
       const fsProducts = await getProductsFromFirestore();
       if (fsProducts && fsProducts.length > 0) {
-        setProducts(fsProducts);
+        setProducts(fsProducts.map(cleanProductImage));
         return;
       }
       // If Firestore is empty, fetch from backend API
       const res = await fetch('/api/products');
       if (res.ok) {
         const data = await res.json();
-        setProducts(data);
+        setProducts(data.map(cleanProductImage));
       }
     } catch (err) {
       console.error('Failed to fetch products', err);
       try {
         const res = await fetch('/api/products');
-        if (res.ok) setProducts(await res.json());
+        if (res.ok) {
+          const fallbackData = await res.json();
+          setProducts(fallbackData.map(cleanProductImage));
+        }
       } catch (fallbackErr) {
         console.error('API fallback also failed', fallbackErr);
       }
@@ -245,7 +265,7 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
           }
         }
 
-        setProducts(loadedProducts);
+        setProducts(loadedProducts.map(cleanProductImage));
         if (loadedCategories.length > 0) setCategories(loadedCategories);
         if (loadedBrands.length > 0) setBrands(loadedBrands);
         if (loadedSettings) setSettings(loadedSettings);
@@ -253,7 +273,7 @@ export const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         // 2. Set up real-time listener for products in Firestore
         unsubscribeProducts = subscribeToProducts((updated) => {
           if (updated && updated.length > 0) {
-            setProducts(updated);
+            setProducts(updated.map(cleanProductImage));
           }
         });
       } catch (err) {

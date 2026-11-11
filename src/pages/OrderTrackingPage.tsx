@@ -72,14 +72,14 @@ export const OrderTrackingPage: React.FC = () => {
       
       {/* Header */}
       <div className="text-center space-y-2">
-        <p className="text-xs font-bold uppercase tracking-widest text-purple-400">
+        <p className="text-xs font-bold uppercase tracking-widest text-red-600">
           Real-Time Shipment Lookup
         </p>
         <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight uppercase font-heading">
           Track Your Nautilus Order
         </h1>
         <p className="text-xs sm:text-sm text-slate-500 max-w-md mx-auto leading-relaxed">
-          Enter your order reference number (e.g. <span className="text-purple-300 font-mono">NP-2026-1001</span>) or mobile number used during checkout.
+          Enter your order reference number (e.g. <span className="text-red-600 font-mono">NP-2026-1001</span>) or mobile number used during checkout.
         </p>
       </div>
 
@@ -94,13 +94,13 @@ export const OrderTrackingPage: React.FC = () => {
               placeholder="e.g. NP-2026-1001 or 0333 1234567"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-white border border-slate-200 rounded-xl pl-10 pr-4 py-3 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-purple-500 font-mono"
+              className="w-full bg-white border border-slate-200 rounded-xl pl-10 pr-4 py-3 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-red-600 font-mono"
             />
           </div>
           <button
             type="submit"
             disabled={isSearching}
-            className="px-6 py-3 bg-purple-600 hover:bg-purple-500 disabled:bg-neutral-800 text-slate-900 rounded-xl text-xs font-bold uppercase tracking-wider transition-colors shrink-0"
+            className="px-6 py-3 bg-red-600 hover:bg-red-700 disabled:bg-neutral-800 text-white rounded-xl text-xs font-bold uppercase tracking-wider transition-colors shrink-0 shadow-md shadow-red-600/20"
           >
             {isSearching ? 'Locating...' : 'Track Order'}
           </button>
@@ -145,8 +145,8 @@ export const OrderTrackingPage: React.FC = () => {
                       isCancelled
                         ? 'bg-red-950/60 text-red-400 border border-red-800'
                         : ord.orderStatus === 'Delivered'
-                        ? 'bg-purple-950/80 text-purple-300 border border-purple-700'
-                        : 'bg-purple-950/60 text-purple-300 border border-purple-800'
+                        ? 'bg-red-50 text-red-700 border border-red-200'
+                        : 'bg-red-50 text-red-700 border border-red-200'
                     }`}>
                       Status: {ord.orderStatus}
                     </span>
@@ -167,7 +167,7 @@ export const OrderTrackingPage: React.FC = () => {
                             {i > 0 && (
                               <div
                                 className={`absolute top-4 -left-1/2 w-full h-[2px] transition-colors ${
-                                  i <= currentIdx ? 'bg-purple-600' : 'bg-neutral-800'
+                                  i <= currentIdx ? 'bg-red-600' : 'bg-neutral-200'
                                 }`}
                               />
                             )}
@@ -176,9 +176,9 @@ export const OrderTrackingPage: React.FC = () => {
                             <div
                               className={`relative z-10 w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all ${
                                 isDone
-                                  ? 'bg-purple-600 text-white shadow-md shadow-purple-600/30'
+                                  ? 'bg-red-600 text-white shadow-md shadow-red-600/30'
                                   : 'bg-slate-50 text-slate-400 border border-slate-200'
-                              } ${isCurrent ? 'ring-4 ring-purple-600/30' : ''}`}
+                              } ${isCurrent ? 'ring-4 ring-red-600/30' : ''}`}
                             >
                               {isDone ? <CheckCircle2 className="w-4 h-4" /> : i + 1}
                             </div>
@@ -186,9 +186,9 @@ export const OrderTrackingPage: React.FC = () => {
                             <span
                               className={`text-[11px] font-semibold mt-2 text-center uppercase tracking-wider ${
                                 isCurrent
-                                  ? 'text-slate-900'
+                                  ? 'text-slate-900 font-bold'
                                   : isDone
-                                  ? 'text-purple-300'
+                                  ? 'text-red-600'
                                   : 'text-slate-400'
                               }`}
                             >
@@ -209,7 +209,7 @@ export const OrderTrackingPage: React.FC = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
                   <div className="p-4 rounded-2xl bg-white border border-slate-200 text-xs text-slate-600 space-y-1.5">
                     <p className="font-bold text-slate-900 uppercase tracking-wider text-[11px] mb-1 flex items-center gap-1.5">
-                      <MapPin className="w-3.5 h-3.5 text-purple-400" />
+                      <MapPin className="w-3.5 h-3.5 text-red-600" />
                       <span>Destination Details</span>
                     </p>
                     <p><span className="text-slate-400">Name:</span> {ord.customerName}</p>
@@ -220,7 +220,7 @@ export const OrderTrackingPage: React.FC = () => {
 
                   <div className="p-4 rounded-2xl bg-white border border-slate-200 text-xs text-slate-600 space-y-1.5">
                     <p className="font-bold text-slate-900 uppercase tracking-wider text-[11px] mb-1 flex items-center gap-1.5">
-                      <Truck className="w-3.5 h-3.5 text-purple-400" />
+                      <Truck className="w-3.5 h-3.5 text-red-600" />
                       <span>Fulfillment & Payment</span>
                     </p>
                     <p>
@@ -240,7 +240,7 @@ export const OrderTrackingPage: React.FC = () => {
                   <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">
                     Items in this Package
                   </h3>
-                  <div className="divide-y divide-neutral-900 border-y border-slate-200">
+                  <div className="divide-y divide-slate-100 border-y border-slate-200">
                     {ord.items.map((item, idx) => (
                       <div key={idx} className="py-3 flex items-center justify-between text-xs">
                         <div className="flex items-center gap-3">
@@ -269,7 +269,7 @@ export const OrderTrackingPage: React.FC = () => {
                 {/* Quick WhatsApp Support Link */}
                 <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
                   <div className="flex items-center gap-2 text-slate-500">
-                    <Clock className="w-4 h-4 text-purple-400" />
+                    <Clock className="w-4 h-4 text-red-600" />
                     <span>Need to modify delivery address or verify rider timing?</span>
                   </div>
                   <a
@@ -278,7 +278,7 @@ export const OrderTrackingPage: React.FC = () => {
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-xl font-bold uppercase tracking-wider transition-all shadow-md shadow-purple-600/30 shrink-0"
+                    className="inline-flex items-center gap-1.5 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-xl font-bold uppercase tracking-wider transition-all shadow-md shadow-red-600/30 shrink-0"
                   >
                     <MessageCircle className="w-4 h-4" />
                     <span>WhatsApp Courier Desk</span>
@@ -294,7 +294,7 @@ export const OrderTrackingPage: React.FC = () => {
       {/* Trust Notice */}
       <div className="p-6 rounded-3xl bg-white/40 border border-slate-200 text-center text-xs text-slate-500 space-y-1">
         <div className="flex items-center justify-center gap-2 text-slate-700 font-semibold mb-1">
-          <ShieldCheck className="w-4 h-4 text-purple-600" />
+          <ShieldCheck className="w-4 h-4 text-red-600" />
           <span>Nautilus Official Pakistan Logistics Network</span>
         </div>
         <p>Direct shipments dispatched across all cities and towns in Pakistan.</p>

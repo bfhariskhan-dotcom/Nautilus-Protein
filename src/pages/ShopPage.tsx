@@ -79,14 +79,14 @@ export const ShopPage: React.FC = () => {
       <div className="mb-8 pb-6 border-b border-slate-200">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
-            <p className="text-xs font-bold uppercase tracking-wider text-purple-400">
+            <p className="text-xs font-bold uppercase tracking-wider text-red-600">
               Complete Supplement Catalog
             </p>
             <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight uppercase font-heading mt-1">
               Shop All Products
             </h1>
             <p className="text-xs text-slate-500 mt-1.5">
-              100% Authentic whey proteins, mass gainers, creatine, and pre-workouts in Pakistan.
+              100% Authentic whey proteins, mass gainers, creatine, and fitness supplements in Pakistan.
             </p>
           </div>
 
@@ -96,7 +96,7 @@ export const ShopPage: React.FC = () => {
               onClick={() => setIsMobileFiltersOpen(!isMobileFiltersOpen)}
               className="lg:hidden px-4 py-2 bg-white border border-slate-200 rounded-xl text-xs font-semibold text-slate-700 flex items-center gap-2"
             >
-              <SlidersHorizontal className="w-4 h-4 text-purple-400" />
+              <SlidersHorizontal className="w-4 h-4 text-red-600" />
               <span>Filters</span>
             </button>
 
@@ -105,7 +105,7 @@ export const ShopPage: React.FC = () => {
               <select
                 value={sortOption}
                 onChange={(e) => setSortOption(e.target.value)}
-                className="bg-white border border-slate-200 text-slate-900 rounded-xl text-xs py-2 px-3 focus:outline-none focus:border-purple-500 font-medium cursor-pointer"
+                className="bg-white border border-slate-200 text-slate-900 rounded-xl text-xs py-2 px-3 focus:outline-none focus:border-red-600 font-medium cursor-pointer"
               >
                 <option value="popular">Most Popular</option>
                 <option value="price-low">Price: Low to High</option>
@@ -124,13 +124,13 @@ export const ShopPage: React.FC = () => {
           
           <div className="flex items-center justify-between pb-3 border-b border-slate-200">
             <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-900 flex items-center gap-2">
-              <Filter className="w-4 h-4 text-purple-400" />
+              <Filter className="w-4 h-4 text-red-600" />
               <span>Filter Catalog</span>
             </h3>
             {hasActiveFilters && (
               <button
                 onClick={resetFilters}
-                className="text-[11px] text-purple-400 hover:text-slate-900 flex items-center gap-1 font-semibold transition-colors"
+                className="text-[11px] text-red-600 hover:text-slate-900 flex items-center gap-1 font-semibold transition-colors"
               >
                 <RotateCcw className="w-3 h-3" />
                 <span>Reset</span>
@@ -148,8 +148,8 @@ export const ShopPage: React.FC = () => {
                 onClick={() => setCategoryFilter('all')}
                 className={`w-full text-left px-3 py-2 rounded-lg text-xs font-medium transition-colors ${
                   categoryFilter === 'all'
-                    ? 'bg-purple-600 text-white font-bold'
-                    : 'text-slate-600 hover:bg-slate-100 hover:text-purple-700'
+                    ? 'bg-red-600 text-white font-bold'
+                    : 'text-slate-600 hover:bg-slate-100 hover:text-red-700'
                 }`}
               >
                 All Categories ({products.length})
@@ -168,8 +168,8 @@ export const ShopPage: React.FC = () => {
                       onClick={() => setCategoryFilter(c.slug)}
                       className={`w-full text-left px-3 py-2 rounded-lg text-xs font-medium transition-colors flex items-center justify-between ${
                         isSelected
-                          ? 'bg-purple-600 text-white font-bold'
-                          : 'text-slate-600 hover:bg-slate-100 hover:text-purple-700'
+                          ? 'bg-red-600 text-white font-bold'
+                          : 'text-slate-600 hover:bg-slate-100 hover:text-red-700'
                       }`}
                     >
                       <span>{c.name}</span>
@@ -192,8 +192,8 @@ export const ShopPage: React.FC = () => {
                 onClick={() => setBrandFilter('all')}
                 className={`w-full text-left px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
                   brandFilter === 'all'
-                    ? 'bg-purple-100 text-purple-800 font-bold border border-purple-300'
-                    : 'text-slate-600 hover:bg-slate-100 hover:text-purple-700'
+                    ? 'bg-red-100 text-red-800 font-bold border border-red-300'
+                    : 'text-slate-600 hover:bg-slate-100 hover:text-red-700'
                 }`}
               >
                 All Brands
@@ -204,8 +204,8 @@ export const ShopPage: React.FC = () => {
                   onClick={() => setBrandFilter(b.name)}
                   className={`w-full text-left px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
                     brandFilter.toLowerCase() === b.name.toLowerCase()
-                      ? 'bg-purple-100 text-purple-800 font-bold border border-purple-300'
-                      : 'text-slate-600 hover:bg-slate-100 hover:text-purple-700'
+                      ? 'bg-red-100 text-red-800 font-bold border border-red-300'
+                      : 'text-slate-600 hover:bg-slate-100 hover:text-red-700'
                   }`}
                 >
                   {b.name}
@@ -227,7 +227,7 @@ export const ShopPage: React.FC = () => {
               step="500"
               value={maxPrice}
               onChange={(e) => setMaxPrice(Number(e.target.value))}
-              className="w-full accent-purple-600 bg-slate-200 h-1.5 rounded-lg cursor-pointer"
+              className="w-full accent-red-600 bg-slate-200 h-1.5 rounded-lg cursor-pointer"
             />
             <div className="flex justify-between text-[10px] text-slate-400 mt-1">
               <span>PKR 2,000</span>
@@ -242,7 +242,7 @@ export const ShopPage: React.FC = () => {
                 type="checkbox"
                 checked={inStockOnly}
                 onChange={(e) => setInStockOnly(e.target.checked)}
-                className="w-4 h-4 rounded bg-white border-slate-300 text-purple-600 focus:ring-purple-500"
+                className="w-4 h-4 rounded bg-white border-slate-300 text-red-600 focus:ring-red-500"
               />
               <span>In Stock Only</span>
             </label>
@@ -255,7 +255,7 @@ export const ShopPage: React.FC = () => {
           <div className="mb-4 flex items-center justify-between text-xs text-slate-500">
             <span>Showing <span className="font-bold text-slate-900 tabular-nums">{filteredProducts.length}</span> supplements</span>
             {hasActiveFilters && (
-              <span className="text-purple-600 font-semibold">Filtered view</span>
+              <span className="text-red-600 font-semibold">Filtered view</span>
             )}
           </div>
 
@@ -267,7 +267,7 @@ export const ShopPage: React.FC = () => {
               </p>
               <button
                 onClick={resetFilters}
-                className="px-6 py-2.5 bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-xs font-bold uppercase tracking-wider transition-colors shadow-md shadow-purple-600/20"
+                className="px-6 py-2.5 bg-red-600 hover:bg-red-700 text-white rounded-xl text-xs font-bold uppercase tracking-wider transition-colors shadow-md shadow-red-600/20"
               >
                 Reset All Filters
               </button>

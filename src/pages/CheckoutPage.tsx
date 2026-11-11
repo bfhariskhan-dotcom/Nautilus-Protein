@@ -190,7 +190,7 @@ export const CheckoutPage: React.FC = () => {
         <p className="text-xs text-slate-500">Please add supplements to your cart before proceeding to checkout.</p>
         <button
           onClick={() => navigateTo('shop')}
-          className="px-6 py-2.5 bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-xs font-bold uppercase tracking-wider shadow-md shadow-purple-600/20 transition-colors"
+          className="px-6 py-2.5 bg-red-600 hover:bg-red-700 text-white rounded-xl text-xs font-bold uppercase tracking-wider shadow-md shadow-red-600/20 transition-colors"
         >
           Browse Shop
         </button>
@@ -212,7 +212,7 @@ export const CheckoutPage: React.FC = () => {
         </button>
 
         <div className="flex items-center gap-2 text-xs text-slate-500">
-          <Lock className="w-3.5 h-3.5 text-purple-400" />
+          <Lock className="w-3.5 h-3.5 text-red-500" />
           <span>256-Bit Encrypted Order Processing</span>
         </div>
       </div>
@@ -225,7 +225,7 @@ export const CheckoutPage: React.FC = () => {
           {/* Customer Information Section */}
           <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 space-y-5">
             <div className="flex items-center gap-2.5 pb-3 border-b border-slate-200">
-              <span className="w-6 h-6 rounded-full bg-purple-600 text-white text-xs font-bold flex items-center justify-center">
+              <span className="w-6 h-6 rounded-full bg-red-600 text-white text-xs font-bold flex items-center justify-center">
                 1
               </span>
               <h2 className="text-base font-bold text-slate-900 uppercase tracking-wider font-heading">
@@ -244,7 +244,7 @@ export const CheckoutPage: React.FC = () => {
                   placeholder="e.g. Muhammad Hamza"
                   value={customerName}
                   onChange={(e) => setCustomerName(e.target.value)}
-                  className="w-full bg-white border border-slate-200 rounded-xl px-3.5 py-3 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-purple-500"
+                  className="w-full bg-white border border-slate-200 rounded-xl px-3.5 py-3 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-red-600"
                 />
               </div>
 
@@ -258,7 +258,7 @@ export const CheckoutPage: React.FC = () => {
                   placeholder="e.g. 0333 1234567"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  className="w-full bg-white border border-slate-200 rounded-xl px-3.5 py-3 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-purple-500 tabular-nums"
+                  className="w-full bg-white border border-slate-200 rounded-xl px-3.5 py-3 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-red-600 tabular-nums"
                 />
                 <span className="text-[10px] text-slate-400 mt-1 block">
                   Courier dispatch alerts will be sent to this number.
@@ -275,7 +275,7 @@ export const CheckoutPage: React.FC = () => {
                 placeholder="e.g. athlete@gmail.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full bg-white border border-slate-200 rounded-xl px-3.5 py-3 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-purple-500"
+                className="w-full bg-white border border-slate-200 rounded-xl px-3.5 py-3 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-red-600"
               />
             </div>
           </div>
@@ -283,7 +283,7 @@ export const CheckoutPage: React.FC = () => {
           {/* Delivery Address Section */}
           <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 space-y-5">
             <div className="flex items-center gap-2.5 pb-3 border-b border-slate-200">
-              <span className="w-6 h-6 rounded-full bg-purple-600 text-white text-xs font-bold flex items-center justify-center">
+              <span className="w-6 h-6 rounded-full bg-red-600 text-white text-xs font-bold flex items-center justify-center">
                 2
               </span>
               <h2 className="text-base font-bold text-slate-900 uppercase tracking-wider font-heading">
@@ -299,7 +299,7 @@ export const CheckoutPage: React.FC = () => {
                 <select
                   value={city}
                   onChange={(e) => setCity(e.target.value)}
-                  className="w-full bg-white border border-slate-200 rounded-xl px-3.5 py-3 text-slate-900 focus:outline-none focus:border-purple-500 cursor-pointer font-medium"
+                  className="w-full bg-white border border-slate-200 rounded-xl px-3.5 py-3 text-slate-900 focus:outline-none focus:border-red-600 cursor-pointer font-medium"
                 >
                   {majorCities.map((c) => (
                     <option key={c} value={c}>
@@ -314,7 +314,7 @@ export const CheckoutPage: React.FC = () => {
                   Fulfillment Speed
                 </label>
                 <div className="p-2.5 rounded-xl bg-white border border-slate-200 text-slate-600 flex items-center gap-2">
-                  <Truck className="w-4 h-4 text-purple-400 shrink-0" />
+                  <Truck className="w-4 h-4 text-red-600 shrink-0" />
                   <span className="text-[11px]">
                     {city === 'Karachi' ? 'Express (24–48 Hours)' : 'Nationwide Courier (2–4 Days)'}
                   </span>
@@ -332,7 +332,7 @@ export const CheckoutPage: React.FC = () => {
                 placeholder="House / Apartment #, Street Name, Sector, Block, Area, Landmark"
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
-                className="w-full bg-white border border-slate-200 rounded-xl px-3.5 py-3 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-purple-500 leading-relaxed"
+                className="w-full bg-white border border-slate-200 rounded-xl px-3.5 py-3 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-red-600 leading-relaxed"
               />
             </div>
 
@@ -345,7 +345,7 @@ export const CheckoutPage: React.FC = () => {
                 placeholder="e.g. Leave with guard, or call before 5 PM"
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
-                className="w-full bg-white border border-slate-200 rounded-xl px-3.5 py-3 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-purple-500"
+                className="w-full bg-white border border-slate-200 rounded-xl px-3.5 py-3 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-red-600"
               />
             </div>
           </div>
@@ -353,7 +353,7 @@ export const CheckoutPage: React.FC = () => {
           {/* Payment Method Selector */}
           <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 space-y-5">
             <div className="flex items-center gap-2.5 pb-3 border-b border-slate-200">
-              <span className="w-6 h-6 rounded-full bg-purple-600 text-white text-xs font-bold flex items-center justify-center">
+              <span className="w-6 h-6 rounded-full bg-red-600 text-white text-xs font-bold flex items-center justify-center">
                 3
               </span>
               <h2 className="text-base font-bold text-slate-900 uppercase tracking-wider font-heading">
@@ -366,7 +366,7 @@ export const CheckoutPage: React.FC = () => {
               <label
                 className={`flex items-start gap-3 p-4 rounded-2xl border cursor-pointer transition-all ${
                   paymentMethod === 'cod'
-                    ? 'border-purple-500 bg-purple-950/20 shadow-md shadow-purple-950/30'
+                    ? 'border-red-600 bg-red-50/50 shadow-md shadow-red-950/5'
                     : 'border-slate-200 bg-white/60 hover:border-slate-300'
                 }`}
               >
@@ -375,12 +375,12 @@ export const CheckoutPage: React.FC = () => {
                   name="payment"
                   checked={paymentMethod === 'cod'}
                   onChange={() => setPaymentMethod('cod')}
-                  className="mt-1 accent-purple-600"
+                  className="mt-1 accent-red-600"
                 />
                 <div className="flex-1">
                   <div className="flex items-center justify-between">
                     <span className="text-sm font-bold text-slate-900">Cash on Delivery (COD)</span>
-                    <span className="text-xs text-purple-400 font-semibold">Doorstep Pay</span>
+                    <span className="text-xs text-red-600 font-semibold">Doorstep Pay</span>
                   </div>
                   <p className="text-xs text-slate-500 mt-1 leading-relaxed">
                     Pay in cash directly to the courier rider upon physical inspection of the parcel. Available across all Pakistan cities.
@@ -392,7 +392,7 @@ export const CheckoutPage: React.FC = () => {
               <label
                 className={`flex items-start gap-3 p-4 rounded-2xl border cursor-pointer transition-all ${
                   paymentMethod === 'bank_transfer'
-                    ? 'border-purple-500 bg-purple-950/20 shadow-md shadow-purple-950/30'
+                    ? 'border-red-600 bg-red-50/50 shadow-md shadow-red-950/5'
                     : 'border-slate-200 bg-white/60 hover:border-slate-300'
                 }`}
               >
@@ -401,15 +401,15 @@ export const CheckoutPage: React.FC = () => {
                   name="payment"
                   checked={paymentMethod === 'bank_transfer'}
                   onChange={() => setPaymentMethod('bank_transfer')}
-                  className="mt-1 accent-purple-600"
+                  className="mt-1 accent-red-600"
                 />
                 <div className="flex-1">
                   <div className="flex items-center justify-between">
                     <span className="text-sm font-bold text-slate-900 flex items-center gap-1.5">
-                      <Building2 className="w-4 h-4 text-purple-400" />
+                      <Building2 className="w-4 h-4 text-red-600" />
                       <span>Direct Online Bank Transfer</span>
                     </span>
-                    <span className="text-xs text-purple-300 font-mono">IBAN / Raast</span>
+                    <span className="text-xs text-red-600 font-mono">IBAN / Raast</span>
                   </div>
                   <p className="text-xs text-slate-500 mt-1 leading-relaxed">
                     Transfer directly into our Meezan Bank / HBL corporate accounts via Raast or online banking.
@@ -427,7 +427,7 @@ export const CheckoutPage: React.FC = () => {
                           placeholder="Enter your Bank Transfer Ref / Transaction ID"
                           value={paymentReference}
                           onChange={(e) => setPaymentReference(e.target.value)}
-                          className="w-full bg-white border border-slate-300 rounded-lg p-2 text-slate-900 font-sans text-xs focus:outline-none focus:border-purple-500"
+                          className="w-full bg-white border border-slate-300 rounded-lg p-2 text-slate-900 font-sans text-xs focus:outline-none focus:border-red-600"
                         />
                       </div>
                     </div>
@@ -439,7 +439,7 @@ export const CheckoutPage: React.FC = () => {
               <label
                 className={`flex items-start gap-3 p-4 rounded-2xl border cursor-pointer transition-all ${
                   paymentMethod === 'jazzcash'
-                    ? 'border-purple-500 bg-purple-950/20 shadow-md shadow-purple-950/30'
+                    ? 'border-red-600 bg-red-50/50 shadow-md shadow-red-950/5'
                     : 'border-slate-200 bg-white/60 hover:border-slate-300'
                 }`}
               >
@@ -448,15 +448,15 @@ export const CheckoutPage: React.FC = () => {
                   name="payment"
                   checked={paymentMethod === 'jazzcash'}
                   onChange={() => setPaymentMethod('jazzcash')}
-                  className="mt-1 accent-purple-600"
+                  className="mt-1 accent-red-600"
                 />
                 <div className="flex-1">
                   <div className="flex items-center justify-between">
                     <span className="text-sm font-bold text-slate-900 flex items-center gap-1.5">
-                      <Smartphone className="w-4 h-4 text-purple-400" />
+                      <Smartphone className="w-4 h-4 text-red-600" />
                       <span>JazzCash Mobile Account</span>
                     </span>
-                    <span className="text-[11px] text-purple-300 font-bold bg-purple-950/80 border border-purple-800/80 px-2 py-0.5 rounded-full">Instant</span>
+                    <span className="text-[11px] text-red-700 font-bold bg-red-100 border border-red-200 px-2 py-0.5 rounded-full">Instant</span>
                   </div>
                   <p className="text-xs text-slate-500 mt-1 leading-relaxed">
                     Send funds directly to Nautilus JazzCash account number <strong className="text-slate-900">0325 2571589</strong>.
@@ -471,7 +471,7 @@ export const CheckoutPage: React.FC = () => {
                         placeholder="Enter JazzCash Transaction TID (e.g. TID: 10928371)"
                         value={paymentReference}
                         onChange={(e) => setPaymentReference(e.target.value)}
-                        className="w-full bg-white border border-slate-300 rounded-lg p-2 text-slate-900 text-xs focus:outline-none focus:border-purple-500 font-mono"
+                        className="w-full bg-white border border-slate-300 rounded-lg p-2 text-slate-900 text-xs focus:outline-none focus:border-red-600 font-mono"
                       />
                     </div>
                   )}
@@ -482,7 +482,7 @@ export const CheckoutPage: React.FC = () => {
               <label
                 className={`flex items-start gap-3 p-4 rounded-2xl border cursor-pointer transition-all ${
                   paymentMethod === 'easypaisa'
-                    ? 'border-purple-500 bg-purple-50 shadow-md shadow-purple-600/10'
+                    ? 'border-red-600 bg-red-50/50 shadow-md shadow-red-950/5'
                     : 'border-slate-200 bg-white hover:border-slate-300'
                 }`}
               >
@@ -491,15 +491,15 @@ export const CheckoutPage: React.FC = () => {
                   name="payment"
                   checked={paymentMethod === 'easypaisa'}
                   onChange={() => setPaymentMethod('easypaisa')}
-                  className="mt-1 accent-purple-600"
+                  className="mt-1 accent-red-600"
                 />
                 <div className="flex-1">
                   <div className="flex items-center justify-between">
                     <span className="text-sm font-bold text-slate-900 flex items-center gap-1.5">
-                      <CreditCard className="w-4 h-4 text-purple-600" />
+                      <CreditCard className="w-4 h-4 text-red-600" />
                       <span>Easypaisa Mobile Account</span>
                     </span>
-                    <span className="text-[11px] text-purple-700 font-bold bg-purple-100 border border-purple-200 px-2 py-0.5 rounded-full">Instant</span>
+                    <span className="text-[11px] text-red-700 font-bold bg-red-100 border border-red-200 px-2 py-0.5 rounded-full">Instant</span>
                   </div>
                   <p className="text-xs text-slate-500 mt-1 leading-relaxed">
                     Send funds directly to Nautilus Easypaisa account number <strong className="text-slate-900">0325 2571589</strong>.
@@ -514,7 +514,7 @@ export const CheckoutPage: React.FC = () => {
                         placeholder="Enter Easypaisa Transaction ID (e.g. TRX-992817)"
                         value={paymentReference}
                         onChange={(e) => setPaymentReference(e.target.value)}
-                        className="w-full bg-white border border-slate-300 rounded-lg p-2 text-slate-900 text-xs focus:outline-none focus:border-purple-500 font-mono"
+                        className="w-full bg-white border border-slate-300 rounded-lg p-2 text-slate-900 text-xs focus:outline-none focus:border-red-600 font-mono"
                       />
                     </div>
                   )}
@@ -559,7 +559,7 @@ export const CheckoutPage: React.FC = () => {
             {/* Coupon Code Input */}
             <div className="pt-3 border-t border-slate-200">
               {appliedCoupon ? (
-                <div className="flex items-center justify-between p-2.5 rounded-xl bg-purple-950/40 border border-purple-800 text-xs text-purple-300">
+                <div className="flex items-center justify-between p-2.5 rounded-xl bg-red-950/40 border border-red-800 text-xs text-red-300">
                   <span>Coupon &quot;{appliedCoupon.code}&quot; Applied (-PKR {discount.toLocaleString()})</span>
                   <button
                     type="button"
@@ -576,13 +576,13 @@ export const CheckoutPage: React.FC = () => {
                     placeholder="Discount code (e.g. NAUTILUS10)"
                     value={couponInput}
                     onChange={(e) => setCouponInput(e.target.value)}
-                    className="flex-1 bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 uppercase placeholder-slate-400 focus:outline-none focus:border-purple-500 font-mono"
+                    className="flex-1 bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 uppercase placeholder-slate-400 focus:outline-none focus:border-red-600 font-mono"
                   />
                   <button
                     type="button"
                     onClick={handleApplyCoupon}
                     disabled={isValidatingCoupon}
-                    className="px-3 py-2 bg-purple-50 hover:bg-purple-100 border border-purple-200 text-purple-900 rounded-xl text-xs font-bold uppercase transition-colors shrink-0"
+                    className="px-3 py-2 bg-red-50 hover:bg-red-100 border border-red-200 text-red-900 rounded-xl text-xs font-bold uppercase transition-colors shrink-0"
                   >
                     Apply
                   </button>
@@ -600,21 +600,21 @@ export const CheckoutPage: React.FC = () => {
                 <span>Shipping ({city})</span>
                 <span className="font-bold tabular-nums">
                   {shippingFee === 0 ? (
-                    <span className="text-purple-400 font-bold">FREE</span>
+                    <span className="text-red-600 font-bold">FREE</span>
                   ) : (
                     `PKR ${shippingFee}`
                   )}
                 </span>
               </div>
               {appliedCoupon && (
-                <div className="flex justify-between text-purple-400">
+                <div className="flex justify-between text-red-600">
                   <span>Discount</span>
                   <span className="font-bold tabular-nums">-PKR {discount.toLocaleString()}</span>
                 </div>
               )}
               <div className="flex justify-between pt-3 border-t border-slate-200 text-base font-extrabold text-slate-900">
                 <span>Total Amount</span>
-                <span className="text-purple-400 tabular-nums">PKR {total.toLocaleString()}</span>
+                <span className="text-red-600 tabular-nums">PKR {total.toLocaleString()}</span>
               </div>
             </div>
 
@@ -622,7 +622,7 @@ export const CheckoutPage: React.FC = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full py-4 bg-purple-600 hover:bg-purple-700 disabled:bg-slate-200 disabled:text-slate-400 text-white rounded-2xl text-xs font-extrabold uppercase tracking-widest flex items-center justify-center gap-2 shadow-lg shadow-purple-600/30 transition-colors"
+              className="w-full py-4 bg-red-600 hover:bg-red-700 disabled:bg-slate-200 disabled:text-slate-400 text-white rounded-2xl text-xs font-extrabold uppercase tracking-widest flex items-center justify-center gap-2 shadow-lg shadow-red-600/30 transition-colors"
             >
               <span>{isSubmitting ? 'Confirming Order...' : 'Confirm & Place Order'}</span>
               <ArrowRight className="w-4 h-4" />

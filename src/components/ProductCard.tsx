@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Eye, ShoppingBag, Heart, Star } from 'lucide-react';
+import { Eye, ShoppingBag, Heart, Star, Package } from 'lucide-react';
 import { Product } from '../types';
 import { useStore } from '../context/StoreContext';
 
@@ -16,6 +16,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
+  const [imgError, setImgError] = useState(false);
 
   const price = product.salePrice || product.price;
   const hasDiscount = product.salePrice && product.salePrice < product.price;
@@ -56,38 +57,45 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           : 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)',
         transition: isHovering ? 'transform 0.1s ease-out' : 'transform 0.4s ease-out',
       }}
-      className="group relative bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl overflow-hidden hover:border-purple-400 transition-all duration-300 hover:shadow-xl hover:shadow-purple-950/10 flex flex-col will-change-transform select-none"
+      className="group relative bg-white border border-slate-200/90 rounded-2xl sm:rounded-3xl overflow-hidden hover:border-red-400 transition-all duration-300 hover:shadow-xl hover:shadow-red-950/10 flex flex-col will-change-transform select-none"
     >
-      {/* Interactive Purple Spotlight Sheen Tracking Mouse Position */}
+      {/* Interactive Red Spotlight Sheen Tracking Mouse Position */}
       {isHovering && (
         <div
           className="pointer-events-none absolute inset-0 z-10 transition-opacity duration-200"
           style={{
-            background: `radial-gradient(320px circle at ${mousePos.x}px ${mousePos.y}px, rgba(147, 51, 234, 0.08), transparent 70%)`,
+            background: `radial-gradient(320px circle at ${mousePos.x}px ${mousePos.y}px, rgba(220, 38, 38, 0.08), transparent 70%)`,
           }}
         />
       )}
 
       {/* Visual Container */}
       <div className="relative aspect-square w-full bg-slate-50/80 overflow-hidden p-4 sm:p-6 flex items-center justify-center border-b border-slate-100">
-        <img
-          src={product.image}
-          alt={product.name}
-          className="max-h-full max-w-full object-contain transition-transform duration-500 group-hover:scale-108"
-          referrerPolicy="no-referrer"
-          loading="lazy"
-          onError={(e) => {
-            (e.target as HTMLImageElement).src = '/images/nautilus-logo.jpg';
-          }}
-        />
+        {product.image && !product.image.includes('Nautilus-Logo-Edited') && !product.image.includes('Nautilus-Protein-Black-Purple-Logo') && !imgError ? (
+          <img
+            src={product.image}
+            alt={product.name}
+            className="max-h-full max-w-full object-contain transition-transform duration-500 group-hover:scale-108"
+            referrerPolicy="no-referrer"
+            loading="lazy"
+            onError={() => setImgError(true)}
+          />
+        ) : (
+          <div className="flex flex-col items-center justify-center text-slate-300 group-hover:text-red-400 transition-colors py-4">
+            <Package className="w-12 h-12 stroke-[1.3] text-slate-300" />
+            <span className="text-[10px] text-slate-400 mt-2 font-semibold uppercase tracking-wider">
+              Photo to be uploaded
+            </span>
+          </div>
+        )}
 
-        {/* Brand Purple Badge */}
+        {/* Brand Red Badge */}
         {product.isBestSeller ? (
-          <span className="absolute top-2.5 sm:top-3 left-2.5 sm:left-3 text-[10px] sm:text-[11px] font-bold tracking-wider uppercase text-purple-700 bg-purple-100 border border-purple-200 px-2 sm:px-2.5 py-0.5 rounded-md shadow-sm">
+          <span className="absolute top-2.5 sm:top-3 left-2.5 sm:left-3 text-[10px] sm:text-[11px] font-bold tracking-wider uppercase text-red-700 bg-red-100 border border-red-200 px-2 sm:px-2.5 py-0.5 rounded-md shadow-sm">
             Best Seller
           </span>
         ) : product.isNew ? (
-          <span className="absolute top-2.5 sm:top-3 left-2.5 sm:left-3 text-[10px] sm:text-[11px] font-bold tracking-wider uppercase text-indigo-700 bg-indigo-100 border border-indigo-200 px-2 sm:px-2.5 py-0.5 rounded-md shadow-sm">
+          <span className="absolute top-2.5 sm:top-3 left-2.5 sm:left-3 text-[10px] sm:text-[11px] font-bold tracking-wider uppercase text-black bg-slate-100 border border-slate-200 px-2 sm:px-2.5 py-0.5 rounded-md shadow-sm">
             New
           </span>
         ) : null}
@@ -100,8 +108,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           }}
           className={`absolute top-2.5 sm:top-3 right-2.5 sm:right-3 p-1.5 sm:p-2 rounded-full backdrop-blur-md transition-colors z-20 ${
             wishlisted
-              ? 'bg-purple-600 text-white shadow-md shadow-purple-600/30'
-              : 'bg-white/90 text-slate-400 hover:text-purple-600 hover:bg-white border border-slate-200 shadow-sm'
+              ? 'bg-red-600 text-white shadow-md shadow-red-600/30'
+              : 'bg-white/90 text-slate-400 hover:text-red-600 hover:bg-white border border-slate-200 shadow-sm'
           }`}
           aria-label="Wishlist"
         >
@@ -114,7 +122,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             onClick={() => setQuickViewProduct(product)}
             className="flex-1 py-2 px-3 bg-white/95 hover:bg-white text-slate-800 text-xs font-semibold rounded-xl border border-slate-300 shadow-md backdrop-blur-sm flex items-center justify-center gap-1.5 transition-colors"
           >
-            <Eye className="w-3.5 h-3.5 text-purple-600" />
+            <Eye className="w-3.5 h-3.5 text-red-600" />
             <span>Quick View</span>
           </button>
         </div>
@@ -126,7 +134,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           {/* Brand & Category */}
           <div className="flex items-center justify-between text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-1">
             <span>{product.brand}</span>
-            <div className="flex items-center gap-1 text-purple-600">
+            <div className="flex items-center gap-1 text-red-600">
               <Star className="w-3 h-3 fill-current" />
               <span className="font-bold tabular-nums text-slate-800">{product.rating}</span>
             </div>
@@ -135,7 +143,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           {/* Product Title */}
           <h3
             onClick={() => navigateTo('product', { slug: product.slug })}
-            className="font-bold text-sm sm:text-base text-slate-900 group-hover:text-purple-700 transition-colors line-clamp-2 cursor-pointer leading-snug"
+            className="font-bold text-sm sm:text-base text-slate-900 group-hover:text-red-700 transition-colors line-clamp-2 cursor-pointer leading-snug"
           >
             {product.name}
           </h3>
@@ -164,7 +172,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             disabled={!product.inStock}
             className={`p-2.5 sm:px-3.5 sm:py-2 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shadow-sm shrink-0 ${
               product.inStock
-                ? 'bg-purple-600 hover:bg-purple-700 text-white shadow-purple-600/20 active:scale-95'
+                ? 'bg-red-600 hover:bg-red-700 text-white shadow-red-600/20 active:scale-95'
                 : 'bg-slate-100 text-slate-400 cursor-not-allowed'
             }`}
             title={product.inStock ? 'Add to Cart' : 'Out of Stock'}

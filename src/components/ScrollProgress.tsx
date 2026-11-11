@@ -35,10 +35,10 @@ export const ScrollProgress: React.FC = () => {
 
   return (
     <>
-      {/* 1. Top Glowing Purple Scroll Progress Bar */}
-      <div className="fixed top-0 left-0 right-0 z-50 h-[3px] bg-neutral-900/40 pointer-events-none">
+      {/* 1. Top Glowing Red Scroll Progress Bar */}
+      <div className="fixed top-0 left-0 right-0 z-50 h-[3px] bg-black/40 pointer-events-none">
         <div
-          className="h-full bg-gradient-to-r from-purple-700 via-purple-500 to-purple-300 transition-all duration-75 ease-out shadow-[0_0_12px_rgba(168,85,247,0.85)]"
+          className="h-full bg-gradient-to-r from-red-700 via-red-600 to-red-400 transition-all duration-75 ease-out shadow-[0_0_12px_rgba(220,38,38,0.85)]"
           style={{ width: `${scrollPercent}%` }}
         />
       </div>
@@ -47,7 +47,7 @@ export const ScrollProgress: React.FC = () => {
       {showBackToTop && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-22 right-6 z-30 p-2 rounded-full bg-[#0d0c14]/90 hover:bg-[#151322] border border-purple-800/70 text-purple-300 hover:text-white transition-all duration-200 hover:scale-110 active:scale-95 shadow-2xl shadow-purple-950/80 backdrop-blur-md flex items-center justify-center focus:outline-none group"
+          className="fixed bottom-22 right-6 z-30 p-2 rounded-full bg-black/90 hover:bg-neutral-900 border border-red-600/70 text-red-400 hover:text-white transition-all duration-200 hover:scale-110 active:scale-95 shadow-2xl shadow-red-950/80 backdrop-blur-md flex items-center justify-center focus:outline-none group"
           aria-label="Scroll back to top"
           title="Back to top"
         >
@@ -66,7 +66,7 @@ export const ScrollProgress: React.FC = () => {
               cx="20"
               cy="20"
               r={16}
-              className="text-purple-500 transition-all duration-100 ease-out"
+              className="text-red-600 transition-all duration-100 ease-out"
               strokeWidth="2.5"
               strokeDasharray={2 * Math.PI * 16}
               strokeDashoffset={2 * Math.PI * 16 - (scrollPercent / 100) * (2 * Math.PI * 16)}
@@ -75,7 +75,7 @@ export const ScrollProgress: React.FC = () => {
               fill="transparent"
             />
           </svg>
-          <ArrowUp className="w-4 h-4 absolute group-hover:-translate-y-0.5 transition-transform text-purple-400 group-hover:text-white" />
+          <ArrowUp className="w-4 h-4 absolute group-hover:-translate-y-0.5 transition-transform text-red-500 group-hover:text-white" />
         </button>
       )}
     </>

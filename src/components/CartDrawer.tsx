@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, Trash2, Plus, Minus, ArrowRight, ShoppingBag } from 'lucide-react';
+import { X, Trash2, Plus, Minus, ArrowRight, ShoppingBag, Package } from 'lucide-react';
 import { useStore } from '../context/StoreContext';
 
 export const CartDrawer: React.FC = () => {
@@ -45,7 +45,7 @@ export const CartDrawer: React.FC = () => {
           {/* Header */}
           <div className="px-6 py-5 border-b border-slate-200 flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <ShoppingBag className="w-5 h-5 text-purple-400" />
+              <ShoppingBag className="w-5 h-5 text-red-600" />
               <h2 className="text-lg font-bold text-slate-900 tracking-wide">Your Cart</h2>
               <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-slate-50 border border-slate-200 text-slate-600 tabular-nums">
                 {cart.reduce((sum, i) => sum + i.quantity, 0)} items
@@ -64,26 +64,26 @@ export const CartDrawer: React.FC = () => {
           <div className="bg-slate-50/60 px-6 py-3 border-b border-slate-200 text-xs">
             {remainingForFree > 0 ? (
               <p className="text-slate-600">
-                Add <span className="text-purple-400 font-bold tabular-nums">PKR {remainingForFree.toLocaleString()}</span> more for <span className="text-slate-900 font-semibold">FREE Nationwide Delivery</span>
+                Add <span className="text-red-600 font-bold tabular-nums">PKR {remainingForFree.toLocaleString()}</span> more for <span className="text-slate-900 font-semibold">FREE Nationwide Delivery</span>
               </p>
             ) : (
-              <p className="text-purple-300 font-semibold flex items-center gap-1.5">
+              <p className="text-red-600 font-semibold flex items-center gap-1.5">
                 <span>✓</span> You qualify for FREE Nationwide Delivery!
               </p>
             )}
-            <div className="w-full bg-neutral-800 rounded-full h-1.5 mt-2 overflow-hidden">
+            <div className="w-full bg-slate-200 rounded-full h-1.5 mt-2 overflow-hidden">
               <div
-                className="bg-purple-500 h-full rounded-full transition-all duration-300"
+                className="bg-red-600 h-full rounded-full transition-all duration-300"
                 style={{ width: `${progressPercent}%` }}
               />
             </div>
           </div>
 
           {/* Cart Item List */}
-          <div className="flex-1 overflow-y-auto px-6 py-4 divide-y divide-neutral-900">
+          <div className="flex-1 overflow-y-auto px-6 py-4 divide-y divide-slate-100">
             {cart.length === 0 ? (
               <div className="py-20 text-center space-y-4">
-                <div className="w-16 h-16 mx-auto rounded-full bg-slate-50 border border-slate-200 flex items-center justify-center text-neutral-600">
+                <div className="w-16 h-16 mx-auto rounded-full bg-slate-50 border border-slate-200 flex items-center justify-center text-slate-400">
                   <ShoppingBag className="w-8 h-8" />
                 </div>
                 <p className="text-slate-600 font-medium">Your cart is currently empty</p>
@@ -95,7 +95,7 @@ export const CartDrawer: React.FC = () => {
                     setIsCartOpen(false);
                     navigateTo('shop');
                   }}
-                  className="px-6 py-2.5 bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-xs font-semibold uppercase tracking-wider shadow-sm transition-colors"
+                  className="px-6 py-2.5 bg-red-600 hover:bg-red-700 text-white rounded-xl text-xs font-semibold uppercase tracking-wider shadow-sm transition-colors"
                 >
                   Explore Supplements
                 </button>
@@ -103,14 +103,20 @@ export const CartDrawer: React.FC = () => {
             ) : (
               cart.map((item) => (
                 <div key={item.id} className="py-4 flex gap-4 items-start">
-                  <img
-                    src={item.image}
-                    alt={item.name}
-                    className="w-18 h-18 object-contain rounded-lg bg-white border border-slate-200 p-1.5 shrink-0"
-                    referrerPolicy="no-referrer"
-                  />
+                  {item.image && !item.image.includes('Nautilus-Logo-Edited') && !item.image.includes('Nautilus-Protein-Black-Purple-Logo') ? (
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      className="w-18 h-18 object-contain rounded-lg bg-white border border-slate-200 p-1.5 shrink-0"
+                      referrerPolicy="no-referrer"
+                    />
+                  ) : (
+                    <div className="w-18 h-18 rounded-lg bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-300 shrink-0">
+                      <Package className="w-8 h-8 stroke-[1.2]" />
+                    </div>
+                  )}
                   <div className="flex-1 min-w-0">
-                    <p className="text-xs text-purple-400 font-medium">{item.brand}</p>
+                    <p className="text-xs text-red-600 font-medium">{item.brand}</p>
                     <p className="text-sm font-semibold text-slate-900 truncate">{item.name}</p>
                     {(item.flavor || item.weight) && (
                       <p className="text-xs text-slate-500 mt-0.5">
@@ -148,7 +154,7 @@ export const CartDrawer: React.FC = () => {
                         </span>
                         <button
                           onClick={() => removeFromCart(item.id)}
-                          className="text-slate-400 hover:text-red-400 p-1 transition-colors"
+                          className="text-slate-400 hover:text-red-600 p-1 transition-colors"
                           aria-label="Remove item"
                         >
                           <Trash2 className="w-4 h-4" />
@@ -183,7 +189,7 @@ export const CartDrawer: React.FC = () => {
                 </button>
                 <button
                   onClick={handleCheckout}
-                  className="py-3 px-4 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold tracking-wider uppercase flex items-center justify-center gap-2 shadow-md shadow-purple-600/30 transition-colors"
+                  className="py-3 px-4 rounded-xl bg-red-600 hover:bg-red-700 text-white text-xs font-bold tracking-wider uppercase flex items-center justify-center gap-2 shadow-md shadow-red-600/30 transition-colors"
                 >
                   <span>Checkout</span>
                   <ArrowRight className="w-4 h-4" />

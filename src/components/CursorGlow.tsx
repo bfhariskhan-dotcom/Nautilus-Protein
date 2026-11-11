@@ -62,7 +62,7 @@ export const CursorGlow: React.FC = () => {
       <div
         className="pointer-events-none fixed inset-0 z-30 transition-opacity duration-300"
         style={{
-          background: `radial-gradient(600px circle at ${mousePos.x}px ${mousePos.y}px, rgba(147, 51, 234, 0.08), transparent 75%)`,
+          background: `radial-gradient(600px circle at ${mousePos.x}px ${mousePos.y}px, rgba(220, 38, 38, 0.08), transparent 75%)`,
         }}
       />
 
@@ -75,24 +75,24 @@ export const CursorGlow: React.FC = () => {
           width: isHovered ? '46px' : '22px',
           height: isHovered ? '46px' : '22px',
           transform: 'translate(-50%, -50%)',
-          borderColor: isHovered ? 'rgba(168, 85, 247, 0.85)' : 'rgba(147, 51, 234, 0.45)',
-          backgroundColor: isHovered ? 'rgba(168, 85, 247, 0.16)' : 'transparent',
+          borderColor: isHovered ? 'rgba(239, 68, 68, 0.85)' : 'rgba(220, 38, 38, 0.45)',
+          backgroundColor: isHovered ? 'rgba(239, 68, 68, 0.16)' : 'transparent',
           boxShadow: isHovered
-            ? '0 0 20px rgba(168, 85, 247, 0.6), inset 0 0 10px rgba(168, 85, 247, 0.3)'
-            : '0 0 8px rgba(147, 51, 234, 0.3)',
+            ? '0 0 20px rgba(239, 68, 68, 0.6), inset 0 0 10px rgba(239, 68, 68, 0.3)'
+            : '0 0 8px rgba(220, 38, 38, 0.3)',
         }}
       />
 
       {/* 3. High-Precision Laser Center Dot */}
       <div
-        className="pointer-events-none fixed z-50 rounded-full bg-purple-400 will-change-transform"
+        className="pointer-events-none fixed z-50 rounded-full bg-red-500 will-change-transform"
         style={{
           left: `${mousePos.x}px`,
           top: `${mousePos.y}px`,
           width: '5px',
           height: '5px',
           transform: 'translate(-50%, -50%)',
-          boxShadow: '0 0 8px #c084fc, 0 0 14px #a855f7',
+          boxShadow: '0 0 8px #ef4444, 0 0 14px #dc2626',
         }}
       />
     </>

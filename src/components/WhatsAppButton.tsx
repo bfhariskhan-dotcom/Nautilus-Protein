@@ -9,10 +9,10 @@ export const WhatsAppButton: React.FC = () => {
     <div className="fixed bottom-6 right-6 z-30 flex flex-col items-end">
       {/* Tooltip / Mini Chat Popover */}
       {isOpen && (
-        <div className="mb-3 w-72 bg-white border border-purple-200 rounded-2xl shadow-2xl p-4 text-xs animate-in fade-in slide-in-from-bottom-2 duration-200">
+        <div className="mb-3 w-72 bg-white border border-red-200 rounded-2xl shadow-2xl p-4 text-xs animate-in fade-in slide-in-from-bottom-2 duration-200">
           <div className="flex items-center justify-between pb-2 mb-2 border-b border-slate-100">
             <div className="flex items-center gap-2">
-              <div className="w-2.5 h-2.5 rounded-full bg-purple-600 shadow-sm shadow-purple-500/80 animate-pulse" />
+              <div className="w-2.5 h-2.5 rounded-full bg-red-600 shadow-sm shadow-red-500/80 animate-pulse" />
               <span className="font-bold text-slate-900 uppercase tracking-wider text-[11px]">Nautilus Athlete Desk</span>
             </div>
             <button
@@ -32,7 +32,7 @@ export const WhatsAppButton: React.FC = () => {
             )}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-3 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-xl text-xs transition-colors shadow-md shadow-purple-600/30"
+            className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl text-xs transition-colors shadow-md shadow-red-600/30"
           >
             <MessageCircle className="w-4 h-4" />
             <span>Chat on WhatsApp (0325 2571589)</span>
@@ -40,10 +40,10 @@ export const WhatsAppButton: React.FC = () => {
         </div>
       )}
 
-      {/* Floating Action Button with Signature Purple Theme */}
+      {/* Floating Action Button with Red Theme */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-13 h-13 rounded-full bg-purple-600 hover:bg-purple-700 text-white shadow-xl shadow-purple-600/40 flex items-center justify-center transition-all hover:scale-105 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-400 border border-purple-300"
+        className="w-13 h-13 rounded-full bg-red-600 hover:bg-red-700 text-white shadow-xl shadow-red-600/40 flex items-center justify-center transition-all hover:scale-105 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-red-400 border border-red-300"
         aria-label="Contact Nautilus on WhatsApp"
         title="WhatsApp Support (+92 325 2571589)"
       >

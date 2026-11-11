@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Trash2, Plus, Minus, ArrowRight, ShoppingBag, ShieldCheck, Tag } from 'lucide-react';
+import { Trash2, Plus, Minus, ArrowRight, ShoppingBag, ShieldCheck, Tag, Package } from 'lucide-react';
 import { useStore } from '../context/StoreContext';
 
 export const CartPage: React.FC = () => {
@@ -79,7 +79,7 @@ export const CartPage: React.FC = () => {
         </p>
         <button
           onClick={() => navigateTo('shop')}
-          className="px-8 py-3.5 bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-xs font-bold uppercase tracking-wider transition-colors shadow-md shadow-purple-600/30"
+          className="px-8 py-3.5 bg-red-600 hover:bg-red-700 text-white rounded-xl text-xs font-bold uppercase tracking-wider transition-colors shadow-md shadow-red-600/30"
         >
           Explore Supplement Catalog
         </button>
@@ -92,14 +92,14 @@ export const CartPage: React.FC = () => {
       
       <div className="mb-8 pb-4 border-b border-slate-200 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
         <div>
-          <p className="text-xs font-bold uppercase tracking-wider text-purple-400">Review Items</p>
+          <p className="text-xs font-bold uppercase tracking-wider text-red-600">Review Items</p>
           <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight uppercase font-heading mt-1">
             Shopping Cart ({cart.reduce((s, i) => s + i.quantity, 0)} Items)
           </h1>
         </div>
         <button
           onClick={clearCart}
-          className="text-xs text-slate-400 hover:text-red-400 flex items-center gap-1 transition-colors self-start sm:self-auto"
+          className="text-xs text-slate-400 hover:text-red-600 flex items-center gap-1 transition-colors self-start sm:self-auto"
         >
           <Trash2 className="w-3.5 h-3.5" />
           <span>Clear Cart</span>
@@ -111,18 +111,18 @@ export const CartPage: React.FC = () => {
         <div className="flex items-center justify-between">
           {remainingForFree > 0 ? (
             <span className="text-slate-600">
-              Add <span className="text-purple-400 font-bold tabular-nums">PKR {remainingForFree.toLocaleString()}</span> more to unlock <strong className="text-slate-900">FREE Nationwide Delivery</strong>
+              Add <span className="text-red-600 font-bold tabular-nums">PKR {remainingForFree.toLocaleString()}</span> more to unlock <strong className="text-slate-900">FREE Nationwide Delivery</strong>
             </span>
           ) : (
-            <span className="text-purple-300 font-bold flex items-center gap-1.5">
+            <span className="text-red-600 font-bold flex items-center gap-1.5">
               <span>✓</span> Free Nationwide Delivery Unlocked!
             </span>
           )}
           <span className="text-slate-400 tabular-nums">{progressPercent}%</span>
         </div>
-        <div className="w-full bg-neutral-800 rounded-full h-1.5 mt-2.5 overflow-hidden">
+        <div className="w-full bg-neutral-200 rounded-full h-1.5 mt-2.5 overflow-hidden">
           <div
-            className="bg-purple-500 h-full rounded-full transition-all duration-300"
+            className="bg-red-600 h-full rounded-full transition-all duration-300"
             style={{ width: `${progressPercent}%` }}
           />
         </div>
@@ -131,23 +131,29 @@ export const CartPage: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
         
         {/* Cart Items List */}
-        <div className="lg:col-span-2 divide-y divide-neutral-900 border-y border-slate-200">
+        <div className="lg:col-span-2 divide-y divide-slate-100 border-y border-slate-200">
           {cart.map((item) => (
             <div key={item.id} className="py-6 flex flex-col sm:flex-row gap-6 items-start sm:items-center justify-between">
               <div className="flex gap-4 items-center flex-1 min-w-0">
-                <img
-                  src={item.image}
-                  alt={item.name}
-                  className="w-20 h-20 object-contain rounded-xl bg-white border border-slate-200 p-2 shrink-0"
-                  referrerPolicy="no-referrer"
-                />
+                {item.image && !item.image.includes('Nautilus-Logo-Edited') && !item.image.includes('Nautilus-Protein-Black-Purple-Logo') ? (
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    className="w-20 h-20 object-contain rounded-xl bg-white border border-slate-200 p-2 shrink-0"
+                    referrerPolicy="no-referrer"
+                  />
+                ) : (
+                  <div className="w-20 h-20 rounded-xl bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-300 shrink-0">
+                    <Package className="w-8 h-8 stroke-[1.2]" />
+                  </div>
+                )}
                 <div className="min-w-0">
-                  <p className="text-xs font-semibold uppercase tracking-wider text-purple-400">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-red-600">
                     {item.brand}
                   </p>
                   <h3
                     onClick={() => navigateTo('product', { slug: item.productId })}
-                    className="text-base font-bold text-slate-900 hover:text-purple-300 cursor-pointer transition-colors truncate"
+                    className="text-base font-bold text-slate-900 hover:text-red-600 cursor-pointer transition-colors truncate"
                   >
                     {item.name}
                   </h3>
@@ -196,7 +202,7 @@ export const CartPage: React.FC = () => {
                 {/* Delete */}
                 <button
                   onClick={() => removeFromCart(item.id)}
-                  className="p-2 text-slate-400 hover:text-red-400 transition-colors"
+                  className="p-2 text-slate-400 hover:text-red-600 transition-colors"
                   aria-label="Remove item"
                 >
                   <Trash2 className="w-4 h-4" />
@@ -208,13 +214,13 @@ export const CartPage: React.FC = () => {
 
         {/* Order Summary Column */}
         <div className="space-y-6">
-          <div className="bg-white border border-slate-200 rounded-3xl p-6 space-y-4">
+          <div className="bg-white border border-slate-200 rounded-3xl p-6 space-y-4 shadow-sm">
             <h3 className="text-base font-extrabold text-slate-900 uppercase tracking-wider font-heading">
               Order Summary
             </h3>
 
             {/* Price lines */}
-            <div className="space-y-2.5 text-xs text-slate-600 divide-y divide-neutral-900 pt-1">
+            <div className="space-y-2.5 text-xs text-slate-600 divide-y divide-slate-100 pt-1">
               <div className="flex justify-between pb-2">
                 <span>Items Subtotal</span>
                 <span className="font-bold text-slate-900 tabular-nums">PKR {subtotal.toLocaleString()}</span>
@@ -224,7 +230,7 @@ export const CartPage: React.FC = () => {
                 <span>Nationwide Shipping</span>
                 <span className="font-bold tabular-nums">
                   {shippingFee === 0 ? (
-                    <span className="text-purple-300">FREE</span>
+                    <span className="text-red-600 font-bold">FREE</span>
                   ) : (
                     `PKR ${shippingFee}`
                   )}
@@ -232,9 +238,9 @@ export const CartPage: React.FC = () => {
               </div>
 
               {appliedCoupon && (
-                <div className="flex justify-between py-2 text-purple-300">
+                <div className="flex justify-between py-2 text-red-600">
                   <span className="flex items-center gap-1">
-                    <Tag className="w-3.5 h-3.5 text-purple-400" />
+                    <Tag className="w-3.5 h-3.5 text-red-600" />
                     <span>Coupon ({appliedCoupon.code})</span>
                   </span>
                   <span className="font-bold tabular-nums">-PKR {discount.toLocaleString()}</span>
@@ -243,7 +249,7 @@ export const CartPage: React.FC = () => {
 
               <div className="flex justify-between pt-3 text-base font-extrabold text-slate-900">
                 <span>Estimated Total</span>
-                <span className="text-purple-400 tabular-nums">PKR {total.toLocaleString()}</span>
+                <span className="text-red-600 tabular-nums">PKR {total.toLocaleString()}</span>
               </div>
             </div>
 
@@ -253,7 +259,7 @@ export const CartPage: React.FC = () => {
                 Have a Promo Code?
               </label>
               {appliedCoupon ? (
-                <div className="flex items-center justify-between p-2.5 rounded-xl bg-purple-950/40 border border-purple-800 text-xs text-purple-300">
+                <div className="flex items-center justify-between p-2.5 rounded-xl bg-red-50 border border-red-200 text-xs text-red-700">
                   <span className="font-semibold">{appliedCoupon.code} Applied</span>
                   <button
                     onClick={handleRemoveCoupon}
@@ -269,12 +275,12 @@ export const CartPage: React.FC = () => {
                     placeholder="e.g. NAUTILUS10 or POWER500"
                     value={couponInput}
                     onChange={(e) => setCouponInput(e.target.value)}
-                    className="flex-1 bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 uppercase placeholder-slate-400 focus:outline-none focus:border-purple-500 font-mono"
+                    className="flex-1 bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 uppercase placeholder-slate-400 focus:outline-none focus:border-red-600 font-mono"
                   />
                   <button
                     type="submit"
                     disabled={isValidatingCoupon}
-                    className="px-4 py-2 bg-purple-50 hover:bg-purple-100 border border-purple-200 text-purple-900 rounded-xl text-xs font-bold uppercase tracking-wider transition-colors shrink-0"
+                    className="px-4 py-2 bg-red-50 hover:bg-red-100 border border-red-200 text-red-900 rounded-xl text-xs font-bold uppercase tracking-wider transition-colors shrink-0"
                   >
                     {isValidatingCoupon ? '...' : 'Apply'}
                   </button>
@@ -285,7 +291,7 @@ export const CartPage: React.FC = () => {
             {/* Primary Checkout Button */}
             <button
               onClick={() => navigateTo('checkout')}
-              className="w-full py-4 bg-purple-600 hover:bg-purple-700 text-white rounded-2xl text-xs font-extrabold uppercase tracking-widest flex items-center justify-center gap-2 shadow-lg shadow-purple-600/30 transition-colors"
+              className="w-full py-4 bg-red-600 hover:bg-red-700 text-white rounded-2xl text-xs font-extrabold uppercase tracking-widest flex items-center justify-center gap-2 shadow-lg shadow-red-600/30 transition-colors"
             >
               <span>Proceed to Checkout</span>
               <ArrowRight className="w-4 h-4" />
@@ -301,7 +307,7 @@ export const CartPage: React.FC = () => {
 
           <div className="p-4 rounded-2xl bg-white/50 border border-slate-200 text-xs text-slate-500 space-y-2">
             <div className="flex items-center gap-2 text-slate-900 font-semibold">
-              <ShieldCheck className="w-4 h-4 text-purple-400" />
+              <ShieldCheck className="w-4 h-4 text-red-600" />
               <span>Nautilus Guarantee</span>
             </div>
             <p className="text-[11px] leading-relaxed">

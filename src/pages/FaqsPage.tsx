@@ -41,10 +41,10 @@ export const FaqsPage: React.FC = () => {
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-10">
       
       <div className="text-center space-y-3">
-        <div className="w-12 h-12 rounded-2xl bg-purple-950/60 border border-purple-800 text-purple-400 flex items-center justify-center mx-auto">
+        <div className="w-12 h-12 rounded-2xl bg-red-50 border border-red-200 text-[#ba0202] flex items-center justify-center mx-auto">
           <HelpCircle className="w-6 h-6" />
         </div>
-        <p className="text-xs font-bold uppercase tracking-widest text-purple-400">
+        <p className="text-xs font-bold uppercase tracking-widest text-[#ba0202]">
           Knowledge Base & Help
         </p>
         <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight uppercase font-heading">
@@ -72,7 +72,7 @@ export const FaqsPage: React.FC = () => {
                   {faq.q}
                 </span>
                 <ChevronDown
-                  className={`w-4 h-4 text-purple-400 shrink-0 transition-transform duration-200 ${
+                  className={`w-4 h-4 text-[#ba0202] shrink-0 transition-transform duration-200 ${
                     isOpen ? 'rotate-180' : ''
                   }`}
                 />
@@ -100,14 +100,14 @@ export const FaqsPage: React.FC = () => {
             href="https://wa.me/923252571589?text=Hello%20Nautilus%20Protein,%20I%20have%20a%20question%20not%20covered%20in%20the%20FAQs."
             target="_blank"
             rel="noopener noreferrer"
-            className="px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white rounded-xl text-xs font-bold uppercase tracking-wider flex items-center gap-2 transition-all shadow-md shadow-purple-600/30"
+            className="px-6 py-3 bg-[#ba0202] hover:bg-red-700 text-white rounded-xl text-xs font-bold uppercase tracking-wider flex items-center gap-2 transition-all shadow-md shadow-red-600/30 font-heading"
           >
             <MessageCircle className="w-4 h-4" />
             <span>Chat on WhatsApp (+92 325 2571589)</span>
           </a>
           <button
             onClick={() => navigateTo('contact')}
-            className="px-6 py-3 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-xl text-xs font-bold uppercase tracking-wider transition-colors"
+            className="px-6 py-3 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-xl text-xs font-bold uppercase tracking-wider transition-colors font-heading"
           >
             Contact Desk
           </button>

@@ -1,5 +1,22 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ArrowRight, ShieldCheck, Zap, Award, Truck, Star, CheckCircle, Mail, MessageCircle, ChevronLeft, ChevronRight } from 'lucide-react';
+import {
+  ArrowRight,
+  ShieldCheck,
+  Zap,
+  Award,
+  Truck,
+  Star,
+  CheckCircle,
+  Mail,
+  MessageCircle,
+  ChevronLeft,
+  ChevronRight,
+  Dumbbell,
+  TrendingUp,
+  Flame,
+  Droplet,
+  ShoppingBag
+} from 'lucide-react';
 import { useStore } from '../context/StoreContext';
 import { ProductCard } from '../components/ProductCard';
 
@@ -28,48 +45,74 @@ export const HomePage: React.FC = () => {
   const reviewDragStartX = useRef<number | null>(null);
   const reviewTouchStartX = useRef<number | null>(null);
 
-  // 3 High-Impact Clean Hero Slides with Reduced Content & Premium Imagery
+  // 4 Official Full-Bleed Banners with High-Impact Typography & Action Buttons
   const heroSlides = [
     {
-      id: 'slide-1',
-      eyebrow: 'Nautilus Sports Nutrition · Pakistan',
-      headline: 'Fuel Your',
-      headlineAccent: 'Potential.',
-      subtitle: 'Pure bioactive protein & clinical supplements engineered for peak athletic performance. Rapid nationwide delivery across Pakistan.',
-      primaryBtn: 'Shop Supplements',
-      primaryAction: () => navigateTo('shop'),
-      secondaryBtn: 'Explore Whey',
-      secondaryAction: () => navigateTo('category', { category: 'whey-protein' }),
-      image: '/images/hero_athlete_training_1792514848740.jpg',
-      badge: '100% Authentic Nutrition'
+      id: 'banner-1',
+      tag: '100% PURE CLINICAL NUTRITION',
+      headline: 'Born in Pakistan.',
+      headlineAccent: 'Built for Performance.',
+      description: 'Authentic lab-tested whey, creatine & essential vitamins formulated for raw strength and rapid muscle recovery.',
+      btnText: 'Shop Supplements',
+      action: () => navigateTo('shop'),
+      image: 'https://i.postimg.cc/26JTBchX/file-000000002f5c8208b1b3588b259e549c.png',
+      alt: 'Nautilus Protein - Official Promotional Banner 1'
     },
     {
-      id: 'slide-2',
-      eyebrow: 'Zero Fat · Ultra Filtered Bioactive Peptides',
+      id: 'banner-2',
+      tag: 'RAPID ABSORBING PEPTIDES',
       headline: 'Fast Protein',
-      headlineAccent: 'Whey Chocolate.',
-      subtitle: '25g rapid-absorbing protein per serving. Clean mixability, rich chocolate taste, and unmatched recovery for serious lifters.',
-      primaryBtn: 'Shop Fast Protein',
-      primaryAction: () => navigateTo('product', { slug: 'nautilus-fast-protein-whey-chocolate-5lbs' }),
-      secondaryBtn: 'Explore Whey',
-      secondaryAction: () => navigateTo('category', { category: 'whey-protein' }),
-      image: '/images/product_nautilus_isolate_1792514848952.jpg',
-      badge: '25g Bioactive Purity'
+      headlineAccent: 'Whey Isolate.',
+      description: '25g pure protein per scoop with 5.5g BCAAs. Clean mixability, zero amino spiking, and maximum muscle synthesis.',
+      btnText: 'Explore Whey Protein',
+      action: () => navigateTo('category', { category: 'whey-protein' }),
+      image: 'https://i.postimg.cc/4y9Pv6QQ/file-000000007c3c8208bd27b387321b9c51.png',
+      alt: 'Nautilus Protein - Official Promotional Banner 2'
     },
     {
-      id: 'slide-3',
-      eyebrow: 'Pure Micronized Creapure-Grade Monohydrate',
-      headline: 'Micronized',
-      headlineAccent: 'Creatine 405g.',
-      subtitle: '5g pure HPLC-tested Creatine Monohydrate per serving. Amplifies muscular ATP replenishment, raw strength, and power output.',
-      primaryBtn: 'Get Pure Creatine',
-      primaryAction: () => navigateTo('product', { slug: 'nautilus-micronized-creatine-monohydrate-405g' }),
-      secondaryBtn: 'All Creatine',
-      secondaryAction: () => navigateTo('category', { category: 'creatine' }),
-      image: '/images/product_nautilus_preworkout_1792514849391.jpg',
-      badge: '5000mg Pure Creatine'
+      id: 'banner-3',
+      tag: 'CREAPURE® GRADE MONOHYDRATE',
+      headline: 'Pure Creatine',
+      headlineAccent: '& Intra Recovery.',
+      description: '5000mg HPLC-tested micronized creatine and 2:1:1 fermented BCAAs for relentless cellular energy and muscular output.',
+      btnText: 'View Performance Stacks',
+      action: () => navigateTo('category', { category: 'creatine' }),
+      image: 'https://i.postimg.cc/hvds8L1b/file-00000000dd748208bb722fce8ea4567c.png',
+      alt: 'Nautilus Protein - Official Promotional Banner 3'
+    },
+    {
+      id: 'banner-4',
+      tag: 'NATIONWIDE EXPRESS DISPATCH',
+      headline: 'Authentic Seals.',
+      headlineAccent: 'Cash on Delivery.',
+      description: 'Dispatched direct from Karachi logistics hub to all cities across Pakistan with intact tamper-evident seals.',
+      btnText: 'Order With Free Delivery',
+      action: () => navigateTo('shop'),
+      image: 'https://i.postimg.cc/L51Dkt3V/file-00000000e6388208a1d748d092d8e863.png',
+      alt: 'Nautilus Protein - Official Promotional Banner 4'
     }
   ];
+
+  // Helper for unique category icons
+  const getCategoryIcon = (slug: string) => {
+    switch (slug) {
+      case 'whey-protein':
+        return Dumbbell;
+      case 'mass-gainers':
+        return TrendingUp;
+      case 'creatine':
+        return Flame;
+      case 'amino-acids':
+        return Droplet;
+      case 'vitamins':
+      case 'health-essentials':
+        return ShieldCheck;
+      case 'accessories':
+        return ShoppingBag;
+      default:
+        return Zap;
+    }
+  };
 
   const promoSlides = [
     {
@@ -397,63 +440,65 @@ export const HomePage: React.FC = () => {
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
-          className="relative w-full h-[85vh] min-h-[560px] max-h-[880px] flex items-center overflow-hidden select-none bg-black"
+          className="relative w-full aspect-[16/9] sm:max-h-[600px] md:max-h-[680px] lg:max-h-[760px] xl:max-h-[820px] flex items-center overflow-hidden select-none bg-black group"
         >
           {/* Horizontal Sliding Track */}
           <div
             className="flex w-full h-full transition-transform duration-700 ease-out will-change-transform"
             style={{ transform: `translate3d(-${currentSlide * 100}%, 0, 0)` }}
           >
-            {heroSlides.map((slide) => (
+            {heroSlides.map((slide, idx) => (
               <div
                 key={slide.id}
-                className="min-w-full w-full h-full relative shrink-0 flex items-center"
+                onClick={slide.action}
+                className="min-w-full w-full h-full relative shrink-0 cursor-pointer overflow-hidden flex items-center"
               >
-                {/* Background Media with Full-Bleed Coverage (object-cover fills 100% width and 100% height) */}
-                <div className="absolute inset-0 w-full h-full">
-                  <img
-                    src={slide.image}
-                    alt={slide.headline}
-                    className="w-full h-full object-cover object-center filter brightness-[0.88] contrast-105"
-                    loading="eager"
-                  />
-                  {/* Clean, uniform subtle dark overlay for crisp text contrast */}
-                  <div className="absolute inset-0 bg-black/40" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-black/25" />
-                </div>
+                {/* Full-bleed responsive banner image with object-cover */}
+                <img
+                  src={slide.image}
+                  alt={slide.alt}
+                  className="absolute inset-0 w-full h-full object-cover object-center filter brightness-[0.88]"
+                  loading={idx === 0 ? 'eager' : 'lazy'}
+                />
 
-                {/* Foreground Banner Content (High Contrast, Razor-sharp Typography) */}
-                <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-10">
-                  <div className="max-w-2xl space-y-4 sm:space-y-6">
+                {/* Subtle gradient overlay to make typography pop on both mobile and laptop */}
+                <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/45 to-transparent sm:from-black/80 sm:via-black/35" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
+
+                {/* High-Impact Typography & Action Button Overlay */}
+                <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-10 py-4 sm:py-8">
+                  <div className="max-w-xl space-y-2 sm:space-y-4">
                     
-                    {/* Clean Hero Headline */}
-                    <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold uppercase tracking-tight text-white font-heading leading-[0.95] drop-shadow-[0_4px_16px_rgba(0,0,0,0.9)]">
+                    {/* Eyebrow Tag */}
+                    <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 sm:py-1 rounded-md text-[10px] sm:text-xs font-bold uppercase tracking-widest bg-[#ba0202] text-white border border-red-500/40 shadow-sm">
+                      <Zap className="w-3 h-3 text-white shrink-0" />
+                      <span>{slide.tag}</span>
+                    </div>
+
+                    {/* Headline in Sequel 100 Black 85 */}
+                    <h2 className="text-xl sm:text-3xl md:text-5xl lg:text-6xl font-extrabold uppercase tracking-tight text-white font-heading leading-[0.98] drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]">
                       {slide.headline}{' '}
-                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-purple-300 to-violet-300 drop-shadow-[0_0_25px_rgba(168,85,247,0.6)]">
+                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-rose-400 to-red-300">
                         {slide.headlineAccent}
                       </span>
-                    </h1>
+                    </h2>
 
-                    {/* Concise Punchy Subtitle */}
-                    <p className="text-sm sm:text-base text-neutral-100 max-w-xl leading-relaxed drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] font-medium">
-                      {slide.subtitle}
+                    {/* Short Description */}
+                    <p className="text-xs sm:text-sm md:text-base text-neutral-100 max-w-lg leading-relaxed drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] font-medium line-clamp-2 sm:line-clamp-none">
+                      {slide.description}
                     </p>
 
-                    {/* Call to Actions - Single button on mobile, dual on desktop */}
-                    <div className="pt-2 flex flex-wrap items-center gap-3 sm:gap-4">
+                    {/* Action Button */}
+                    <div className="pt-1 sm:pt-2">
                       <button
-                        onClick={slide.primaryAction}
-                        className="w-full sm:w-auto px-7 sm:px-8 py-3.5 bg-gradient-to-r from-purple-700 via-purple-600 to-purple-500 hover:from-purple-600 hover:to-purple-400 text-white rounded-xl text-xs sm:text-sm font-bold tracking-wider uppercase transition-all shadow-xl shadow-purple-950/70 hover:shadow-purple-700/50 hover:scale-[1.02] flex items-center justify-center gap-2 group active:scale-95"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          slide.action();
+                        }}
+                        className="px-4 sm:px-7 py-2 sm:py-3.5 bg-[#ba0202] hover:bg-red-700 text-white rounded-xl text-xs sm:text-sm font-bold tracking-wider uppercase transition-all shadow-xl shadow-red-950/70 hover:scale-[1.02] flex items-center justify-center gap-2 font-heading active:scale-95 border border-red-500/30"
                       >
-                        <span>{slide.primaryBtn}</span>
-                        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                      </button>
-
-                      <button
-                        onClick={slide.secondaryAction}
-                        className="hidden sm:inline-flex px-6 sm:px-7 py-3.5 bg-neutral-900/90 hover:bg-neutral-800 text-white rounded-xl text-xs sm:text-sm font-bold tracking-wider uppercase border border-neutral-700 hover:border-purple-500 transition-colors items-center justify-center shadow-lg backdrop-blur-sm"
-                      >
-                        {slide.secondaryBtn}
+                        <span>{slide.btnText}</span>
+                        <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                       </button>
                     </div>
 
@@ -463,42 +508,68 @@ export const HomePage: React.FC = () => {
             ))}
           </div>
 
+          {/* Left / Right Nav Arrows (Smoothly appear on hover) */}
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length);
+            }}
+            className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black/60 hover:bg-[#ba0202] text-white flex items-center justify-center transition-all opacity-0 group-hover:opacity-100 z-20 backdrop-blur-sm border border-white/20 shadow-lg"
+            aria-label="Previous Slide"
+          >
+            <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
+          </button>
+
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+            }}
+            className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black/60 hover:bg-[#ba0202] text-white flex items-center justify-center transition-all opacity-0 group-hover:opacity-100 z-20 backdrop-blur-sm border border-white/20 shadow-lg"
+            aria-label="Next Slide"
+          >
+            <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
+          </button>
+
           {/* Slide Indicators / Dots */}
-          <div className="absolute z-20 bottom-4 sm:bottom-6 inset-x-0 flex items-center justify-center gap-2 sm:gap-3 pointer-events-auto">
+          <div className="absolute z-20 bottom-3 sm:bottom-6 inset-x-0 flex items-center justify-center gap-2 sm:gap-3 pointer-events-auto">
             {heroSlides.map((slide, i) => (
               <button
                 key={slide.id}
-                onClick={() => setCurrentSlide(i)}
-                className={`h-2 rounded-full transition-all duration-300 focus:outline-none ${
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setCurrentSlide(i);
+                }}
+                className={`h-2 sm:h-2.5 rounded-full transition-all duration-300 focus:outline-none ${
                   currentSlide === i
-                    ? 'w-8 sm:w-10 bg-purple-500 shadow-[0_0_10px_rgba(168,85,247,0.9)]'
-                    : 'w-2 bg-white/50 hover:bg-white'
+                    ? 'w-8 sm:w-10 bg-[#ba0202] shadow-[0_0_12px_rgba(186,2,2,0.9)]'
+                    : 'w-2 sm:w-2.5 bg-white/60 hover:bg-white'
                 }`}
-                aria-label={`Go to slide ${i + 1}`}
+                aria-label={`Go to banner ${i + 1}`}
               />
             ))}
           </div>
         </section>
 
         {/* Marquee Trust Ticker Strip - Flush right under hero banner with ZERO GAP */}
-        <div className="bg-purple-950 text-purple-200 border-b border-purple-900/50 py-3 overflow-hidden select-none shadow-sm">
+        <div className="bg-black text-white border-b border-red-950 py-3 overflow-hidden select-none shadow-sm">
           <div className="nautilus-marquee-track flex items-center gap-8 whitespace-nowrap text-xs font-semibold tracking-wider uppercase">
-            <span className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-purple-400 shrink-0" /> 100% Authentic Seals & Tamper-Evident Packaging</span>
-            <span className="text-purple-600">·</span>
-            <span className="flex items-center gap-2"><Truck className="w-4 h-4 text-purple-400 shrink-0" /> Fast Nationwide Delivery Across All Pakistan Cities</span>
-            <span className="text-purple-600">·</span>
-            <span className="flex items-center gap-2"><ShieldCheck className="w-4 h-4 text-purple-400 shrink-0" /> Cash on Delivery (COD) Available</span>
-            <span className="text-purple-600">·</span>
-            <span className="flex items-center gap-2"><Award className="w-4 h-4 text-purple-400 shrink-0" /> 100% Original Clinical Sports Nutrition</span>
-            <span className="text-purple-600">·</span>
-            <span className="flex items-center gap-2"><MessageCircle className="w-4 h-4 text-purple-400 shrink-0" /> Dedicated WhatsApp Athlete Support (+92 325 2571589)</span>
-            <span className="text-purple-600">·</span>
+            <span className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-red-500 shrink-0" /> 100% Authentic Seals & Tamper-Evident Packaging</span>
+            <span className="text-red-600">·</span>
+            <span className="flex items-center gap-2"><Truck className="w-4 h-4 text-red-500 shrink-0" /> Fast Nationwide Delivery Across All Pakistan Cities</span>
+            <span className="text-red-600">·</span>
+            <span className="flex items-center gap-2"><ShieldCheck className="w-4 h-4 text-red-500 shrink-0" /> Cash on Delivery (COD) Available</span>
+            <span className="text-red-600">·</span>
+            <span className="flex items-center gap-2"><Award className="w-4 h-4 text-red-500 shrink-0" /> 100% Original Clinical Sports Nutrition</span>
+            <span className="text-red-600">·</span>
+            <span className="flex items-center gap-2"><MessageCircle className="w-4 h-4 text-red-500 shrink-0" /> Dedicated WhatsApp Athlete Support (+92 325 2571589)</span>
+            <span className="text-red-600">·</span>
             {/* Loop duplicates for seamless continuous loop */}
-            <span className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-purple-400 shrink-0" /> 100% Authentic Seals & Tamper-Evident Packaging</span>
-            <span className="text-purple-600">·</span>
-            <span className="flex items-center gap-2"><Truck className="w-4 h-4 text-purple-400 shrink-0" /> Fast Nationwide Delivery Across All Pakistan Cities</span>
-            <span className="text-purple-600">·</span>
-            <span className="flex items-center gap-2"><ShieldCheck className="w-4 h-4 text-purple-400 shrink-0" /> Cash on Delivery (COD) Available</span>
+            <span className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-red-500 shrink-0" /> 100% Authentic Seals & Tamper-Evident Packaging</span>
+            <span className="text-red-600">·</span>
+            <span className="flex items-center gap-2"><Truck className="w-4 h-4 text-red-500 shrink-0" /> Fast Nationwide Delivery Across All Pakistan Cities</span>
+            <span className="text-red-600">·</span>
+            <span className="flex items-center gap-2"><ShieldCheck className="w-4 h-4 text-red-500 shrink-0" /> Cash on Delivery (COD) Available</span>
           </div>
         </div>
       </div>
@@ -507,7 +578,7 @@ export const HomePage: React.FC = () => {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-end justify-between mb-8">
           <div>
-            <p className="text-xs font-bold uppercase tracking-wider text-purple-600">
+            <p className="text-xs font-bold uppercase tracking-wider text-red-600">
               Targeted Supplement Categories
             </p>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight uppercase font-heading mt-1">
@@ -516,10 +587,10 @@ export const HomePage: React.FC = () => {
           </div>
           <button
             onClick={() => navigateTo('shop')}
-            className="text-xs font-bold text-slate-500 hover:text-purple-700 uppercase tracking-wider flex items-center gap-1.5 transition-colors"
+            className="text-xs font-bold text-slate-500 hover:text-red-600 uppercase tracking-wider flex items-center gap-1.5 transition-colors"
           >
             <span>View All</span>
-            <ArrowRight className="w-3.5 h-3.5 text-purple-600" />
+            <ArrowRight className="w-3.5 h-3.5 text-red-600" />
           </button>
         </div>
 
@@ -541,16 +612,17 @@ export const HomePage: React.FC = () => {
                   ((p.category as string) === 'vitamins' &&
                     (cat.slug === 'health-essentials' || cat.slug === 'vitamins'))
               ).length || cat.itemCount || 0;
+              const CatIcon = getCategoryIcon(cat.slug);
               return (
                 <div
                   key={cat.id}
                   onClick={() => navigateTo('category', { category: cat.slug })}
-                  className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200 hover:border-purple-400 shadow-sm hover:shadow-md cursor-pointer text-center transition-all duration-200 group hover:-translate-y-1 hover:shadow-xl hover:shadow-purple-950/30 flex flex-col items-center justify-center"
+                  className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200 hover:border-red-400 shadow-sm hover:shadow-md cursor-pointer text-center transition-all duration-200 group hover:-translate-y-1 hover:shadow-xl hover:shadow-red-950/20 flex flex-col items-center justify-center"
                 >
-                  <div className="w-12 h-12 rounded-xl bg-purple-50 border border-purple-200 flex items-center justify-center text-purple-600 mb-3 group-hover:scale-110 group-hover:bg-purple-100 group-hover:border-purple-400 transition-all">
-                    <Zap className="w-5 h-5" />
+                  <div className="w-12 h-12 rounded-xl bg-red-50 border border-red-200 flex items-center justify-center text-red-600 mb-3 group-hover:scale-110 group-hover:bg-red-100 group-hover:border-red-400 transition-all">
+                    <CatIcon className="w-5 h-5" />
                   </div>
-                  <h3 className="text-xs sm:text-sm font-bold text-slate-800 group-hover:text-purple-700 transition-colors uppercase tracking-wider">
+                  <h3 className="text-xs sm:text-sm font-bold text-slate-800 group-hover:text-red-600 transition-colors uppercase tracking-wider">
                     {cat.name}
                   </h3>
                   <p className="text-[11px] text-slate-400 mt-1 font-mono">
@@ -566,8 +638,8 @@ export const HomePage: React.FC = () => {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-purple-100 text-purple-800 border border-purple-200 mb-2">
-              <Award className="w-3.5 h-3.5 text-purple-600" />
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-red-50 text-red-700 border border-red-200 mb-2">
+              <Award className="w-3.5 h-3.5 text-red-600" />
               <span>Pakistan Athlete Favorites</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight uppercase font-heading">
@@ -576,10 +648,10 @@ export const HomePage: React.FC = () => {
           </div>
           <button
             onClick={() => navigateTo('shop')}
-            className="text-xs font-bold text-slate-500 hover:text-purple-700 uppercase tracking-wider flex items-center gap-1.5 transition-colors self-start md:self-auto"
+            className="text-xs font-bold text-slate-500 hover:text-red-600 uppercase tracking-wider flex items-center gap-1.5 transition-colors self-start md:self-auto"
           >
             <span>Explore All Products</span>
-            <ArrowRight className="w-3.5 h-3.5 text-purple-600" />
+            <ArrowRight className="w-3.5 h-3.5 text-red-600" />
           </button>
         </div>
 
@@ -599,7 +671,7 @@ export const HomePage: React.FC = () => {
         onTouchEnd={handlePromoTouchEnd}
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-hidden select-none"
       >
-        <div className="relative rounded-3xl overflow-hidden border border-purple-900/50 bg-gradient-to-r from-[#0d0a17] via-neutral-950 to-[#120a21]">
+        <div className="relative rounded-3xl overflow-hidden border border-red-950 bg-gradient-to-r from-black via-neutral-950 to-[#1a0000]">
           {/* Track */}
           <div
             className="flex transition-transform duration-700 ease-out will-change-transform"
@@ -611,7 +683,7 @@ export const HomePage: React.FC = () => {
                 className="min-w-full w-full shrink-0 p-8 sm:p-12 lg:p-16 flex flex-col md:flex-row items-center justify-between gap-8"
               >
                 <div className="space-y-4 max-w-xl text-center md:text-left">
-                  <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-purple-950/80 text-purple-300 border border-purple-800">
+                  <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-red-950/80 text-red-300 border border-red-800">
                     <span>{p.tag}</span>
                   </div>
                   <h3 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight uppercase font-heading leading-tight">
@@ -623,7 +695,7 @@ export const HomePage: React.FC = () => {
                   <div className="pt-2 flex flex-wrap items-center justify-center md:justify-start gap-4">
                     <button
                       onClick={p.action}
-                      className="px-6 py-3.5 bg-gradient-to-r from-purple-700 to-purple-500 hover:from-purple-600 hover:to-purple-400 text-white rounded-xl text-xs font-bold uppercase tracking-wider transition-all shadow-lg shadow-purple-950/60 hover:scale-[1.02] flex items-center gap-2 group"
+                      className="px-6 py-3.5 bg-gradient-to-r from-red-700 to-red-500 hover:from-red-600 hover:to-red-400 text-white rounded-xl text-xs font-bold uppercase tracking-wider transition-all shadow-lg shadow-red-950/60 hover:scale-[1.02] flex items-center gap-2 group"
                     >
                       <span>{p.cta}</span>
                       <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -631,8 +703,8 @@ export const HomePage: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="hidden lg:flex flex-col items-center justify-center p-8 rounded-2xl bg-purple-950/30 border border-purple-800/40 text-center shrink-0 w-72">
-                  <Truck className="w-10 h-10 text-purple-600 mb-3" />
+                <div className="hidden lg:flex flex-col items-center justify-center p-8 rounded-2xl bg-red-950/20 border border-red-900/40 text-center shrink-0 w-72">
+                  <Truck className="w-10 h-10 text-red-500 mb-3" />
                   <p className="text-white font-heading uppercase font-bold text-lg">Nationwide Shipping</p>
                   <p className="text-xs text-slate-500 mt-1">Free delivery across Pakistan on orders over PKR 5,000</p>
                 </div>
@@ -647,7 +719,7 @@ export const HomePage: React.FC = () => {
                 key={i}
                 onClick={() => setCurrentPromo(i)}
                 className={`h-1.5 rounded-full transition-all duration-300 ${
-                  currentPromo === i ? 'w-6 bg-purple-500' : 'w-2 bg-slate-300 hover:bg-slate-400'
+                  currentPromo === i ? 'w-6 bg-red-600' : 'w-2 bg-slate-300 hover:bg-slate-400'
                 }`}
                 aria-label={`Go to promo ${i + 1}`}
               />
@@ -659,7 +731,7 @@ export const HomePage: React.FC = () => {
       {/* 5. SHOP BY GOAL */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-xl mx-auto mb-10">
-          <p className="text-xs font-bold uppercase tracking-wider text-purple-600">
+          <p className="text-xs font-bold uppercase tracking-wider text-red-600">
             Targeted Performance
           </p>
           <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight uppercase font-heading mt-1">
@@ -677,20 +749,20 @@ export const HomePage: React.FC = () => {
               <div
                 key={g.id}
                 onClick={g.action}
-                className="p-6 rounded-2xl bg-white border border-slate-200 hover:border-purple-400 shadow-sm hover:shadow-md cursor-pointer transition-all duration-300 group flex flex-col justify-between hover:-translate-y-1 hover:shadow-xl hover:shadow-purple-950/30"
+                className="p-6 rounded-2xl bg-white border border-slate-200 hover:border-red-400 shadow-sm hover:shadow-md cursor-pointer transition-all duration-300 group flex flex-col justify-between hover:-translate-y-1 hover:shadow-xl hover:shadow-red-950/20"
               >
                 <div>
-                  <div className="w-12 h-12 rounded-xl bg-purple-50 border border-purple-200 flex items-center justify-center text-purple-600 group-hover:bg-purple-100 group-hover:border-purple-400 transition-colors mb-4">
+                  <div className="w-12 h-12 rounded-xl bg-red-50 border border-red-200 flex items-center justify-center text-red-600 group-hover:bg-red-100 group-hover:border-red-400 transition-colors mb-4">
                     <Icon className="w-6 h-6" />
                   </div>
-                  <h3 className="text-lg font-bold text-slate-900 group-hover:text-purple-700 transition-colors">
+                  <h3 className="text-lg font-bold text-slate-900 group-hover:text-red-600 transition-colors">
                     {g.title}
                   </h3>
                   <p className="text-xs text-slate-500 mt-2 leading-relaxed">
                     {g.tagline}
                   </p>
                 </div>
-                <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-purple-600">
+                <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-red-600">
                   <span>Explore Products</span>
                   <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
                 </div>
@@ -705,7 +777,7 @@ export const HomePage: React.FC = () => {
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
             <div>
-              <p className="text-xs font-bold uppercase tracking-wider text-purple-600">
+              <p className="text-xs font-bold uppercase tracking-wider text-red-600">
                 Fresh Production Batches
               </p>
               <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight uppercase font-heading mt-1">
@@ -714,10 +786,10 @@ export const HomePage: React.FC = () => {
             </div>
             <button
               onClick={() => navigateTo('shop')}
-              className="text-xs font-bold text-slate-500 hover:text-purple-700 uppercase tracking-wider flex items-center gap-1.5 transition-colors self-start md:self-auto"
+              className="text-xs font-bold text-slate-500 hover:text-red-600 uppercase tracking-wider flex items-center gap-1.5 transition-colors self-start md:self-auto"
             >
               <span>View Collection</span>
-              <ArrowRight className="w-3.5 h-3.5 text-purple-600" />
+              <ArrowRight className="w-3.5 h-3.5 text-red-600" />
             </button>
           </div>
 
@@ -733,7 +805,7 @@ export const HomePage: React.FC = () => {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-12 shadow-sm">
           <div className="max-w-2xl mb-10">
-            <p className="text-xs font-bold uppercase tracking-wider text-purple-600">
+            <p className="text-xs font-bold uppercase tracking-wider text-red-600">
               The Nautilus Standard
             </p>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight uppercase font-heading mt-1">
@@ -746,7 +818,7 @@ export const HomePage: React.FC = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
             <div className="space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-purple-50 border border-purple-200 flex items-center justify-center text-purple-600">
+              <div className="w-10 h-10 rounded-xl bg-red-50 border border-red-200 flex items-center justify-center text-red-600">
                 <ShieldCheck className="w-5 h-5" />
               </div>
               <h3 className="text-base font-bold text-slate-900">Genuine Tamper-Evident Seals</h3>
@@ -756,7 +828,7 @@ export const HomePage: React.FC = () => {
             </div>
 
             <div className="space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-purple-50 border border-purple-200 flex items-center justify-center text-purple-600">
+              <div className="w-10 h-10 rounded-xl bg-red-50 border border-red-200 flex items-center justify-center text-red-600">
                 <Truck className="w-5 h-5" />
               </div>
               <h3 className="text-base font-bold text-slate-900">Fast Nationwide Dispatch</h3>
@@ -766,7 +838,7 @@ export const HomePage: React.FC = () => {
             </div>
 
             <div className="space-y-3">
-              <div className="w-10 h-10 rounded-xl bg-purple-50 border border-purple-200 flex items-center justify-center text-purple-600">
+              <div className="w-10 h-10 rounded-xl bg-red-50 border border-red-200 flex items-center justify-center text-red-600">
                 <MessageCircle className="w-5 h-5" />
               </div>
               <h3 className="text-base font-bold text-slate-900">Dedicated WhatsApp Athlete Desk</h3>
@@ -782,17 +854,17 @@ export const HomePage: React.FC = () => {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between mb-6">
           <div>
-            <p className="text-xs font-bold uppercase tracking-wider text-purple-600">Curated Roster</p>
+            <p className="text-xs font-bold uppercase tracking-wider text-red-600">Curated Roster</p>
             <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight uppercase font-heading">
               Available Brands
             </h2>
           </div>
           <button
             onClick={() => navigateTo('shop')}
-            className="text-xs font-bold text-slate-500 hover:text-purple-700 uppercase tracking-wider flex items-center gap-1.5 transition-colors"
+            className="text-xs font-bold text-slate-500 hover:text-red-600 uppercase tracking-wider flex items-center gap-1.5 transition-colors"
           >
             <span>View All</span>
-            <ArrowRight className="w-3.5 h-3.5 text-purple-600" />
+            <ArrowRight className="w-3.5 h-3.5 text-red-600" />
           </button>
         </div>
         <div className="flex gap-4 overflow-x-auto pb-4 pt-1 no-scrollbar scroll-smooth">
@@ -800,12 +872,12 @@ export const HomePage: React.FC = () => {
             <div
               key={`${b.id}-${idx}`}
               onClick={() => navigateTo('shop', { brand: b.name })}
-              className="min-w-[180px] sm:min-w-[210px] p-5 rounded-2xl bg-white border border-slate-200 hover:border-purple-400 shadow-sm cursor-pointer text-center transition-all group hover:-translate-y-1 hover:shadow-md shrink-0 flex flex-col items-center justify-center"
+              className="min-w-[180px] sm:min-w-[210px] p-5 rounded-2xl bg-white border border-slate-200 hover:border-red-400 shadow-sm cursor-pointer text-center transition-all group hover:-translate-y-1 hover:shadow-md shrink-0 flex flex-col items-center justify-center"
             >
-              <div className="w-10 h-10 rounded-full bg-purple-50 border border-purple-200 flex items-center justify-center text-purple-600 font-extrabold text-xs mb-3 group-hover:scale-110 group-hover:bg-purple-100 transition-all">
+              <div className="w-10 h-10 rounded-full bg-red-50 border border-red-200 flex items-center justify-center text-red-600 font-extrabold text-xs mb-3 group-hover:scale-110 group-hover:bg-red-100 transition-all">
                 {b.name.substring(0, 2).toUpperCase()}
               </div>
-              <p className="text-sm font-bold text-slate-800 group-hover:text-purple-700 transition-colors uppercase tracking-wider">
+              <p className="text-sm font-bold text-slate-800 group-hover:text-red-600 transition-colors uppercase tracking-wider">
                 {b.name}
               </p>
               <p className="text-[11px] text-slate-400 mt-1">{b.country} · Authentic Partner</p>
@@ -825,8 +897,8 @@ export const HomePage: React.FC = () => {
       >
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-purple-100 text-purple-800 border border-purple-200 mb-2">
-              <Star className="w-3.5 h-3.5 fill-current text-purple-600" />
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-red-50 text-red-700 border border-red-200 mb-2">
+              <Star className="w-3.5 h-3.5 fill-current text-red-600" />
               <span>Real Athlete Experiences</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight uppercase font-heading">
@@ -841,14 +913,14 @@ export const HomePage: React.FC = () => {
           <div className="flex items-center gap-2 self-start md:self-auto">
             <button
               onClick={() => setTestimonialIndex((prev) => (prev <= 0 ? maxTestimonialIndex : prev - 1))}
-              className="p-2.5 rounded-xl bg-white hover:bg-purple-50 text-slate-700 hover:text-purple-700 border border-slate-200 hover:border-purple-300 shadow-sm transition-all hover:scale-105 active:scale-95"
+              className="p-2.5 rounded-xl bg-white hover:bg-red-50 text-slate-700 hover:text-red-600 border border-slate-200 hover:border-red-300 shadow-sm transition-all hover:scale-105 active:scale-95"
               aria-label="Previous Review"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
             <button
               onClick={() => setTestimonialIndex((prev) => (prev >= maxTestimonialIndex ? 0 : prev + 1))}
-              className="p-2.5 rounded-xl bg-white hover:bg-purple-50 text-slate-700 hover:text-purple-700 border border-slate-200 hover:border-purple-300 shadow-sm transition-all hover:scale-105 active:scale-95"
+              className="p-2.5 rounded-xl bg-white hover:bg-red-50 text-slate-700 hover:text-red-600 border border-slate-200 hover:border-red-300 shadow-sm transition-all hover:scale-105 active:scale-95"
               aria-label="Next Review"
             >
               <ChevronRight className="w-5 h-5" />
@@ -880,20 +952,20 @@ export const HomePage: React.FC = () => {
                 style={{ width: `${100 / cardsPerView}%` }}
                 className="shrink-0 p-2 sm:p-3"
               >
-                <div className="h-full p-6 sm:p-7 rounded-2xl bg-white border border-slate-200 hover:border-purple-300 shadow-sm transition-all duration-300 flex flex-col justify-between hover:shadow-md relative group">
+                <div className="h-full p-6 sm:p-7 rounded-2xl bg-white border border-slate-200 hover:border-red-300 shadow-sm transition-all duration-300 flex flex-col justify-between hover:shadow-md relative group">
                   <div>
                     <div className="flex items-center justify-between mb-4">
-                      <div className="flex items-center gap-1 text-purple-600">
+                      <div className="flex items-center gap-1 text-amber-500">
                         {[...Array(t.rating)].map((_, i) => (
-                          <Star key={i} className="w-4 h-4 fill-current text-purple-600" />
+                          <Star key={i} className="w-4 h-4 fill-current text-amber-500" />
                         ))}
                       </div>
-                      <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-purple-50 text-purple-700 border border-purple-200 font-mono">
+                      <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md bg-red-50 text-red-700 border border-red-200 font-mono">
                         {t.city}
                       </span>
                     </div>
 
-                    <p className="text-xs text-purple-600 font-semibold font-mono mb-2">
+                    <p className="text-xs text-red-600 font-semibold font-mono mb-2">
                       {t.product}
                     </p>
 
@@ -905,7 +977,7 @@ export const HomePage: React.FC = () => {
                   <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between text-xs">
                     <div>
                       <p className="text-slate-900 font-bold">{t.author}</p>
-                      <p className="text-purple-600 text-[11px]">{t.badge}</p>
+                      <p className="text-red-600 text-[11px] font-semibold">{t.badge}</p>
                     </div>
                     <span className="text-[11px] text-slate-400 font-mono">Verified Order</span>
                   </div>
@@ -922,7 +994,7 @@ export const HomePage: React.FC = () => {
               key={i}
               onClick={() => setTestimonialIndex(i)}
               className={`h-1.5 rounded-full transition-all duration-300 ${
-                testimonialIndex === i ? 'w-8 bg-purple-500 shadow-[0_0_8px_rgba(168,85,247,0.8)]' : 'w-2 bg-slate-300 hover:bg-slate-400'
+                testimonialIndex === i ? 'w-8 bg-red-600 shadow-[0_0_8px_rgba(220,38,38,0.8)]' : 'w-2 bg-slate-300 hover:bg-slate-400'
               }`}
               aria-label={`Go to review ${i + 1}`}
             />
@@ -932,8 +1004,8 @@ export const HomePage: React.FC = () => {
 
       {/* 10. NEWSLETTER SUBSCRIPTION */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="rounded-3xl bg-gradient-to-br from-purple-50 via-white to-slate-50 border border-purple-200 p-8 sm:p-12 text-center max-w-3xl mx-auto shadow-md">
-          <div className="w-12 h-12 rounded-2xl bg-purple-100 border border-purple-200 text-purple-700 flex items-center justify-center mx-auto mb-4 shadow-sm">
+        <div className="rounded-3xl bg-gradient-to-br from-red-50 via-white to-neutral-50 border border-red-200 p-8 sm:p-12 text-center max-w-3xl mx-auto shadow-md">
+          <div className="w-12 h-12 rounded-2xl bg-red-100 border border-red-200 text-red-600 flex items-center justify-center mx-auto mb-4 shadow-sm">
             <Mail className="w-6 h-6" />
           </div>
           <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight uppercase font-heading">
@@ -949,13 +1021,13 @@ export const HomePage: React.FC = () => {
               placeholder="Enter your email address"
               value={newsletterEmail}
               onChange={(e) => setNewsletterEmail(e.target.value)}
-              className="flex-1 bg-white border border-slate-300 rounded-xl px-4 py-3 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-purple-500"
+              className="flex-1 bg-white border border-slate-300 rounded-xl px-4 py-3 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-red-600"
               required
             />
             <button
               type="submit"
               disabled={isSubscribing}
-              className="px-6 py-3 bg-purple-600 hover:bg-purple-500 disabled:bg-neutral-800 text-white rounded-xl text-xs font-bold uppercase tracking-wider transition-colors shrink-0 shadow-lg shadow-purple-950/50"
+              className="px-6 py-3 bg-red-600 hover:bg-red-700 disabled:bg-neutral-800 text-white rounded-xl text-xs font-bold uppercase tracking-wider transition-colors shrink-0 shadow-lg shadow-red-950/40"
             >
               {isSubscribing ? 'Saving...' : 'Subscribe'}
             </button>

@@ -68,7 +68,7 @@ const MainRouter: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-800 font-sans selection:bg-purple-600 selection:text-white pb-16 md:pb-0">
+    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-800 font-sans selection:bg-red-600 selection:text-white pb-16 md:pb-0">
       
       {/* 1. Cursor & Mouse Interactive Effects */}
       <CursorGlow />
@@ -86,7 +86,7 @@ const MainRouter: React.FC = () => {
                 ? 'bg-rose-50 border-rose-200 text-rose-800 shadow-rose-100'
                 : toast.type === 'info'
                 ? 'bg-white border-slate-200 text-slate-700 shadow-slate-100'
-                : 'bg-white border-purple-200 text-purple-950 shadow-purple-100'
+                : 'bg-white border-red-200 text-red-950 shadow-red-100'
             }`}
           >
             {toast.type === 'error' ? (
@@ -94,7 +94,7 @@ const MainRouter: React.FC = () => {
             ) : toast.type === 'info' ? (
               <Info className="w-4 h-4 text-slate-500 shrink-0" />
             ) : (
-              <CheckCircle2 className="w-4 h-4 text-purple-600 shrink-0" />
+              <CheckCircle2 className="w-4 h-4 text-red-600 shrink-0" />
             )}
             <span className="flex-1 font-semibold">{toast.message}</span>
           </div>
