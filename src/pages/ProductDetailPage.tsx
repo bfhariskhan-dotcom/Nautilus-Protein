@@ -254,17 +254,17 @@ export const ProductDetailPage: React.FC = () => {
               </div>
             </div>
 
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight font-heading uppercase leading-tight">
+            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-[72px] font-black text-slate-900 tracking-tight font-heading uppercase leading-[0.98]">
               {product.name}
             </h1>
 
             {product.headline && (
-              <p className="text-xs sm:text-sm font-semibold text-red-600 mt-2">
+              <p className="text-sm sm:text-base md:text-xl font-bold text-red-600 mt-2">
                 {product.headline}
               </p>
             )}
 
-            <p className="text-xs sm:text-sm text-slate-600 mt-3 leading-relaxed">
+            <p className="text-sm sm:text-base text-slate-600 mt-3 leading-relaxed">
               {product.description}
             </p>
           </div>
@@ -272,13 +272,13 @@ export const ProductDetailPage: React.FC = () => {
           {/* Pricing Row */}
           <div className="p-4 sm:p-5 rounded-2xl bg-slate-50 border border-slate-200/90 flex flex-wrap items-baseline justify-between gap-3">
             <div>
-              <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Inclusive of All Taxes</p>
+              <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Inclusive of All Taxes</p>
               <div className="flex items-baseline gap-2.5 mt-1">
-                <span className="text-2xl sm:text-3xl font-black text-slate-900 tabular-nums">
+                <span className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tabular-nums">
                   PKR {price.toLocaleString()}
                 </span>
                 {hasDiscount && (
-                  <span className="text-sm sm:text-base text-slate-400 line-through tabular-nums">
+                  <span className="text-base sm:text-lg text-slate-400 line-through tabular-nums">
                     PKR {product.price.toLocaleString()}
                   </span>
                 )}
@@ -383,7 +383,7 @@ export const ProductDetailPage: React.FC = () => {
               disabled={!product.inStock}
               className="w-full py-4 px-6 bg-red-600 hover:bg-red-700 disabled:bg-slate-200 disabled:text-slate-400 text-white rounded-xl text-xs sm:text-sm font-extrabold uppercase tracking-widest shadow-lg shadow-red-600/30 transition-all active:scale-95 flex items-center justify-center gap-2"
             >
-              <span>Buy Now with Cash on Delivery</span>
+              <span>Buy Now · Direct Bank / Online Payment</span>
             </button>
           </div>
 
@@ -394,14 +394,14 @@ export const ProductDetailPage: React.FC = () => {
               <span>Questions regarding dosing or stacks?</span>
             </div>
             <a
-              href={`https://wa.me/923332499499?text=${encodeURIComponent(
+              href={`https://wa.me/923252571589?text=${encodeURIComponent(
                 `Hello Nautilus Protein, I would like to order/inquire about ${product.name} (${currentFlavor}) priced at PKR ${price.toLocaleString()}.`
               )}`}
               target="_blank"
               rel="noopener noreferrer"
               className="font-bold text-red-600 hover:text-red-700 transition-colors uppercase tracking-wider text-[11px]"
             >
-              Chat on WhatsApp →
+              Chat on WhatsApp (0325 2571589) →
             </a>
           </div>
 
@@ -415,12 +415,12 @@ export const ProductDetailPage: React.FC = () => {
             <div className="p-3 rounded-2xl bg-white border border-slate-200 shadow-sm">
               <Truck className="w-4 h-4 text-red-600 mx-auto mb-1" />
               <p className="font-bold text-slate-900 text-[11px]">Fast Dispatch</p>
-              <p className="text-[10px] text-slate-500">Karachi Warehouse</p>
+              <p className="text-[10px] text-slate-500">Verified Courier</p>
             </div>
             <div className="p-3 rounded-2xl bg-white border border-slate-200 shadow-sm">
               <RefreshCw className="w-4 h-4 text-red-600 mx-auto mb-1" />
-              <p className="font-bold text-slate-900 text-[11px]">COD Delivery</p>
-              <p className="text-[10px] text-slate-500">All Pakistan Cities</p>
+              <p className="font-bold text-slate-900 text-[11px]">Secure Transfer</p>
+              <p className="text-[10px] text-slate-500">Bank & Digital Pay</p>
             </div>
           </div>
 
@@ -434,8 +434,8 @@ export const ProductDetailPage: React.FC = () => {
         {( (product.highlights && product.highlights.length > 0) || (product.whoIsItFor && product.whoIsItFor.length > 0) ) && (
           <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 space-y-6 shadow-sm">
             <div>
-              <p className="text-xs font-bold uppercase tracking-wider text-red-600">Clinical Formulation</p>
-              <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 uppercase font-heading mt-1">
+              <p className="text-xs sm:text-sm font-bold uppercase tracking-wider text-red-600">Clinical Formulation</p>
+              <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-[54px] font-black text-slate-900 uppercase font-heading tracking-tight mt-1 leading-[1.0]">
                 Why Choose This Formula
               </h2>
             </div>
@@ -443,11 +443,11 @@ export const ProductDetailPage: React.FC = () => {
             {product.highlights && product.highlights.length > 0 && (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {product.highlights.map((item, idx) => (
-                  <div key={idx} className="p-4 rounded-2xl bg-red-50/50 border border-red-200/70 flex items-start gap-3">
-                    <div className="w-7 h-7 rounded-lg bg-red-600 text-white flex items-center justify-center font-bold text-xs shrink-0 shadow-sm">
-                      <Check className="w-4 h-4" />
+                  <div key={idx} className="p-4 sm:p-5 rounded-2xl bg-red-50/50 border border-red-200/70 flex items-start gap-3">
+                    <div className="w-8 h-8 rounded-lg bg-red-600 text-white flex items-center justify-center font-bold text-sm shrink-0 shadow-sm">
+                      <Check className="w-5 h-5" />
                     </div>
-                    <p className="text-xs sm:text-sm text-slate-800 leading-relaxed font-medium">
+                    <p className="text-sm sm:text-base text-slate-800 leading-relaxed font-medium">
                       {item}
                     </p>
                   </div>
@@ -457,14 +457,14 @@ export const ProductDetailPage: React.FC = () => {
 
             {product.whoIsItFor && product.whoIsItFor.length > 0 && (
               <div className="pt-4 border-t border-slate-100">
-                <h3 className="text-xs font-bold uppercase tracking-wider text-slate-700 mb-3">
+                <h3 className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-700 mb-3">
                   Recommended For Athletes Who:
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   {product.whoIsItFor.map((target, idx) => (
                     <div key={idx} className="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center gap-2.5">
                       <Users className="w-4 h-4 text-red-600 shrink-0" />
-                      <span className="text-xs font-semibold text-slate-800">{target}</span>
+                      <span className="text-xs sm:text-sm font-semibold text-slate-800">{target}</span>
                     </div>
                   ))}
                 </div>
@@ -478,31 +478,31 @@ export const ProductDetailPage: React.FC = () => {
           <div className="bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-sm">
             <div className="p-6 border-b border-slate-200 bg-slate-50 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
               <div>
-                <p className="text-xs font-bold uppercase tracking-wider text-red-600">Transparent Labeling</p>
-                <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 uppercase font-heading mt-1">
+                <p className="text-xs sm:text-sm font-bold uppercase tracking-wider text-red-600">Transparent Labeling</p>
+                <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-[54px] font-black text-slate-900 uppercase font-heading tracking-tight mt-1 leading-[1.0]">
                   Supplement Facts
                 </h2>
               </div>
-              <div className="text-xs font-mono text-slate-600 bg-white border border-slate-200 px-3 py-1.5 rounded-xl self-start sm:self-auto">
-                Serving: <strong className="text-slate-900">{product.servingSize || '10g'}</strong> · {product.servings} Servings/Container
+              <div className="text-xs sm:text-sm font-mono text-slate-600 bg-white border border-slate-200 px-3.5 py-1.5 rounded-xl self-start sm:self-auto font-medium">
+                Serving: <strong className="text-slate-900 font-bold">{product.servingSize || '10g'}</strong> · {product.servings} Servings/Container
               </div>
             </div>
 
             <div className="overflow-x-auto">
-              <table className="w-full text-xs text-left">
+              <table className="w-full text-xs sm:text-sm text-left">
                 <thead className="border-b border-slate-200 text-slate-500 uppercase tracking-wider bg-slate-50/50">
                   <tr>
-                    <th className="py-3 px-6 font-bold">Nutrient / Active Compound</th>
-                    <th className="py-3 px-6 font-bold">Amount Per Serving</th>
-                    <th className="py-3 px-6 font-bold text-right">% Daily Value*</th>
+                    <th className="py-3.5 px-6 font-bold">Nutrient / Active Compound</th>
+                    <th className="py-3.5 px-6 font-bold">Amount Per Serving</th>
+                    <th className="py-3.5 px-6 font-bold text-right">% Daily Value*</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100">
                   {product.nutritionFacts.map((fact, idx) => (
                     <tr key={idx} className="hover:bg-slate-50/80 transition-colors">
-                      <td className="py-3 px-6 font-semibold text-slate-900">{fact.label}</td>
-                      <td className="py-3 px-6 font-mono text-slate-700">{fact.amount}</td>
-                      <td className="py-3 px-6 font-mono text-right text-red-600 font-bold">
+                      <td className="py-3.5 px-6 font-semibold text-slate-900">{fact.label}</td>
+                      <td className="py-3.5 px-6 font-mono text-slate-700">{fact.amount}</td>
+                      <td className="py-3.5 px-6 font-mono text-right text-red-600 font-bold">
                         {fact.dailyValue || '†'}
                       </td>
                     </tr>
@@ -511,7 +511,7 @@ export const ProductDetailPage: React.FC = () => {
               </table>
             </div>
 
-            <div className="p-4 bg-slate-50 text-[11px] text-slate-500 border-t border-slate-200">
+            <div className="p-4 bg-slate-50 text-xs text-slate-500 border-t border-slate-200">
               * Percent Daily Values are based on a 2,000 calorie diet. † Daily Value not established. Zero banned substances.
             </div>
           </div>
@@ -521,17 +521,17 @@ export const ProductDetailPage: React.FC = () => {
         {product.directions && (
           <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 space-y-4 shadow-sm">
             <div>
-              <p className="text-xs font-bold uppercase tracking-wider text-red-600">Protocol & Timing</p>
-              <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 uppercase font-heading mt-1">
+              <p className="text-xs sm:text-sm font-bold uppercase tracking-wider text-red-600">Protocol & Timing</p>
+              <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-[54px] font-black text-slate-900 uppercase font-heading tracking-tight mt-1 leading-[1.0]">
                 How To Use
               </h2>
             </div>
-            <div className="p-5 rounded-2xl bg-red-50/40 border border-red-200/60">
-              <p className="text-xs sm:text-sm text-slate-800 leading-relaxed font-medium whitespace-pre-line">
+            <div className="p-5 sm:p-6 rounded-2xl bg-red-50/40 border border-red-200/60">
+              <p className="text-sm sm:text-base md:text-lg text-slate-800 leading-relaxed font-medium whitespace-pre-line">
                 {product.directions}
               </p>
             </div>
-            <div className="flex items-center gap-2.5 text-xs text-slate-500 pt-1">
+            <div className="flex items-center gap-2.5 text-xs sm:text-sm text-slate-500 pt-1">
               <Zap className="w-4 h-4 text-red-600 shrink-0" />
               <span>For best results, mix with chilled water in a Nautilus Shaker Cup for 20-30 seconds.</span>
             </div>
@@ -541,22 +541,22 @@ export const ProductDetailPage: React.FC = () => {
         {/* Section D: Ingredients & Storage Guidelines */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 space-y-3 shadow-sm">
-            <h3 className="text-base font-bold text-slate-900 uppercase font-heading">
+            <h3 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 uppercase font-heading tracking-tight">
               Ingredients Matrix
             </h3>
-            <p className="text-xs text-slate-600 leading-relaxed">
+            <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
               {product.ingredients?.join(', ') || 'Pure pharmaceutical grade supplement formula with natural and artificial flavors.'}
             </p>
-            <p className="text-[11px] text-red-600 font-semibold pt-2">
+            <p className="text-xs sm:text-sm text-red-600 font-semibold pt-2">
               ✓ Zero Sugar · Zero Fat · Halal Certified Purity
             </p>
           </div>
 
           <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 space-y-3 shadow-sm">
-            <h3 className="text-base font-bold text-slate-900 uppercase font-heading">
+            <h3 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 uppercase font-heading tracking-tight">
               Warnings & Storage
             </h3>
-            <p className="text-xs text-slate-600 leading-relaxed whitespace-pre-line">
+            <p className="text-sm sm:text-base text-slate-600 leading-relaxed whitespace-pre-line">
               {product.warnings || 'Store in a cool, dry place away from direct sunlight. Keep out of reach of children. Consult your physician prior to use if you have any medical condition.'}
             </p>
           </div>
@@ -566,13 +566,13 @@ export const ProductDetailPage: React.FC = () => {
         {product.faqs && product.faqs.length > 0 && (
           <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 space-y-6 shadow-sm">
             <div>
-              <p className="text-xs font-bold uppercase tracking-wider text-red-600">Product FAQs</p>
-              <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 uppercase font-heading mt-1">
+              <p className="text-xs sm:text-sm font-bold uppercase tracking-wider text-red-600">Product FAQs</p>
+              <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-[54px] font-black text-slate-900 uppercase font-heading tracking-tight mt-1 leading-[1.0]">
                 Frequently Asked Questions
               </h2>
             </div>
 
-            <div className="space-y-3">
+            <div className="space-y-3.5">
               {product.faqs.map((faq, idx) => {
                 const isOpen = openFaqIndex === idx;
                 return (
@@ -582,20 +582,20 @@ export const ProductDetailPage: React.FC = () => {
                   >
                     <button
                       onClick={() => setOpenFaqIndex(isOpen ? null : idx)}
-                      className="w-full p-4 sm:p-5 text-left flex items-center justify-between gap-4 bg-slate-50/60 hover:bg-slate-50 transition-colors"
+                      className="w-full p-5 sm:p-6 text-left flex items-center justify-between gap-4 bg-slate-50/60 hover:bg-slate-50 transition-colors"
                     >
-                      <span className="text-xs sm:text-sm font-bold text-slate-900 flex items-center gap-2.5">
-                        <HelpCircle className="w-4 h-4 text-red-600 shrink-0" />
+                      <span className="text-base sm:text-xl md:text-2xl font-black text-slate-900 flex items-center gap-3">
+                        <HelpCircle className="w-5 h-5 text-red-600 shrink-0" />
                         {faq.question}
                       </span>
                       {isOpen ? (
-                        <ChevronUp className="w-4 h-4 text-red-600 shrink-0" />
+                        <ChevronUp className="w-5 h-5 text-red-600 shrink-0" />
                       ) : (
-                        <ChevronDown className="w-4 h-4 text-slate-400 shrink-0" />
+                        <ChevronDown className="w-5 h-5 text-slate-400 shrink-0" />
                       )}
                     </button>
                     {isOpen && (
-                      <div className="p-4 sm:p-5 pt-2 text-xs sm:text-sm text-slate-600 leading-relaxed bg-white border-t border-slate-100">
+                      <div className="p-5 sm:p-6 pt-2 text-sm sm:text-base md:text-lg text-slate-700 leading-relaxed bg-white border-t border-slate-100">
                         {faq.answer}
                       </div>
                     )}
@@ -612,10 +612,10 @@ export const ProductDetailPage: React.FC = () => {
       <div className="space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 uppercase font-heading">
+            <h3 className="text-3xl sm:text-5xl md:text-6xl lg:text-[54px] font-black text-slate-900 uppercase font-heading tracking-tight leading-[1.0]">
               Customer Reviews ({product.reviewCount})
             </h3>
-            <p className="text-xs text-slate-500 mt-1">
+            <p className="text-xs sm:text-sm md:text-base text-slate-500 mt-1">
               Real feedback from verified purchasers in Pakistan.
             </p>
           </div>
@@ -860,7 +860,7 @@ export const ProductDetailPage: React.FC = () => {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-xs font-bold uppercase tracking-wider text-red-600">Complete The Stack</p>
-              <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 uppercase font-heading mt-1">
+              <h3 className="text-3xl sm:text-5xl md:text-6xl lg:text-[54px] font-black text-slate-900 uppercase font-heading tracking-tight mt-1 leading-[1.0]">
                 Frequently Stacked Together
               </h3>
             </div>

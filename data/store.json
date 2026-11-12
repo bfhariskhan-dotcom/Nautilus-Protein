@@ -1243,13 +1243,13 @@
       "estimatedDays": "24–48 hours for Karachi | 2–4 business days nationwide"
     },
     "contact": {
-      "phone": "+92 333 2499499",
-      "whatsapp": "+92 333 2499499",
-      "email": "microhealth1@gmail.com",
-      "address": "Saima Arabian Villas, Karachi, Pakistan"
+      "phone": "0325 2571589",
+      "whatsapp": "0325 2571589",
+      "email": "nautilusprotein@gmail.com",
+      "address": "238/170  Floor 8 Ratchadaview Codo, Soi, Sannibattasaban Jankhseam, Jatujak district, Bangkok 10900"
     },
     "payments": {
-      "codEnabled": true,
+      "codEnabled": false,
       "bankTransferEnabled": true,
       "jazzcashEnabled": true,
       "easypaisaEnabled": true,
@@ -1261,11 +1261,11 @@
       },
       "jazzcashDetails": {
         "accountTitle": "Nautilus Sports Nutrition",
-        "accountNumber": "0333 2499499"
+        "accountNumber": "0325 2571589"
       },
       "easypaisaDetails": {
         "accountTitle": "Nautilus Sports Nutrition",
-        "accountNumber": "0333 2499499"
+        "accountNumber": "0325 2571589"
       }
     }
   }

@@ -14,7 +14,7 @@ export const CheckoutPage: React.FC = () => {
   const [city, setCity] = useState('Karachi');
   const [address, setAddress] = useState('');
   const [notes, setNotes] = useState('');
-  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('cod');
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>('bank_transfer');
   const [paymentReference, setPaymentReference] = useState('');
   
   // Coupon state
@@ -353,41 +353,19 @@ export const CheckoutPage: React.FC = () => {
           {/* Payment Method Selector */}
           <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 space-y-5">
             <div className="flex items-center gap-2.5 pb-3 border-b border-slate-200">
-              <span className="w-6 h-6 rounded-full bg-red-600 text-white text-xs font-bold flex items-center justify-center">
+              <span className="w-7 h-7 rounded-full bg-red-600 text-white text-xs font-black flex items-center justify-center">
                 3
               </span>
-              <h2 className="text-base font-bold text-slate-900 uppercase tracking-wider font-heading">
-                Select Payment Method
+              <h2 className="text-xl sm:text-2xl font-black text-slate-900 uppercase tracking-tight font-heading">
+                Select Online Payment Method
               </h2>
             </div>
 
-            <div className="space-y-3">
-              {/* Cash on Delivery */}
-              <label
-                className={`flex items-start gap-3 p-4 rounded-2xl border cursor-pointer transition-all ${
-                  paymentMethod === 'cod'
-                    ? 'border-red-600 bg-red-50/50 shadow-md shadow-red-950/5'
-                    : 'border-slate-200 bg-white/60 hover:border-slate-300'
-                }`}
-              >
-                <input
-                  type="radio"
-                  name="payment"
-                  checked={paymentMethod === 'cod'}
-                  onChange={() => setPaymentMethod('cod')}
-                  className="mt-1 accent-red-600"
-                />
-                <div className="flex-1">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm font-bold text-slate-900">Cash on Delivery (COD)</span>
-                    <span className="text-xs text-red-600 font-semibold">Doorstep Pay</span>
-                  </div>
-                  <p className="text-xs text-slate-500 mt-1 leading-relaxed">
-                    Pay in cash directly to the courier rider upon physical inspection of the parcel. Available across all Pakistan cities.
-                  </p>
-                </div>
-              </label>
+            <p className="text-xs text-slate-500">
+              We operate exclusively on verified direct online payments for authentic, tamper-free dispatch.
+            </p>
 
+            <div className="space-y-3">
               {/* Direct Bank Transfer */}
               <label
                 className={`flex items-start gap-3 p-4 rounded-2xl border cursor-pointer transition-all ${
@@ -405,22 +383,23 @@ export const CheckoutPage: React.FC = () => {
                 />
                 <div className="flex-1">
                   <div className="flex items-center justify-between">
-                    <span className="text-sm font-bold text-slate-900 flex items-center gap-1.5">
+                    <span className="text-sm sm:text-base font-black text-slate-900 flex items-center gap-1.5 uppercase font-heading">
                       <Building2 className="w-4 h-4 text-red-600" />
                       <span>Direct Online Bank Transfer</span>
                     </span>
-                    <span className="text-xs text-red-600 font-mono">IBAN / Raast</span>
+                    <span className="text-xs text-red-600 font-mono font-bold">IBAN / Raast</span>
                   </div>
                   <p className="text-xs text-slate-500 mt-1 leading-relaxed">
-                    Transfer directly into our Meezan Bank / HBL corporate accounts via Raast or online banking.
+                    Transfer directly into our Meezan Bank corporate account via Raast or online banking app.
                   </p>
 
                   {paymentMethod === 'bank_transfer' && (
                     <div className="mt-3 p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600 space-y-1.5 font-mono">
-                      <p><span className="text-slate-400">Bank:</span> {settings?.payments?.bankDetails?.bankName || 'Meezan Bank Limited'}</p>
-                      <p><span className="text-slate-400">Title:</span> {settings?.payments?.bankDetails?.accountTitle || 'Nautilus Nutrition / Micro Health'}</p>
-                      <p><span className="text-slate-400">Account #:</span> {settings?.payments?.bankDetails?.accountNumber || '0102948102938102'}</p>
-                      <p><span className="text-slate-400">IBAN:</span> {settings?.payments?.bankDetails?.iban || 'PK36MEZN0001029481029381'}</p>
+                      <p><span className="text-slate-400 font-sans font-semibold">Bank:</span> {settings?.payments?.bankDetails?.bankName || 'Meezan Bank Limited'}</p>
+                      <p><span className="text-slate-400 font-sans font-semibold">Title:</span> {settings?.payments?.bankDetails?.accountTitle || 'Nautilus Nutrition / Micro Health'}</p>
+                      <p><span className="text-slate-400 font-sans font-semibold">Account #:</span> {settings?.payments?.bankDetails?.accountNumber || '0102948102938102'}</p>
+                      <p><span className="text-slate-400 font-sans font-semibold">IBAN:</span> {settings?.payments?.bankDetails?.iban || 'PK36MEZN0001029481029381'}</p>
+                      <p><span className="text-slate-400 font-sans font-semibold">Support WhatsApp:</span> 0325 2571589</p>
                       <div className="pt-2">
                         <input
                           type="text"
@@ -452,20 +431,20 @@ export const CheckoutPage: React.FC = () => {
                 />
                 <div className="flex-1">
                   <div className="flex items-center justify-between">
-                    <span className="text-sm font-bold text-slate-900 flex items-center gap-1.5">
+                    <span className="text-sm sm:text-base font-black text-slate-900 flex items-center gap-1.5 uppercase font-heading">
                       <Smartphone className="w-4 h-4 text-red-600" />
                       <span>JazzCash Mobile Account</span>
                     </span>
                     <span className="text-[11px] text-red-700 font-bold bg-red-100 border border-red-200 px-2 py-0.5 rounded-full">Instant</span>
                   </div>
                   <p className="text-xs text-slate-500 mt-1 leading-relaxed">
-                    Send funds directly to Nautilus JazzCash account number <strong className="text-slate-900">0333 2499499</strong>.
+                    Send funds directly to Nautilus JazzCash account number <strong className="text-slate-900 font-black">0325 2571589</strong>.
                   </p>
 
                   {paymentMethod === 'jazzcash' && (
                     <div className="mt-3 p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600 space-y-2">
-                      <p><span className="text-slate-400">Account Title:</span> Nautilus Sports Nutrition</p>
-                      <p><span className="text-slate-400">Account Number:</span> 0333 2499499</p>
+                      <p><span className="text-slate-400 font-semibold">Account Title:</span> Nautilus Sports Nutrition</p>
+                      <p><span className="text-slate-400 font-semibold">Account Number:</span> <strong className="text-red-600 font-mono text-sm">0325 2571589</strong></p>
                       <input
                         type="text"
                         placeholder="Enter JazzCash Transaction TID (e.g. TID: 10928371)"
@@ -495,20 +474,20 @@ export const CheckoutPage: React.FC = () => {
                 />
                 <div className="flex-1">
                   <div className="flex items-center justify-between">
-                    <span className="text-sm font-bold text-slate-900 flex items-center gap-1.5">
+                    <span className="text-sm sm:text-base font-black text-slate-900 flex items-center gap-1.5 uppercase font-heading">
                       <CreditCard className="w-4 h-4 text-red-600" />
                       <span>Easypaisa Mobile Account</span>
                     </span>
                     <span className="text-[11px] text-red-700 font-bold bg-red-100 border border-red-200 px-2 py-0.5 rounded-full">Instant</span>
                   </div>
                   <p className="text-xs text-slate-500 mt-1 leading-relaxed">
-                    Send funds directly to Nautilus Easypaisa account number <strong className="text-slate-900">0333 2499499</strong>.
+                    Send funds directly to Nautilus Easypaisa account number <strong className="text-slate-900 font-black">0325 2571589</strong>.
                   </p>
 
                   {paymentMethod === 'easypaisa' && (
                     <div className="mt-3 p-3.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600 space-y-2">
-                      <p><span className="text-slate-400">Account Title:</span> Nautilus Sports Nutrition</p>
-                      <p><span className="text-slate-400">Account Number:</span> 0333 2499499</p>
+                      <p><span className="text-slate-400 font-semibold">Account Title:</span> Nautilus Sports Nutrition</p>
+                      <p><span className="text-slate-400 font-semibold">Account Number:</span> <strong className="text-red-600 font-mono text-sm">0325 2571589</strong></p>
                       <input
                         type="text"
                         placeholder="Enter Easypaisa Transaction ID (e.g. TRX-992817)"

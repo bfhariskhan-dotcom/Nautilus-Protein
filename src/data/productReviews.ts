@@ -37,7 +37,7 @@ export const INITIAL_PRODUCT_REVIEWS: Record<string, CustomerReview[]> = {
       city: 'Islamabad',
       rating: 5,
       headline: 'Electrolytes keep hydration high with no cramps.',
-      comment: 'Added glutamine and electrolytes make a noticeable difference in stamina. Fast COD delivery to Islamabad within 2 days with authentic seal intact.',
+      comment: 'Added glutamine and electrolytes make a noticeable difference in stamina. Fast express delivery to Islamabad within 2 days with authentic seal intact.',
       date: '2 weeks ago',
       verifiedPurchase: true,
       status: 'approved'
@@ -209,7 +209,7 @@ export const INITIAL_PRODUCT_REVIEWS: Record<string, CustomerReview[]> = {
       city: 'Karachi, Sindh',
       rating: 5,
       headline: 'Authentic product with quick nationwide delivery.',
-      comment: 'Ordered via COD and got delivery in 24 hours in Karachi. Original packaging with QR seal. My go-to whey protein for cutting.',
+      comment: 'Ordered online and got delivery in 24 hours in Karachi. Original packaging with QR seal. My go-to whey protein for cutting.',
       date: '2 weeks ago',
       verifiedPurchase: true,
       status: 'approved'
@@ -424,7 +424,7 @@ export const INITIAL_PRODUCT_REVIEWS: Record<string, CustomerReview[]> = {
       city: 'Faisalabad',
       rating: 5,
       headline: 'Great value at PKR 11,900 for 50 servings.',
-      comment: 'Same price as standard edition with upgraded taste. Fast COD delivery to Faisalabad. Highly satisfied customer.',
+      comment: 'Same price as standard edition with upgraded taste. Fast express delivery to Faisalabad. Highly satisfied customer.',
       date: '2 weeks ago',
       verifiedPurchase: true,
       status: 'approved'

@@ -71,15 +71,15 @@ export const OrderTrackingPage: React.FC = () => {
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-10">
       
       {/* Header */}
-      <div className="text-center space-y-2">
-        <p className="text-xs font-bold uppercase tracking-widest text-red-600">
+      <div className="text-center space-y-3">
+        <p className="text-sm font-black uppercase tracking-widest text-red-600 font-heading">
           Real-Time Shipment Lookup
         </p>
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight uppercase font-heading">
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-slate-900 tracking-tight uppercase font-heading leading-none">
           Track Your Nautilus Order
         </h1>
-        <p className="text-xs sm:text-sm text-slate-500 max-w-md mx-auto leading-relaxed">
-          Enter your order reference number (e.g. <span className="text-red-600 font-mono">NP-2026-1001</span>) or mobile number used during checkout.
+        <p className="text-sm sm:text-base text-slate-600 max-w-lg mx-auto leading-relaxed">
+          Enter your order reference number (e.g. <span className="text-red-600 font-mono font-bold">NP-2026-1001</span>) or mobile number used during checkout.
         </p>
       </div>
 
@@ -91,7 +91,7 @@ export const OrderTrackingPage: React.FC = () => {
             <input
               type="text"
               required
-              placeholder="e.g. NP-2026-1001 or 0333 1234567"
+              placeholder="e.g. NP-2026-1001 or 0325 2571589"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full bg-white border border-slate-200 rounded-xl pl-10 pr-4 py-3 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-red-600 font-mono"
@@ -230,7 +230,7 @@ export const OrderTrackingPage: React.FC = () => {
                     <p><span className="text-slate-400">Payment Status:</span> {ord.paymentStatus}</p>
                     <p><span className="text-slate-400">Total Amount:</span> PKR {ord.total.toLocaleString()}</p>
                     <p className="text-[11px] text-slate-500 pt-1">
-                      Warehouse Hub: Saima Arabian Villas, Karachi
+                      Dispatch: Central Logistics Network
                     </p>
                   </div>
                 </div>
@@ -273,12 +273,12 @@ export const OrderTrackingPage: React.FC = () => {
                     <span>Need to modify delivery address or verify rider timing?</span>
                   </div>
                   <a
-                    href={`https://wa.me/923332499499?text=${encodeURIComponent(
+                    href={`https://wa.me/923252571589?text=${encodeURIComponent(
                       `Hello Nautilus Protein, I am checking the status of Order #${ord.orderNumber}.`
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-xl font-bold uppercase tracking-wider transition-all shadow-md shadow-red-600/30 shrink-0"
+                    className="inline-flex items-center gap-1.5 px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-xl font-bold uppercase tracking-wider transition-all shadow-md shadow-red-600/30 shrink-0 font-heading"
                   >
                     <MessageCircle className="w-4 h-4" />
                     <span>WhatsApp Courier Desk</span>
@@ -295,10 +295,10 @@ export const OrderTrackingPage: React.FC = () => {
       <div className="p-6 rounded-3xl bg-white/40 border border-slate-200 text-center text-xs text-slate-500 space-y-1">
         <div className="flex items-center justify-center gap-2 text-slate-700 font-semibold mb-1">
           <ShieldCheck className="w-4 h-4 text-red-600" />
-          <span>Nautilus Official Pakistan Logistics Network</span>
+          <span>Nautilus Official Logistics Network</span>
         </div>
         <p>Direct shipments dispatched across all cities and towns in Pakistan.</p>
-        <p>Support hotline: +92 333 2499499 · nautilusprotein@gmail.com</p>
+        <p>Support hotline: 0325 2571589 / +92 325 2571589 · nautilusprotein@gmail.com</p>
       </div>
 
     </div>

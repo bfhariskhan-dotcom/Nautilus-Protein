@@ -9,15 +9,15 @@ export const FaqsPage: React.FC = () => {
   const faqs = [
     {
       q: 'How do I know Nautilus Protein supplements are 100% authentic?',
-      a: 'All Nautilus products feature genuine manufacturer tamper-evident outer neckband heat seals and inner induction seals. We ship directly from our dedicated warehouse in Saima Arabian Villas, Karachi, with zero third-party brokers.'
+      a: 'All Nautilus products feature genuine manufacturer tamper-evident outer neckband heat seals and inner induction seals. We ship directly from our dedicated distribution facility with zero third-party brokers, backed by full batch testing.'
     },
     {
-      q: 'How fast is delivery to Karachi and other cities in Pakistan?',
-      a: 'Karachi orders are delivered via express riders within 24 to 48 hours. Orders to Lahore, Islamabad, Rawalpindi, Faisalabad, Multan, Peshawar, and other nationwide destinations are dispatched via leading couriers (TCS / Leopards) and arrive within 2 to 4 business days.'
+      q: 'How fast is delivery across Pakistan?',
+      a: 'Orders are dispatched immediately upon payment confirmation. Deliveries arrive within 24 to 48 hours in major metropolitan hubs, and within 2 to 4 business days nationwide via trusted couriers (TCS / Leopards).'
     },
     {
       q: 'What payment options do you support?',
-      a: 'We support Cash on Delivery (COD) across Pakistan. In addition, we accept Direct Online Bank Transfers (Meezan Bank & HBL), JazzCash (0333 2499499), and Easypaisa (0333 2499499).'
+      a: 'We accept Direct Online Bank Transfers (Meezan Bank Limited), JazzCash (0325 2571589), and Easypaisa (0325 2571589). Please note: We do not offer Cash on Delivery (COD); all orders are dispatched upon direct payment confirmation.'
     },
     {
       q: 'What is the Free Delivery policy?',
@@ -25,7 +25,7 @@ export const FaqsPage: React.FC = () => {
     },
     {
       q: 'What should I do if I have specific dietary goals or allergies?',
-      a: 'Every product page contains our verified nutrition facts, ingredient lists, and allergen warnings. You can also message our WhatsApp Athlete Support team at +92 333 2499499 for personalized stack guidance.'
+      a: 'Every product page contains our verified nutrition facts, ingredient lists, and allergen warnings. You can also message our WhatsApp Athlete Support team at 0325 2571589 for personalized stack guidance.'
     },
     {
       q: 'Can I track my order once dispatched?',
@@ -38,47 +38,47 @@ export const FaqsPage: React.FC = () => {
   ];
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-10">
+    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
       
-      <div className="text-center space-y-3">
-        <div className="w-12 h-12 rounded-2xl bg-red-50 border border-red-200 text-[#ba0202] flex items-center justify-center mx-auto">
-          <HelpCircle className="w-6 h-6" />
+      <div className="text-center space-y-4">
+        <div className="w-14 h-14 rounded-2xl bg-red-50 border border-red-200 text-[#ba0202] flex items-center justify-center mx-auto">
+          <HelpCircle className="w-7 h-7" />
         </div>
-        <p className="text-xs font-bold uppercase tracking-widest text-[#ba0202]">
-          Knowledge Base & Help
+        <p className="text-sm font-black uppercase tracking-widest text-[#ba0202] font-heading">
+          Knowledge Base & Help Desk
         </p>
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight uppercase font-heading">
+        <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-[76px] font-black text-slate-900 tracking-tight uppercase font-heading leading-[0.98]">
           Frequently Asked Questions
         </h1>
-        <p className="text-xs sm:text-sm text-slate-500 max-w-lg mx-auto">
-          Clear answers regarding product authenticity, delivery timelines, payment methods, and supplement safety.
+        <p className="text-base sm:text-xl md:text-2xl text-slate-600 max-w-2xl mx-auto font-medium">
+          Clear answers regarding product authenticity, express delivery timelines, direct payment methods, and supplement safety.
         </p>
       </div>
 
       {/* FAQ Accordion */}
-      <div className="space-y-3">
+      <div className="space-y-4 sm:space-y-6">
         {faqs.map((faq, idx) => {
           const isOpen = openIdx === idx;
           return (
             <div
               key={idx}
-              className="bg-white border border-slate-200 rounded-2xl overflow-hidden transition-colors"
+              className="bg-white border-2 border-slate-200 rounded-3xl overflow-hidden transition-all shadow-sm hover:border-red-600/40"
             >
               <button
                 onClick={() => setOpenIdx(isOpen ? null : idx)}
-                className="w-full p-5 text-left flex items-center justify-between gap-4 focus:outline-none"
+                className="w-full p-6 sm:p-8 text-left flex items-center justify-between gap-4 focus:outline-none"
               >
-                <span className="text-sm font-bold text-slate-900 leading-snug">
+                <span className="text-xl sm:text-2xl md:text-3xl font-black text-slate-900 leading-snug uppercase font-heading">
                   {faq.q}
                 </span>
                 <ChevronDown
-                  className={`w-4 h-4 text-[#ba0202] shrink-0 transition-transform duration-200 ${
+                  className={`w-7 h-7 text-[#ba0202] shrink-0 transition-transform duration-200 ${
                     isOpen ? 'rotate-180' : ''
                   }`}
                 />
               </button>
               {isOpen && (
-                <div className="px-5 pb-5 pt-1 text-xs text-slate-600 leading-relaxed border-t border-slate-200/60">
+                <div className="px-6 sm:px-8 pb-8 pt-2 text-base sm:text-xl text-slate-700 leading-relaxed border-t border-slate-200 font-normal">
                   {faq.a}
                 </div>
               )}
@@ -88,26 +88,26 @@ export const FaqsPage: React.FC = () => {
       </div>
 
       {/* Still Have Questions CTA */}
-      <div className="bg-slate-50/40 border border-slate-200 rounded-3xl p-8 text-center space-y-4">
-        <h3 className="text-base font-bold text-slate-900 uppercase tracking-wider font-heading">
+      <div className="bg-slate-50 border border-slate-200 rounded-3xl p-8 sm:p-12 text-center space-y-5">
+        <h3 className="text-2xl sm:text-4xl md:text-5xl font-black text-slate-900 uppercase tracking-tight font-heading">
           Still Have Questions About Supplements?
         </h3>
-        <p className="text-xs text-slate-500 max-w-md mx-auto">
+        <p className="text-sm sm:text-base text-slate-600 max-w-lg mx-auto">
           Speak with our sports nutrition advisor directly on WhatsApp for real-time guidance.
         </p>
-        <div className="flex flex-wrap justify-center gap-3 pt-2">
+        <div className="flex flex-wrap justify-center gap-4 pt-2">
           <a
-            href="https://wa.me/923332499499?text=Hello%20Nautilus%20Protein,%20I%20have%20a%20question%20not%20covered%20in%20the%20FAQs."
+            href="https://wa.me/923252571589?text=Hello%20Nautilus%20Protein,%20I%20have%20a%20question%20not%20covered%20in%20the%20FAQs."
             target="_blank"
             rel="noopener noreferrer"
-            className="px-6 py-3 bg-[#ba0202] hover:bg-red-700 text-white rounded-xl text-xs font-bold uppercase tracking-wider flex items-center gap-2 transition-all shadow-md shadow-red-600/30 font-heading"
+            className="px-8 py-4 bg-[#ba0202] hover:bg-red-700 text-white rounded-2xl text-sm sm:text-base font-black uppercase tracking-wider flex items-center gap-2.5 transition-all shadow-lg shadow-red-600/30 font-heading"
           >
-            <MessageCircle className="w-4 h-4" />
-            <span>Chat on WhatsApp (+92 333 2499499)</span>
+            <MessageCircle className="w-5 h-5" />
+            <span>Chat on WhatsApp (0325 2571589)</span>
           </a>
           <button
             onClick={() => navigateTo('contact')}
-            className="px-6 py-3 bg-slate-100 hover:bg-slate-200 text-slate-800 rounded-xl text-xs font-bold uppercase tracking-wider transition-colors font-heading"
+            className="px-8 py-4 bg-white border-2 border-slate-200 hover:border-slate-300 text-slate-900 rounded-2xl text-sm sm:text-base font-black uppercase tracking-wider transition-colors font-heading"
           >
             Contact Desk
           </button>

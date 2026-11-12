@@ -69,8 +69,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         />
       )}
 
-      {/* Visual Container */}
-      <div className="relative aspect-square w-full bg-slate-50/80 overflow-hidden p-4 sm:p-6 flex items-center justify-center border-b border-slate-100">
+      {/* Visual Container - Clicking Picture navigates directly to Single Product Page */}
+      <div
+        onClick={() => navigateTo('product', { slug: product.slug })}
+        className="relative aspect-square w-full bg-slate-50/80 overflow-hidden p-4 sm:p-6 flex items-center justify-center border-b border-slate-100 cursor-pointer"
+      >
         {product.image && !product.image.includes('Nautilus-Logo-Edited') && !product.image.includes('Nautilus-Protein-Black-Purple-Logo') && !imgError ? (
           <img
             src={product.image}
@@ -119,7 +122,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         {/* Desktop Hover Quick Actions */}
         <div className="hidden sm:flex absolute inset-x-4 bottom-4 gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-20">
           <button
-            onClick={() => setQuickViewProduct(product)}
+            onClick={(e) => {
+              e.stopPropagation();
+              setQuickViewProduct(product);
+            }}
             className="flex-1 py-2 px-3 bg-white/95 hover:bg-white text-slate-800 text-xs font-semibold rounded-xl border border-slate-300 shadow-md backdrop-blur-sm flex items-center justify-center gap-1.5 transition-colors"
           >
             <Eye className="w-3.5 h-3.5 text-red-600" />
@@ -143,13 +149,13 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           {/* Product Title */}
           <h3
             onClick={() => navigateTo('product', { slug: product.slug })}
-            className="font-extrabold text-sm sm:text-base lg:text-lg text-slate-900 font-heading uppercase group-hover:text-red-700 transition-colors line-clamp-2 cursor-pointer leading-tight tracking-tight"
+            className="font-black text-xl sm:text-2xl lg:text-[28px] text-slate-900 font-heading uppercase group-hover:text-red-700 transition-colors line-clamp-2 cursor-pointer leading-[1.08] tracking-tight"
           >
             {product.name}
           </h3>
 
           {/* Weight & Servings */}
-          <p className="text-[11px] text-slate-500 mt-1">
+          <p className="text-xs sm:text-sm text-slate-500 mt-1 font-semibold">
             {product.weight} {product.servings && `· ${product.servings} Servings`}
           </p>
         </div>
@@ -157,11 +163,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         {/* Pricing & Add to Cart Action */}
         <div className="pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
           <div className="flex items-baseline gap-1.5 flex-wrap">
-            <span className="text-base sm:text-lg font-extrabold text-slate-900 tabular-nums whitespace-nowrap">
+            <span className="text-xl sm:text-2xl lg:text-3xl font-black text-slate-900 tabular-nums whitespace-nowrap">
               PKR {price.toLocaleString()}
             </span>
             {hasDiscount && (
-              <span className="text-xs text-slate-400 line-through tabular-nums whitespace-nowrap">
+              <span className="text-xs sm:text-sm text-slate-400 line-through tabular-nums whitespace-nowrap">
                 PKR {product.price.toLocaleString()}
               </span>
             )}

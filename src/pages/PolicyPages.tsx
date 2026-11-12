@@ -18,11 +18,11 @@ export const PolicyPages: React.FC<PolicyPageProps> = ({ type }) => {
           sections: [
             {
               heading: '1. Dispatch Origin & Warehousing',
-              text: 'All orders placed on https://nautilusprotein.pk are dispatched directly from our verified climate-controlled fulfillment center in Saima Arabian Villas, Karachi, Pakistan. Supplements are stored away from direct sunlight, moisture, and extreme heat to maintain bioactive integrity.'
+              text: 'All orders placed on https://nautilusprotein.pk are dispatched directly from our verified climate-controlled fulfillment center. Supplements are stored away from direct sunlight, moisture, and extreme heat to maintain bioactive integrity.'
             },
             {
               heading: '2. Delivery Timelines',
-              text: 'Karachi Metro: Delivered within 24 to 48 hours via specialized logistics riders.\nNationwide (Lahore, Islamabad, Rawalpindi, Faisalabad, Multan, Peshawar, Quetta, and other cities): Delivered within 2 to 4 business days via TCS, Leopards, or Trax.'
+              text: 'Major Metros (Karachi, Lahore, Islamabad, Rawalpindi, Faisalabad): Delivered within 24 to 48 hours via specialized logistics riders.\nNationwide: Delivered within 2 to 4 business days via TCS, Leopards, or Trax.'
             },
             {
               heading: '3. Shipping Rates & Free Delivery',
@@ -30,7 +30,7 @@ export const PolicyPages: React.FC<PolicyPageProps> = ({ type }) => {
             },
             {
               heading: '4. Physical Parcel Inspection',
-              text: 'Customers are encouraged to inspect outer carton seals upon delivery. In the rare event that an outer box appears visibly torn or damaged, please make a note with the rider and immediately notify our WhatsApp support desk at +92 333 2499499.'
+              text: 'Customers are encouraged to inspect outer carton seals upon delivery. In the rare event that an outer box appears visibly torn or damaged, please make a note with the rider and immediately notify our WhatsApp support desk at 0325 2571589 / +92 325 2571589.'
             }
           ]
         };
@@ -78,7 +78,7 @@ export const PolicyPages: React.FC<PolicyPageProps> = ({ type }) => {
             },
             {
               heading: '4. Contact & Deletion Requests',
-              text: 'To review or request deletion of your order history, please contact our privacy compliance desk at nautilusprotein@gmail.com or via WhatsApp at +92 333 2499499.'
+              text: 'To review or request deletion of your order history, please contact our privacy compliance desk at nautilusprotein@gmail.com or via WhatsApp at 0325 2571589 / +92 325 2571589.'
             }
           ]
         };
@@ -102,7 +102,7 @@ export const PolicyPages: React.FC<PolicyPageProps> = ({ type }) => {
             },
             {
               heading: '4. Governing Jurisdiction',
-              text: 'These terms are governed by the laws of the Islamic Republic of Pakistan, with exclusive jurisdiction in the courts of Karachi.'
+              text: 'These terms are governed by the laws of the Islamic Republic of Pakistan.'
             }
           ]
         };
@@ -123,15 +123,15 @@ export const PolicyPages: React.FC<PolicyPageProps> = ({ type }) => {
           <span>Back to Home</span>
         </button>
 
-        <div className="space-y-2">
+        <div className="space-y-3">
           <div className="flex items-center gap-2 text-[#ba0202] text-xs font-bold uppercase tracking-wider">
             <Shield className="w-4 h-4" />
             <span>Nautilus Trust & Compliance</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight uppercase font-heading">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black text-slate-900 tracking-tight uppercase font-heading leading-none">
             {content.title}
           </h1>
-          <p className="text-xs sm:text-sm text-slate-500">
+          <p className="text-sm sm:text-base text-slate-600 font-medium">
             {content.subtitle}
           </p>
         </div>
@@ -140,7 +140,7 @@ export const PolicyPages: React.FC<PolicyPageProps> = ({ type }) => {
       <div className="bg-white border border-slate-200 rounded-3xl p-8 sm:p-12 space-y-8 text-slate-600 text-sm leading-relaxed divide-y divide-neutral-900">
         {content.sections.map((sec, idx) => (
           <div key={idx} className="pt-6 first:pt-0 space-y-2.5">
-            <h2 className="text-base font-bold text-slate-900 uppercase tracking-wider font-heading">
+            <h2 className="text-lg sm:text-xl font-black text-slate-900 uppercase tracking-tight font-heading">
               {sec.heading}
             </h2>
             <p className="text-xs sm:text-sm text-slate-600 whitespace-pre-line leading-relaxed">
@@ -150,9 +150,9 @@ export const PolicyPages: React.FC<PolicyPageProps> = ({ type }) => {
         ))}
       </div>
 
-      <div className="text-xs text-slate-500 text-center">
-        <p>Nautilus Protein · Saima Arabian Villas, Karachi, Pakistan</p>
-        <p>Inquiries: +92 333 2499499 · nautilusprotein@gmail.com</p>
+      <div className="text-xs text-slate-500 text-center space-y-1">
+        <p>Nautilus Protein · 238/170  Floor 8 Ratchadaview Codo, Soi, Sannibattasaban Jankhseam, Jatujak district, Bangkok 10900</p>
+        <p>Inquiries: 0325 2571589 / +92 325 2571589 · nautilusprotein@gmail.com</p>
       </div>
 
     </div>

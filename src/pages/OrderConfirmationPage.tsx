@@ -21,7 +21,7 @@ export const OrderConfirmationPage: React.FC = () => {
   }
 
   const order = lastConfirmedOrder;
-  const whatsappInquiryUrl = `https://wa.me/923332499499?text=${encodeURIComponent(
+  const whatsappInquiryUrl = `https://wa.me/923252571589?text=${encodeURIComponent(
     `Hello Nautilus Protein, I just placed Order #${order.orderNumber} for PKR ${order.total.toLocaleString()} (${order.customerName}, ${order.city}). Please confirm receipt.`
   )}`;
 
@@ -96,15 +96,9 @@ export const OrderConfirmationPage: React.FC = () => {
                 <span className="text-slate-400">Payment Status:</span>{' '}
                 <span className="text-red-600 font-semibold">{order.paymentStatus}</span>
               </p>
-              {order.paymentMethod === 'cod' ? (
-                <p className="text-[11px] text-slate-500 pt-1">
-                  Please have the exact cash amount of PKR {order.total.toLocaleString()} ready for the courier rider upon delivery.
-                </p>
-              ) : (
-                <p className="text-[11px] text-slate-500 pt-1">
-                  Your payment will be verified by our accounts desk before dispatch.
-                </p>
-              )}
+              <p className="text-[11px] text-slate-500 pt-1">
+                Your direct online payment will be verified by our accounts desk before instant dispatch.
+              </p>
             </div>
           </div>
         </div>

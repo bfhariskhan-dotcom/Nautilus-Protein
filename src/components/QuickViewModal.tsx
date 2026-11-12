@@ -37,12 +37,16 @@ export const QuickViewModal: React.FC = () => {
         </button>
 
         {/* Media Column */}
-        <div className="md:w-1/2 bg-white p-8 flex items-center justify-center border-b md:border-b-0 md:border-r border-slate-200">
+        <div
+          onClick={handleFullDetails}
+          className="md:w-1/2 bg-white p-8 flex items-center justify-center border-b md:border-b-0 md:border-r border-slate-200 cursor-pointer group"
+          title="Click to view full product details"
+        >
           {quickViewProduct.image && !quickViewProduct.image.includes('Nautilus-Logo-Edited') && !quickViewProduct.image.includes('Nautilus-Protein-Black-Purple-Logo') ? (
             <img
               src={quickViewProduct.image}
               alt={quickViewProduct.name}
-              className="max-h-80 w-auto object-contain"
+              className="max-h-80 w-auto object-contain transition-transform group-hover:scale-105"
               referrerPolicy="no-referrer"
             />
           ) : (
@@ -61,7 +65,7 @@ export const QuickViewModal: React.FC = () => {
             <span className="text-xs font-bold uppercase tracking-wider text-red-600">
               {quickViewProduct.brand} · {quickViewProduct.categoryName}
             </span>
-            <h2 className="text-xl md:text-2xl font-bold text-slate-900 mt-1 leading-tight">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 mt-1.5 leading-[1.05] font-heading uppercase tracking-tight">
               {quickViewProduct.name}
             </h2>
 
@@ -79,7 +83,7 @@ export const QuickViewModal: React.FC = () => {
             </div>
 
             <div className="mt-4 flex items-baseline gap-2">
-              <span className="text-2xl font-extrabold text-slate-900 tabular-nums">
+              <span className="text-3xl sm:text-4xl font-black text-slate-900 tabular-nums">
                 PKR {price.toLocaleString()}
               </span>
               {quickViewProduct.salePrice && (
@@ -162,7 +166,7 @@ export const QuickViewModal: React.FC = () => {
               </button>
 
               <a
-                href={`https://wa.me/923332499499?text=${encodeURIComponent(
+                href={`https://wa.me/923252571589?text=${encodeURIComponent(
                   `Hello Nautilus Protein, I would like to inquire about ${quickViewProduct.name} (${currentFlavor}).`
                 )}`}
                 target="_blank"

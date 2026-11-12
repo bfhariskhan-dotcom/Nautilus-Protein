@@ -40,8 +40,8 @@ export const Footer: React.FC = () => {
               <Lock className="w-4 h-4" />
             </div>
             <div>
-              <p className="text-white text-xs font-bold uppercase tracking-wider">Cash on Delivery (COD)</p>
-              <p className="text-[11px] text-white/70">Pay safely at your doorstep</p>
+              <p className="text-white text-xs font-bold uppercase tracking-wider">100% Secure Direct Pay</p>
+              <p className="text-[11px] text-white/70">Direct bank & instant digital transfer</p>
             </div>
           </div>
 
@@ -91,8 +91,8 @@ export const Footer: React.FC = () => {
               <Lock className="w-4 h-4" />
             </div>
             <div>
-              <p className="text-white text-xs font-bold uppercase tracking-wider">Cash on Delivery (COD)</p>
-              <p className="text-[11px] text-white/70">Pay safely at your doorstep</p>
+              <p className="text-white text-xs font-bold uppercase tracking-wider">100% Secure Direct Pay</p>
+              <p className="text-[11px] text-white/70">Direct bank & instant digital transfer</p>
             </div>
           </div>
         </div>
@@ -119,14 +119,14 @@ export const Footer: React.FC = () => {
             </div>
 
             <div className="space-y-2.5 text-xs pt-1">
-              <div className="flex items-center gap-2.5 text-white/90">
-                <MapPin className="w-4 h-4 text-white shrink-0" />
-                <span>Central Logistics Hub · Delivering Nationwide Across Pakistan</span>
+              <div className="flex items-start gap-2.5 text-white/90">
+                <MapPin className="w-4 h-4 text-white shrink-0 mt-0.5" />
+                <span>238/170  Floor 8 Ratchadaview Codo, Soi, Sannibattasaban Jankhseam, Jatujak district, Bangkok 10900</span>
               </div>
               <div className="flex items-center gap-2.5 text-white/90">
                 <Phone className="w-4 h-4 text-white shrink-0" />
-                <a href="tel:+923332499499" className="hover:text-white font-semibold transition-colors">
-                  +92 333 2499499 (Call & WhatsApp)
+                <a href="tel:03252571589" className="hover:text-white font-semibold transition-colors">
+                  0325 2571589 / +92 325 2571589 (WhatsApp & Call)
                 </a>
               </div>
               <div className="flex items-center gap-2.5 text-white/90">

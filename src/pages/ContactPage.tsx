@@ -24,15 +24,15 @@ export const ContactPage: React.FC = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
       
-      <div className="text-center max-w-2xl mx-auto space-y-2">
-        <p className="text-xs font-bold uppercase tracking-widest text-red-600">
-          Athlete Support & Wholesale Desk
+      <div className="text-center max-w-3xl mx-auto space-y-3">
+        <p className="text-sm font-black uppercase tracking-widest text-red-600 font-heading">
+          Athlete Support & Customer Desk
         </p>
-        <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight uppercase font-heading">
+        <h1 className="text-5xl sm:text-6xl md:text-7xl font-black text-slate-900 tracking-tight uppercase font-heading leading-none">
           Get in Touch With Us
         </h1>
-        <p className="text-xs sm:text-sm text-slate-500 leading-relaxed">
-          Questions regarding batch verification, custom orders, or wholesale distribution? Our team responds within 2 business hours.
+        <p className="text-sm sm:text-base text-slate-600 leading-relaxed max-w-xl mx-auto font-medium">
+          Questions regarding batch verification, direct payment confirmation, or supplement stacks? Our team responds promptly.
         </p>
       </div>
 
@@ -41,41 +41,43 @@ export const ContactPage: React.FC = () => {
         {/* Contact Info & Details */}
         <div className="space-y-6">
           <div className="bg-white border border-slate-200 rounded-3xl p-8 space-y-6 shadow-sm">
-            <h2 className="text-lg font-bold text-slate-900 uppercase tracking-wider font-heading">
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-900 uppercase tracking-tight font-heading">
               Official Contact Points
             </h2>
 
-            <div className="space-y-4 text-xs">
+            <div className="space-y-5 text-xs sm:text-sm">
               <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-center text-red-600 shrink-0">
-                  <MapPin className="w-5 h-5" />
+                <div className="w-12 h-12 rounded-2xl bg-red-50 border border-red-200 flex items-center justify-center text-red-600 shrink-0 mt-0.5">
+                  <MapPin className="w-6 h-6" />
                 </div>
                 <div>
-                  <h4 className="text-slate-900 font-bold uppercase text-[11px]">Fulfillment Facility</h4>
-                  <p className="text-slate-500 mt-0.5">Saima Arabian Villas, Karachi, Pakistan</p>
-                  <p className="text-[10px] text-slate-400">Dispatch hub for all nationwide orders</p>
+                  <h4 className="text-slate-900 font-black uppercase text-xs font-heading tracking-wider">Official Office Address</h4>
+                  <p className="text-slate-700 font-medium mt-1 leading-relaxed">
+                    238/170  Floor 8 Ratchadaview Codo, Soi, Sannibattasaban Jankhseam, Jatujak district, Bangkok 10900
+                  </p>
+                  <p className="text-xs text-slate-400 mt-0.5">Delivering authentic sports supplements nationwide across Pakistan</p>
                 </div>
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-center text-red-600 shrink-0">
-                  <MessageSquare className="w-5 h-5" />
+                <div className="w-12 h-12 rounded-2xl bg-red-50 border border-red-200 flex items-center justify-center text-red-600 shrink-0 mt-0.5">
+                  <MessageSquare className="w-6 h-6" />
                 </div>
                 <div>
-                  <h4 className="text-slate-900 font-bold uppercase text-[11px]">WhatsApp & Phone</h4>
-                  <p className="text-slate-700 font-semibold mt-0.5 font-mono text-sm">+92 333 2499499</p>
-                  <p className="text-[10px] text-slate-500">Available 10:00 AM – 10:00 PM (Mon–Sat) for athlete support</p>
+                  <h4 className="text-slate-900 font-black uppercase text-xs font-heading tracking-wider">WhatsApp & Direct Phone</h4>
+                  <p className="text-red-600 font-black mt-1 font-mono text-base">0325 2571589 / +92 325 2571589</p>
+                  <p className="text-xs text-slate-500 mt-0.5">Available 10:00 AM – 10:00 PM for athlete consultation & order confirmation</p>
                 </div>
               </div>
 
               <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-center text-red-600 shrink-0">
-                  <Mail className="w-5 h-5" />
+                <div className="w-12 h-12 rounded-2xl bg-red-50 border border-red-200 flex items-center justify-center text-red-600 shrink-0 mt-0.5">
+                  <Mail className="w-6 h-6" />
                 </div>
                 <div>
-                  <h4 className="text-slate-900 font-bold uppercase text-[11px]">Official Email</h4>
-                  <p className="text-slate-700 font-semibold mt-0.5">nautilusprotein@gmail.com</p>
-                  <p className="text-[10px] text-slate-500">For inquiries, batch verification & order updates</p>
+                  <h4 className="text-slate-900 font-black uppercase text-xs font-heading tracking-wider">Official Email</h4>
+                  <p className="text-slate-900 font-semibold mt-1">nautilusprotein@gmail.com</p>
+                  <p className="text-xs text-slate-500 mt-0.5">For inquiries, batch certificates & order assistance</p>
                 </div>
               </div>
             </div>
@@ -83,13 +85,13 @@ export const ContactPage: React.FC = () => {
             {/* Direct WhatsApp CTA */}
             <div className="pt-2">
               <a
-                href="https://wa.me/923332499499?text=Hello%20Nautilus%20Protein,%20I%20have%20an%20inquiry%20regarding%20your%20products."
+                href="https://wa.me/923252571589?text=Hello%20Nautilus%20Protein,%20I%20have%20an%20inquiry%20regarding%20your%20products."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full py-3.5 px-6 bg-red-600 hover:bg-red-700 text-white rounded-xl text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all shadow-md shadow-red-600/30"
+                className="w-full py-4 px-6 bg-red-600 hover:bg-red-700 text-white rounded-2xl text-sm font-black uppercase tracking-wider flex items-center justify-center gap-2.5 transition-all shadow-lg shadow-red-600/30 font-heading"
               >
-                <Phone className="w-4 h-4" />
-                <span>Start Direct WhatsApp Chat (0333 2499499)</span>
+                <Phone className="w-5 h-5" />
+                <span>Start Direct WhatsApp Chat (0325 2571589)</span>
               </a>
             </div>
 

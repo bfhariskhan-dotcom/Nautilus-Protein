@@ -82,7 +82,7 @@ export const ShopPage: React.FC = () => {
             <p className="text-xs font-bold uppercase tracking-wider text-red-600">
               Complete Supplement Catalog
             </p>
-            <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight uppercase font-heading mt-1">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[56px] font-black text-slate-900 tracking-tight uppercase font-heading mt-1 leading-[1.02]">
               Shop All Products
             </h1>
             <p className="text-xs text-slate-500 mt-1.5">

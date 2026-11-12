@@ -84,8 +84,8 @@ export const HomePage: React.FC = () => {
       id: 'banner-4',
       tag: 'NATIONWIDE EXPRESS DISPATCH',
       headline: 'Authentic Seals.',
-      headlineAccent: 'Cash on Delivery.',
-      description: 'Dispatched direct from Karachi logistics hub to all cities across Pakistan with intact tamper-evident seals.',
+      headlineAccent: 'Direct Online Pay.',
+      description: 'Dispatched direct from dedicated distribution facility to all cities across Pakistan with intact tamper-evident seals.',
       btnText: 'Order With Free Delivery',
       action: () => navigateTo('shop'),
       image: 'https://i.postimg.cc/L51Dkt3V/file-00000000e6388208a1d748d092d8e863.png',
@@ -217,7 +217,7 @@ export const HomePage: React.FC = () => {
     },
     {
       id: 9,
-      quote: "Quick delivery to Gujranwala with COD payment option. Packaging was sturdy and induction seal was completely untouched. Authentic supplement stores are rare in Pakistan, Nautilus is truly reliable.",
+      quote: "Quick delivery to Gujranwala with direct online payment. Packaging was sturdy and induction seal was completely untouched. Authentic supplement stores are rare in Pakistan, Nautilus is truly reliable.",
       author: "Raza Ali",
       city: "Gujranwala",
       badge: "Verified Buyer",
@@ -561,7 +561,7 @@ export const HomePage: React.FC = () => {
               <Award className="w-3.5 h-3.5 text-red-600" />
               <span>Pakistan Athlete Favorites</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight uppercase font-heading">
+            <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-[56px] font-black text-slate-900 tracking-tight uppercase font-heading leading-none">
               Best Sellers
             </h2>
           </div>
@@ -605,7 +605,7 @@ export const HomePage: React.FC = () => {
                   <div className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-red-950/80 text-red-300 border border-red-800">
                     <span>{p.tag}</span>
                   </div>
-                  <h3 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight uppercase font-heading leading-tight">
+                  <h3 className="text-3xl sm:text-5xl font-black text-white tracking-tight uppercase font-heading leading-tight">
                     {p.headline}
                   </h3>
                   <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed">
@@ -653,10 +653,10 @@ export const HomePage: React.FC = () => {
           <p className="text-xs font-bold uppercase tracking-wider text-red-600">
             Targeted Performance
           </p>
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight uppercase font-heading mt-1">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-[56px] font-black text-slate-900 tracking-tight uppercase font-heading mt-1 leading-none">
             Shop by Goal
           </h2>
-          <p className="text-xs text-slate-500 mt-2">
+          <p className="text-xs sm:text-sm text-slate-500 mt-2">
             Select your primary fitness objective to view precision supplement protocols.
           </p>
         </div>
@@ -699,7 +699,7 @@ export const HomePage: React.FC = () => {
               <p className="text-xs font-bold uppercase tracking-wider text-red-600">
                 Fresh Production Batches
               </p>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight uppercase font-heading mt-1">
+              <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-[56px] font-black text-slate-900 tracking-tight uppercase font-heading mt-1 leading-none">
                 New Arrivals
               </h2>
             </div>
@@ -727,7 +727,7 @@ export const HomePage: React.FC = () => {
             <p className="text-xs font-bold uppercase tracking-wider text-red-600">
               The Nautilus Standard
             </p>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight uppercase font-heading mt-1">
+            <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-[56px] font-black text-slate-900 tracking-tight uppercase font-heading mt-1 leading-none">
               Why Athletes Trust Nautilus
             </h2>
             <p className="text-xs sm:text-sm text-slate-500 mt-2">
@@ -762,7 +762,7 @@ export const HomePage: React.FC = () => {
               </div>
               <h3 className="text-base font-bold text-slate-900">Dedicated WhatsApp Athlete Desk</h3>
               <p className="text-xs text-slate-500 leading-relaxed">
-                Reach human support instantly at +92 333 2499499 for dosing advice, flavor reviews, stack recommendations, and real-time shipment updates.
+                Reach human support instantly at 0325 2571589 / +92 325 2571589 for dosing advice, flavor reviews, stack recommendations, and real-time shipment updates.
               </p>
             </div>
           </div>
@@ -774,7 +774,7 @@ export const HomePage: React.FC = () => {
         <div className="flex items-center justify-between mb-6">
           <div>
             <p className="text-xs font-bold uppercase tracking-wider text-red-600">Curated Roster</p>
-            <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight uppercase font-heading">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 tracking-tight uppercase font-heading">
               Available Brands
             </h2>
           </div>
@@ -820,7 +820,7 @@ export const HomePage: React.FC = () => {
               <Star className="w-3.5 h-3.5 fill-current text-red-600" />
               <span>Real Athlete Experiences</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight uppercase font-heading">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[52px] font-black text-slate-900 tracking-tight uppercase font-heading leading-tight">
               Verified Customer Reviews
             </h2>
             <p className="text-xs text-slate-500 mt-1">

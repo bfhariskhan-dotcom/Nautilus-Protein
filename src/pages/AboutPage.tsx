@@ -13,11 +13,11 @@ export const AboutPage: React.FC = () => {
         <p className="text-xs font-bold uppercase tracking-widest text-[#ba0202]">
           ABOUT US · NAUTILUS PROTEIN
         </p>
-        <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight uppercase font-heading leading-tight">
+        <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-slate-900 tracking-tight uppercase font-heading leading-none">
           Born in Pakistan.<br />
           <span className="text-[#ba0202]">Built for Performance.</span>
         </h1>
-        <p className="text-base sm:text-lg text-slate-700 font-medium leading-relaxed">
+        <p className="text-base sm:text-xl text-slate-700 font-medium leading-relaxed">
           Nautilus Protein was started with one simple mission — To give Pakistan pure, lab-tested, and affordable supplements that actually work.
         </p>
       </div>
@@ -118,7 +118,7 @@ export const AboutPage: React.FC = () => {
           </div>
           <h3 className="text-base font-bold text-slate-900 uppercase font-heading">Nationwide Delivery</h3>
           <p className="text-xs text-slate-600 leading-relaxed">
-            Dispatched direct from Karachi with Cash on Delivery (COD) across Karachi, Lahore, Islamabad, and all cities.
+            Express courier delivery across Karachi, Lahore, Islamabad, and all cities with 100% intact seals.
           </p>
         </div>
       </div>
@@ -126,17 +126,17 @@ export const AboutPage: React.FC = () => {
       {/* Business Details Card */}
       <div className="bg-white border border-slate-200 rounded-3xl p-8 max-w-2xl mx-auto text-center space-y-4">
         <h3 className="text-base font-bold text-slate-900 uppercase tracking-wider font-heading">
-          Official Headquarters & Fulfillment
+          Official Office & Customer Desk
         </h3>
         <div className="text-xs text-slate-600 space-y-2">
-          <div className="flex items-center justify-center gap-2">
-            <MapPin className="w-4 h-4 text-[#ba0202] shrink-0" />
-            <span>Saima Arabian Villas, Karachi, Pakistan</span>
+          <div className="flex items-start justify-center gap-2">
+            <MapPin className="w-4 h-4 text-[#ba0202] shrink-0 mt-0.5" />
+            <span>238/170  Floor 8 Ratchadaview Codo, Soi, Sannibattasaban Jankhseam, Jatujak district, Bangkok 10900</span>
           </div>
           <div className="flex items-center justify-center gap-2">
             <Phone className="w-4 h-4 text-[#ba0202] shrink-0" />
-            <a href="tel:+923332499499" className="hover:text-red-700 font-semibold transition-colors">
-              WhatsApp / Phone: +92 333 2499499
+            <a href="tel:03252571589" className="hover:text-red-700 font-semibold transition-colors">
+              WhatsApp / Phone: 0325 2571589 / +92 325 2571589
             </a>
           </div>
           <div className="flex items-center justify-center gap-2">
