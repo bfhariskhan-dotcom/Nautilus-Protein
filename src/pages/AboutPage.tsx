@@ -136,7 +136,7 @@ export const AboutPage: React.FC = () => {
           <div className="flex items-center justify-center gap-2">
             <Phone className="w-4 h-4 text-[#ba0202] shrink-0" />
             <a href="tel:03252571589" className="hover:text-red-700 font-semibold transition-colors">
-              WhatsApp / Phone: 0325 2571589 / +92 325 2571589
+              WhatsApp / Phone: 0325 2571589
             </a>
           </div>
           <div className="flex items-center justify-center gap-2">

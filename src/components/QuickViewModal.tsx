@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Star, ShoppingBag, Plus, Minus, ArrowRight, MessageCircle, Package } from 'lucide-react';
+import { X, ShoppingBag, Plus, Minus, ArrowRight, MessageCircle, Package } from 'lucide-react';
 import { useStore } from '../context/StoreContext';
 
 export const QuickViewModal: React.FC = () => {
@@ -70,24 +70,17 @@ export const QuickViewModal: React.FC = () => {
             </h2>
 
             <div className="flex items-center gap-2 mt-2 text-xs text-slate-500">
-              <div className="flex items-center text-red-600">
-                <Star className="w-4 h-4 fill-current" />
-                <span className="ml-1 font-bold text-slate-900 tabular-nums">{quickViewProduct.rating}</span>
-              </div>
-              <span>·</span>
-              <span>{quickViewProduct.reviewCount} customer reviews</span>
-              <span>·</span>
               <span className="text-red-700 font-semibold">
-                {quickViewProduct.inStock ? 'In Stock' : 'Out of Stock'}
+                {quickViewProduct.inStock ? 'In Stock · Ready to Ship' : 'Out of Stock'}
               </span>
             </div>
 
-            <div className="mt-4 flex items-baseline gap-2">
-              <span className="text-3xl sm:text-4xl font-black text-slate-900 tabular-nums">
+            <div className="mt-3 flex items-baseline gap-2">
+              <span className="text-base sm:text-lg font-bold text-slate-900 tabular-nums">
                 PKR {price.toLocaleString()}
               </span>
               {quickViewProduct.salePrice && (
-                <span className="text-sm text-slate-400 line-through tabular-nums">
+                <span className="text-xs text-slate-400 line-through tabular-nums">
                   PKR {quickViewProduct.price.toLocaleString()}
                 </span>
               )}

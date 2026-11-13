@@ -65,7 +65,7 @@ export const ContactPage: React.FC = () => {
                 </div>
                 <div>
                   <h4 className="text-slate-900 font-black uppercase text-xs font-heading tracking-wider">WhatsApp & Direct Phone</h4>
-                  <p className="text-red-600 font-black mt-1 font-mono text-base">0325 2571589 / +92 325 2571589</p>
+                  <p className="text-red-600 font-black mt-1 font-mono text-base">0325 2571589</p>
                   <p className="text-xs text-slate-500 mt-0.5">Available 10:00 AM – 10:00 PM for athlete consultation & order confirmation</p>
                 </div>
               </div>
@@ -203,7 +203,7 @@ export const ContactPage: React.FC = () => {
                 <input
                   type="tel"
                   required
-                  placeholder="e.g. 0333 1234567"
+                  placeholder="e.g. 0325 2571589"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   className="w-full bg-white border border-slate-200 rounded-xl px-3.5 py-3 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-red-600 tabular-nums"

@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
-  Star,
   ShieldCheck,
   Truck,
   RefreshCw,
@@ -14,14 +13,13 @@ import {
   Users,
   ChevronDown,
   ChevronUp,
-  Award,
+  ChevronLeft,
+  ChevronRight,
   Zap,
   Package
 } from 'lucide-react';
 import { useStore } from '../context/StoreContext';
 import { ProductCard } from '../components/ProductCard';
-import { CustomerReview } from '../types';
-import { INITIAL_PRODUCT_REVIEWS } from '../data/productReviews';
 
 export const ProductDetailPage: React.FC = () => {
   const {
@@ -30,8 +28,7 @@ export const ProductDetailPage: React.FC = () => {
     addToCart,
     navigateTo,
     toggleWishlist,
-    isInWishlist,
-    showToast
+    isInWishlist
   } = useStore();
 
   const product = products.find(p => p.slug === selectedProductSlug) || products[0];
@@ -40,31 +37,24 @@ export const ProductDetailPage: React.FC = () => {
     product?.flavors?.[0] || ''
   );
   const [quantity, setQuantity] = useState<number>(1);
-  const [activeImage, setActiveImage] = useState<string>(product?.image || '');
-  
-  // Accordion open states for clean vertical layout
-  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
+  const [activeSlideIdx, setActiveSlideIdx] = useState<number>(0);
 
-  // Review submission state
-  const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
-  const [reviewName, setReviewName] = useState('');
-  const [reviewRating, setReviewRating] = useState(5);
-  const [reviewHeadline, setReviewHeadline] = useState('');
-  const [reviewComment, setReviewComment] = useState('');
-  const [isSubmittingReview, setIsSubmittingReview] = useState(false);
-  const [productReviews, setProductReviews] = useState<CustomerReview[]>([]);
+  // Cursor drag & finger swipe slider state
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragOffset, setDragOffset] = useState(0);
+  const dragStartX = useRef<number | null>(null);
+  const touchStartX = useRef<number | null>(null);
+
+  // Accordion open state
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
 
   useEffect(() => {
     if (product) {
-      setActiveImage(product.image);
+      setActiveSlideIdx(0);
+      setDragOffset(0);
       if (product.flavors && product.flavors.length > 0) {
         setSelectedFlavor(product.flavors[0]);
       }
-      const defaultReviews = (product.slug && INITIAL_PRODUCT_REVIEWS[product.slug])
-        || (product.id && INITIAL_PRODUCT_REVIEWS[product.id])
-        || INITIAL_PRODUCT_REVIEWS['nautilus-bcaa-2-1-1-lemon-450g']
-        || [];
-      setProductReviews(defaultReviews);
     }
   }, [product?.id, product?.slug, product?.image]);
 
@@ -98,7 +88,82 @@ export const ProductDetailPage: React.FC = () => {
     .filter(Boolean)
     .filter(img => !isLogo(img));
 
-  const currentDisplayImage = (!isLogo(activeImage) && activeImage) || allImages[0] || '';
+  const safeSlideIdx = allImages.length > 0 ? Math.min(activeSlideIdx, allImages.length - 1) : 0;
+
+  const prevSlide = () => {
+    if (allImages.length <= 1) return;
+    setActiveSlideIdx((prev) => (prev <= 0 ? allImages.length - 1 : prev - 1));
+  };
+
+  const nextSlide = () => {
+    if (allImages.length <= 1) return;
+    setActiveSlideIdx((prev) => (prev >= allImages.length - 1 ? 0 : prev + 1));
+  };
+
+  // Mouse cursor drag handlers
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (allImages.length === 0) return;
+    dragStartX.current = e.clientX;
+    setIsDragging(true);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging || dragStartX.current === null) return;
+    const diff = e.clientX - dragStartX.current;
+    setDragOffset(diff);
+  };
+
+  const handleMouseUp = (e: React.MouseEvent) => {
+    if (!isDragging || dragStartX.current === null) {
+      setIsDragging(false);
+      setDragOffset(0);
+      return;
+    }
+    const diff = dragStartX.current - e.clientX;
+    if (diff > 40) {
+      nextSlide();
+    } else if (diff < -40) {
+      prevSlide();
+    }
+    dragStartX.current = null;
+    setIsDragging(false);
+    setDragOffset(0);
+  };
+
+  const handleMouseLeave = () => {
+    if (isDragging) {
+      dragStartX.current = null;
+      setIsDragging(false);
+      setDragOffset(0);
+    }
+  };
+
+  // Touch finger swipe handlers
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (allImages.length === 0) return;
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const diff = e.touches[0].clientX - touchStartX.current;
+    setDragOffset(diff);
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) {
+      setDragOffset(0);
+      return;
+    }
+    const diff = touchStartX.current - e.changedTouches[0].clientX;
+    if (diff > 40) {
+      nextSlide();
+    } else if (diff < -40) {
+      prevSlide();
+    }
+    touchStartX.current = null;
+    setDragOffset(0);
+  };
 
   const relatedProducts = products
     .filter(p => p.id !== product.id && (p.category === product.category || p.brand === product.brand))
@@ -113,77 +178,57 @@ export const ProductDetailPage: React.FC = () => {
     navigateTo('checkout');
   };
 
-  const handleSubmitReview = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!reviewName || !reviewComment) {
-      showToast('Name and comment are required.', 'error');
-      return;
-    }
-    setIsSubmittingReview(true);
-    const newRev: CustomerReview = {
-      id: `rev-${Date.now()}`,
-      productId: product.id,
-      productName: product.name,
-      customerName: reviewName,
-      rating: reviewRating,
-      headline: reviewHeadline || 'Verified Athlete Review',
-      comment: reviewComment,
-      date: 'Just now',
-      verifiedPurchase: true,
-      status: 'approved',
-      city: 'Verified Buyer, Pakistan'
-    };
-
-    try {
-      const res = await fetch('/api/reviews', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          productId: product.id,
-          customerName: reviewName,
-          rating: reviewRating,
-          headline: reviewHeadline,
-          comment: reviewComment
-        })
-      });
-      // Always add locally for instant feedback
-      setProductReviews(prev => [newRev, ...prev]);
-      showToast('Thank you! Your verified review has been posted.');
-      setIsReviewModalOpen(false);
-      setReviewName('');
-      setReviewHeadline('');
-      setReviewComment('');
-    } catch {
-      // Add locally anyway
-      setProductReviews(prev => [newRev, ...prev]);
-      showToast('Thank you! Your verified review has been posted.');
-      setIsReviewModalOpen(false);
-      setReviewName('');
-      setReviewHeadline('');
-      setReviewComment('');
-    } finally {
-      setIsSubmittingReview(false);
-    }
-  };
-
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-14">
       
       {/* 1. Main Purchase Module */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-14 items-start">
         
-        {/* Left: Sticky Media Gallery with Thumbnail Selector */}
+        {/* Left: Interactive Cursor-Drag & Touch-Swipe Image Carousel with Arrows */}
         <div className="lg:sticky lg:top-24 space-y-4">
-          <div className="aspect-square bg-white border border-slate-200/90 rounded-3xl p-6 sm:p-10 flex items-center justify-center relative overflow-hidden shadow-lg shadow-red-950/5">
-            {currentDisplayImage ? (
-              <img
-                src={currentDisplayImage}
-                alt={product.name}
-                className="max-h-full max-w-full object-contain transition-all duration-300"
-                referrerPolicy="no-referrer"
-              />
+          <div
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+            onMouseLeave={handleMouseLeave}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+            className={`aspect-square bg-white border border-slate-200/90 rounded-3xl relative overflow-hidden shadow-lg shadow-red-950/5 select-none group ${
+              allImages.length > 0
+                ? isDragging
+                  ? 'cursor-grabbing'
+                  : 'cursor-grab'
+                : ''
+            }`}
+            title={allImages.length > 1 ? 'Drag with cursor or swipe to slide images' : product.name}
+          >
+            {allImages.length > 0 ? (
+              <div
+                className={`flex w-full h-full ${
+                  isDragging ? '' : 'transition-transform duration-500 ease-out'
+                }`}
+                style={{
+                  transform: `translate3d(calc(-${safeSlideIdx * 100}% + ${dragOffset}px), 0, 0)`
+                }}
+              >
+                {allImages.map((imgUrl, idx) => (
+                  <div
+                    key={idx}
+                    className="min-w-full w-full h-full p-6 sm:p-10 flex items-center justify-center shrink-0"
+                  >
+                    <img
+                      src={imgUrl}
+                      alt={`${product.name} view ${idx + 1}`}
+                      draggable={false}
+                      className="max-h-full max-w-full object-contain pointer-events-none select-none"
+                      referrerPolicy="no-referrer"
+                    />
+                  </div>
+                ))}
+              </div>
             ) : (
-              <div className="flex flex-col items-center justify-center text-slate-300 py-10 text-center p-4">
+              <div className="w-full h-full flex flex-col items-center justify-center text-slate-300 py-10 text-center p-4">
                 <Package className="w-16 h-16 sm:w-20 sm:h-20 stroke-[1.2] text-slate-300 mb-3" />
                 <p className="text-sm font-bold text-slate-600 uppercase tracking-wider font-heading">
                   Product Photo to be uploaded
@@ -193,20 +238,26 @@ export const ProductDetailPage: React.FC = () => {
                 </p>
               </div>
             )}
-            
+
+            {/* Top Left Status Badge */}
             {product.isBestSeller ? (
-              <span className="absolute top-4 left-4 text-[11px] font-bold uppercase tracking-wider text-white bg-red-600 border border-red-700 px-3 py-1 rounded-lg shadow-sm">
+              <span className="absolute top-4 left-4 text-[11px] font-bold uppercase tracking-wider text-white bg-red-600 border border-red-700 px-3 py-1 rounded-lg shadow-sm z-10 pointer-events-none">
                 Best Seller
               </span>
             ) : product.isNew ? (
-              <span className="absolute top-4 left-4 text-[11px] font-bold uppercase tracking-wider text-neutral-900 bg-neutral-100 border border-neutral-300 px-3 py-1 rounded-lg shadow-sm">
+              <span className="absolute top-4 left-4 text-[11px] font-bold uppercase tracking-wider text-neutral-900 bg-neutral-100 border border-neutral-300 px-3 py-1 rounded-lg shadow-sm z-10 pointer-events-none">
                 New Arrival
               </span>
             ) : null}
 
+            {/* Top Right Wishlist Button */}
             <button
-              onClick={() => toggleWishlist(product.id)}
-              className={`absolute top-4 right-4 p-3 rounded-full backdrop-blur-md transition-colors ${
+              onClick={(e) => {
+                e.stopPropagation();
+                toggleWishlist(product.id);
+              }}
+              onMouseDown={(e) => e.stopPropagation()}
+              className={`absolute top-4 right-4 p-3 rounded-full backdrop-blur-md transition-colors z-10 ${
                 wishlisted
                   ? 'bg-red-600 text-white shadow-md shadow-red-600/30'
                   : 'bg-white/95 text-slate-400 hover:text-red-600 hover:bg-white border border-slate-200 shadow-sm'
@@ -215,6 +266,59 @@ export const ProductDetailPage: React.FC = () => {
             >
               <Heart className={`w-5 h-5 ${wishlisted ? 'fill-current text-white' : ''}`} />
             </button>
+
+            {/* Left & Right Slider Arrows */}
+            {allImages.length >= 1 && (
+              <>
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    prevSlide();
+                  }}
+                  onMouseDown={(e) => e.stopPropagation()}
+                  className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/90 hover:bg-[#ba0202] text-slate-900 hover:text-white border border-slate-200 hover:border-[#ba0202] shadow-md flex items-center justify-center transition-all z-10 cursor-pointer"
+                  aria-label="Previous image"
+                >
+                  <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
+                </button>
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    nextSlide();
+                  }}
+                  onMouseDown={(e) => e.stopPropagation()}
+                  className="absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/90 hover:bg-[#ba0202] text-slate-900 hover:text-white border border-slate-200 hover:border-[#ba0202] shadow-md flex items-center justify-center transition-all z-10 cursor-pointer"
+                  aria-label="Next image"
+                >
+                  <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
+                </button>
+              </>
+            )}
+
+            {/* Bottom Dot Indicators when multiple images exist */}
+            {allImages.length > 1 && (
+              <div className="absolute bottom-4 inset-x-0 flex items-center justify-center gap-2 z-10">
+                {allImages.map((_, idx) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setActiveSlideIdx(idx);
+                    }}
+                    onMouseDown={(e) => e.stopPropagation()}
+                    className={`h-2 rounded-full transition-all ${
+                      safeSlideIdx === idx
+                        ? 'w-7 bg-[#ba0202]'
+                        : 'w-2 bg-slate-300 hover:bg-slate-400'
+                    }`}
+                    aria-label={`Slide ${idx + 1}`}
+                  />
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Interactive Thumbnail Strip */}
@@ -223,9 +327,10 @@ export const ProductDetailPage: React.FC = () => {
               {allImages.map((imgUrl, idx) => (
                 <button
                   key={idx}
-                  onClick={() => setActiveImage(imgUrl)}
+                  type="button"
+                  onClick={() => setActiveSlideIdx(idx)}
                   className={`w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-white border-2 p-1.5 flex items-center justify-center shrink-0 transition-all ${
-                    (activeImage || product.image) === imgUrl
+                    safeSlideIdx === idx
                       ? 'border-red-600 shadow-md shadow-red-600/20 scale-105'
                       : 'border-slate-200 opacity-70 hover:opacity-100 hover:border-slate-300'
                   }`}
@@ -233,8 +338,9 @@ export const ProductDetailPage: React.FC = () => {
                 >
                   <img
                     src={imgUrl}
-                    alt={`${product.name} view ${idx + 1}`}
+                    alt={`${product.name} thumbnail ${idx + 1}`}
                     className="max-h-full max-w-full object-contain"
+                    referrerPolicy="no-referrer"
                   />
                 </button>
               ))}
@@ -245,40 +351,35 @@ export const ProductDetailPage: React.FC = () => {
         {/* Right: Purchase & Variant Selection */}
         <div className="space-y-6">
           <div>
-            <div className="flex items-center justify-between gap-2 text-xs font-bold uppercase tracking-wider text-red-600 mb-1.5">
+            <div className="flex items-center justify-between gap-2 text-xs font-bold uppercase tracking-wider text-red-600 mb-2">
               <span>{product.brand} · {product.categoryName}</span>
-              <div className="flex items-center gap-1.5 bg-red-50 px-2.5 py-0.5 rounded-full border border-red-200/80">
-                <Star className="w-3.5 h-3.5 fill-current text-amber-500" />
-                <span className="text-slate-900 font-extrabold tabular-nums">{product.rating}</span>
-                <span className="text-slate-500 font-normal">({product.reviewCount} reviews)</span>
-              </div>
             </div>
 
-            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-[72px] font-black text-slate-900 tracking-tight font-heading uppercase leading-[0.98]">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[72px] font-black text-slate-900 tracking-tight font-heading uppercase leading-[1.0] break-words">
               {product.name}
             </h1>
 
             {product.headline && (
-              <p className="text-sm sm:text-base md:text-xl font-bold text-red-600 mt-2">
+              <p className="text-sm sm:text-base md:text-lg font-bold text-red-600 mt-3">
                 {product.headline}
               </p>
             )}
 
-            <p className="text-sm sm:text-base text-slate-600 mt-3 leading-relaxed">
+            <p className="text-xs sm:text-sm text-slate-600 mt-3 leading-relaxed font-normal">
               {product.description}
             </p>
           </div>
 
-          {/* Pricing Row */}
-          <div className="p-4 sm:p-5 rounded-2xl bg-slate-50 border border-slate-200/90 flex flex-wrap items-baseline justify-between gap-3">
+          {/* Compact Pricing Row */}
+          <div className="p-4 sm:p-5 rounded-2xl bg-slate-50 border border-slate-200/90 flex flex-wrap items-center justify-between gap-3">
             <div>
-              <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Inclusive of All Taxes</p>
-              <div className="flex items-baseline gap-2.5 mt-1">
-                <span className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tabular-nums">
+              <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Inclusive of All Taxes</p>
+              <div className="flex items-baseline gap-2 mt-1">
+                <span className="text-base sm:text-lg font-bold text-slate-900 tabular-nums">
                   PKR {price.toLocaleString()}
                 </span>
                 {hasDiscount && (
-                  <span className="text-base sm:text-lg text-slate-400 line-through tabular-nums">
+                  <span className="text-xs text-slate-400 line-through tabular-nums">
                     PKR {product.price.toLocaleString()}
                   </span>
                 )}
@@ -388,7 +489,7 @@ export const ProductDetailPage: React.FC = () => {
           </div>
 
           {/* Direct WhatsApp Consultation */}
-          <div className="p-3.5 rounded-2xl bg-white border border-slate-200 flex items-center justify-between text-xs shadow-sm">
+          <div className="p-3.5 rounded-2xl bg-white border border-slate-200 flex items-center justify-between text-xs shadow-sm gap-2">
             <div className="flex items-center gap-2 text-slate-600">
               <MessageCircle className="w-4 h-4 text-red-600 shrink-0" />
               <span>Questions regarding dosing or stacks?</span>
@@ -399,7 +500,7 @@ export const ProductDetailPage: React.FC = () => {
               )}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-bold text-red-600 hover:text-red-700 transition-colors uppercase tracking-wider text-[11px]"
+              className="font-bold text-red-600 hover:text-red-700 transition-colors uppercase tracking-wider text-[11px] shrink-0"
             >
               Chat on WhatsApp (0325 2571589) →
             </a>
@@ -427,15 +528,15 @@ export const ProductDetailPage: React.FC = () => {
         </div>
       </div>
 
-      {/* 2. Structured Product Details (Clean Vertical Presentation, Zero Horizontal Tab Scroll) */}
+      {/* 2. Structured Product Details (72px Headings on Desktop) */}
       <div className="space-y-8">
         
         {/* Section A: Formula Highlights & Who Is It For */}
-        {( (product.highlights && product.highlights.length > 0) || (product.whoIsItFor && product.whoIsItFor.length > 0) ) && (
+        {((product.highlights && product.highlights.length > 0) || (product.whoIsItFor && product.whoIsItFor.length > 0)) && (
           <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 space-y-6 shadow-sm">
             <div>
               <p className="text-xs sm:text-sm font-bold uppercase tracking-wider text-red-600">Clinical Formulation</p>
-              <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-[54px] font-black text-slate-900 uppercase font-heading tracking-tight mt-1 leading-[1.0]">
+              <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-[72px] font-black text-slate-900 uppercase font-heading tracking-tight mt-1 leading-[1.0]">
                 Why Choose This Formula
               </h2>
             </div>
@@ -476,10 +577,10 @@ export const ProductDetailPage: React.FC = () => {
         {/* Section B: Official Nutrition Facts Table */}
         {product.nutritionFacts && product.nutritionFacts.length > 0 && (
           <div className="bg-white border border-slate-200 rounded-3xl overflow-hidden shadow-sm">
-            <div className="p-6 border-b border-slate-200 bg-slate-50 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div className="p-6 border-b border-slate-200 bg-slate-50 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div>
                 <p className="text-xs sm:text-sm font-bold uppercase tracking-wider text-red-600">Transparent Labeling</p>
-                <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-[54px] font-black text-slate-900 uppercase font-heading tracking-tight mt-1 leading-[1.0]">
+                <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-[72px] font-black text-slate-900 uppercase font-heading tracking-tight mt-1 leading-[1.0]">
                   Supplement Facts
                 </h2>
               </div>
@@ -522,12 +623,12 @@ export const ProductDetailPage: React.FC = () => {
           <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 space-y-4 shadow-sm">
             <div>
               <p className="text-xs sm:text-sm font-bold uppercase tracking-wider text-red-600">Protocol & Timing</p>
-              <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-[54px] font-black text-slate-900 uppercase font-heading tracking-tight mt-1 leading-[1.0]">
+              <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-[72px] font-black text-slate-900 uppercase font-heading tracking-tight mt-1 leading-[1.0]">
                 How To Use
               </h2>
             </div>
             <div className="p-5 sm:p-6 rounded-2xl bg-red-50/40 border border-red-200/60">
-              <p className="text-sm sm:text-base md:text-lg text-slate-800 leading-relaxed font-medium whitespace-pre-line">
+              <p className="text-sm sm:text-base text-slate-800 leading-relaxed font-medium whitespace-pre-line">
                 {product.directions}
               </p>
             </div>
@@ -541,10 +642,10 @@ export const ProductDetailPage: React.FC = () => {
         {/* Section D: Ingredients & Storage Guidelines */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 space-y-3 shadow-sm">
-            <h3 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 uppercase font-heading tracking-tight">
+            <h3 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 uppercase font-heading tracking-tight leading-tight">
               Ingredients Matrix
             </h3>
-            <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
+            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
               {product.ingredients?.join(', ') || 'Pure pharmaceutical grade supplement formula with natural and artificial flavors.'}
             </p>
             <p className="text-xs sm:text-sm text-red-600 font-semibold pt-2">
@@ -553,10 +654,10 @@ export const ProductDetailPage: React.FC = () => {
           </div>
 
           <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 space-y-3 shadow-sm">
-            <h3 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 uppercase font-heading tracking-tight">
+            <h3 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 uppercase font-heading tracking-tight leading-tight">
               Warnings & Storage
             </h3>
-            <p className="text-sm sm:text-base text-slate-600 leading-relaxed whitespace-pre-line">
+            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed whitespace-pre-line">
               {product.warnings || 'Store in a cool, dry place away from direct sunlight. Keep out of reach of children. Consult your physician prior to use if you have any medical condition.'}
             </p>
           </div>
@@ -567,7 +668,7 @@ export const ProductDetailPage: React.FC = () => {
           <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 space-y-6 shadow-sm">
             <div>
               <p className="text-xs sm:text-sm font-bold uppercase tracking-wider text-red-600">Product FAQs</p>
-              <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-[54px] font-black text-slate-900 uppercase font-heading tracking-tight mt-1 leading-[1.0]">
+              <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-[72px] font-black text-slate-900 uppercase font-heading tracking-tight mt-1 leading-[1.0]">
                 Frequently Asked Questions
               </h2>
             </div>
@@ -595,7 +696,7 @@ export const ProductDetailPage: React.FC = () => {
                       )}
                     </button>
                     {isOpen && (
-                      <div className="p-5 sm:p-6 pt-2 text-sm sm:text-base md:text-lg text-slate-700 leading-relaxed bg-white border-t border-slate-100">
+                      <div className="p-5 sm:p-6 pt-2 text-xs sm:text-sm md:text-base text-slate-700 leading-relaxed bg-white border-t border-slate-100">
                         {faq.answer}
                       </div>
                     )}
@@ -608,265 +709,19 @@ export const ProductDetailPage: React.FC = () => {
 
       </div>
 
-      {/* 3. Verified Customer Reviews */}
-      <div className="space-y-6">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div>
-            <h3 className="text-3xl sm:text-5xl md:text-6xl lg:text-[54px] font-black text-slate-900 uppercase font-heading tracking-tight leading-[1.0]">
-              Customer Reviews ({product.reviewCount})
-            </h3>
-            <p className="text-xs sm:text-sm md:text-base text-slate-500 mt-1">
-              Real feedback from verified purchasers in Pakistan.
-            </p>
-          </div>
-          <button
-            onClick={() => setIsReviewModalOpen(true)}
-            className="px-5 py-2.5 bg-white hover:bg-red-50 border border-slate-200 hover:border-red-300 text-slate-800 hover:text-red-600 rounded-xl text-xs font-bold uppercase tracking-wider transition-colors shadow-sm self-start sm:self-auto"
-          >
-            Write a Review
-          </button>
-        </div>
-
-        {/* Modal for submitting review */}
-        {isReviewModalOpen && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
-            <div className="w-full max-w-lg bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 space-y-4 shadow-2xl">
-              <div className="flex items-center justify-between pb-3 border-b border-slate-200">
-                <h4 className="font-bold text-slate-900 text-base">Write a Verified Review</h4>
-                <button
-                  onClick={() => setIsReviewModalOpen(false)}
-                  className="text-slate-500 hover:text-slate-900 text-lg"
-                >
-                  ✕
-                </button>
-              </div>
-
-              <form onSubmit={handleSubmitReview} className="space-y-4 text-xs">
-                <div>
-                  <label className="block text-slate-600 font-semibold mb-1">Your Full Name</label>
-                  <input
-                    type="text"
-                    required
-                    value={reviewName}
-                    onChange={(e) => setReviewName(e.target.value)}
-                    placeholder="e.g. Asad Khan"
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-slate-900 focus:outline-none focus:border-red-600"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-slate-600 font-semibold mb-1">Rating</label>
-                  <select
-                    value={reviewRating}
-                    onChange={(e) => setReviewRating(Number(e.target.value))}
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-slate-900 focus:outline-none focus:border-red-600"
-                  >
-                    <option value={5}>⭐⭐⭐⭐⭐ (5/5) - Outstanding Quality</option>
-                    <option value={4}>⭐⭐⭐⭐ (4/5) - Very Good</option>
-                    <option value={3}>⭐⭐⭐ (3/5) - Average</option>
-                    <option value={2}>⭐⭐ (2/5) - Below Expectation</option>
-                    <option value={1}>⭐ (1/5) - Poor</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-slate-600 font-semibold mb-1">Review Headline</label>
-                  <input
-                    type="text"
-                    value={reviewHeadline}
-                    onChange={(e) => setReviewHeadline(e.target.value)}
-                    placeholder="e.g. Clean mixability and authentic seal"
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-slate-900 focus:outline-none focus:border-red-600"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-slate-600 font-semibold mb-1">Your Detailed Experience</label>
-                  <textarea
-                    rows={3}
-                    required
-                    value={reviewComment}
-                    onChange={(e) => setReviewComment(e.target.value)}
-                    placeholder="Describe flavor, energy response, mixability, and packaging..."
-                    className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-slate-900 focus:outline-none focus:border-red-600"
-                  />
-                </div>
-
-                <div className="pt-2 flex justify-end gap-2">
-                  <button
-                    type="button"
-                    onClick={() => setIsReviewModalOpen(false)}
-                    className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl font-semibold transition-colors"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    type="submit"
-                    disabled={isSubmittingReview}
-                    className="px-6 py-2 bg-red-600 hover:bg-red-700 text-white rounded-xl font-bold uppercase tracking-wider shadow-md shadow-red-600/20 transition-colors"
-                  >
-                    {isSubmittingReview ? 'Submitting...' : 'Post Review'}
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-        )}
-
-        {/* Review Summary Breakdown */}
-        <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-sm">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
-            
-            {/* Score & Stars */}
-            <div className="text-center md:text-left md:border-r border-slate-200 md:pr-6">
-              <div className="flex items-baseline justify-center md:justify-start gap-2">
-                <span className="text-4xl sm:text-5xl font-black text-slate-900 tracking-tight font-heading">
-                  {product.rating || 5.0}
-                </span>
-                <span className="text-sm font-bold text-slate-400">/ 5.0</span>
-              </div>
-              <div className="flex items-center justify-center md:justify-start gap-1 text-amber-500 my-2">
-                {[1, 2, 3, 4, 5].map((s) => (
-                  <Star key={s} className="w-5 h-5 fill-current text-amber-500" />
-                ))}
-              </div>
-              <p className="text-xs text-slate-500 font-medium">
-                Based on <strong className="text-slate-800">{productReviews.length || product.reviewCount || 3}</strong> verified purchaser reviews
-              </p>
-            </div>
-
-            {/* Recommendation Metric */}
-            <div className="text-center md:border-r border-slate-200 md:px-6 space-y-1">
-              <div className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-red-50 text-red-600 font-extrabold text-base mb-1 border border-red-200">
-                100%
-              </div>
-              <p className="text-xs font-bold text-slate-900 uppercase tracking-wider">
-                Recommended by Athletes
-              </p>
-              <p className="text-[11px] text-slate-500">
-                100% of verified buyers reported satisfaction with purity, mixability, and packaging.
-              </p>
-            </div>
-
-            {/* Rating distribution bars */}
-            <div className="space-y-1.5 md:pl-2 text-xs">
-              <div className="flex items-center gap-2">
-                <span className="w-8 font-semibold text-slate-600">5 ★</span>
-                <div className="flex-1 h-2 bg-slate-100 rounded-full overflow-hidden">
-                  <div className="h-full bg-red-600 rounded-full w-[94%]" />
-                </div>
-                <span className="w-8 text-right font-medium text-slate-500">94%</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="w-8 font-semibold text-slate-600">4 ★</span>
-                <div className="flex-1 h-2 bg-slate-100 rounded-full overflow-hidden">
-                  <div className="h-full bg-red-600/70 rounded-full w-[6%]" />
-                </div>
-                <span className="w-8 text-right font-medium text-slate-500">6%</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="w-8 font-semibold text-slate-400">3 ★</span>
-                <div className="flex-1 h-2 bg-slate-100 rounded-full overflow-hidden">
-                  <div className="h-full bg-slate-300 rounded-full w-0" />
-                </div>
-                <span className="w-8 text-right font-medium text-slate-400">0%</span>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        {/* Customer Review Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {productReviews.map((rev) => (
-            <div
-              key={rev.id}
-              className="bg-white border border-slate-200/90 hover:border-red-300 rounded-3xl p-6 flex flex-col justify-between shadow-sm hover:shadow-md transition-all space-y-4"
-            >
-              <div className="space-y-3">
-                
-                {/* Header: Avatar, Name, Verified Badge, City */}
-                <div className="flex items-start justify-between gap-3">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-2xl bg-red-50 border border-red-200 text-red-600 font-extrabold flex items-center justify-center text-sm shadow-sm">
-                      {rev.customerName.charAt(0).toUpperCase()}
-                    </div>
-                    <div>
-                      <h4 className="text-sm font-bold text-slate-900 leading-tight">
-                        {rev.customerName}
-                      </h4>
-                      <p className="text-[11px] text-slate-500">
-                        {rev.city || 'Pakistan'}
-                      </p>
-                    </div>
-                  </div>
-
-                  {rev.verifiedPurchase && (
-                    <span className="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full shrink-0">
-                      <ShieldCheck className="w-3 h-3 text-emerald-600" />
-                      Verified
-                    </span>
-                  )}
-                </div>
-
-                {/* Stars & Date */}
-                <div className="flex items-center justify-between text-xs pt-1">
-                  <div className="flex items-center gap-1">
-                    {Array.from({ length: 5 }).map((_, idx) => (
-                      <Star
-                        key={idx}
-                        className={`w-3.5 h-3.5 ${
-                          idx < rev.rating
-                            ? 'fill-current text-amber-500'
-                            : 'text-slate-300'
-                        }`}
-                      />
-                    ))}
-                  </div>
-                  <span className="text-[11px] text-slate-400 font-medium">
-                    {rev.date}
-                  </span>
-                </div>
-
-                {/* Headline */}
-                {rev.headline && (
-                  <h5 className="text-xs sm:text-sm font-bold text-slate-900 leading-snug">
-                    "{rev.headline}"
-                  </h5>
-                )}
-
-                {/* Comment */}
-                <p className="text-xs text-slate-600 leading-relaxed font-normal">
-                  {rev.comment}
-                </p>
-              </div>
-
-              {/* Bottom Card Footer */}
-              <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
-                <span className="flex items-center gap-1 text-red-600 font-semibold">
-                  <Award className="w-3.5 h-3.5 text-red-600" />
-                  Verified Purity
-                </span>
-                <span className="text-slate-400">Nautilus Pakistan</span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* 4. Frequently Stacked Together */}
+      {/* 3. Frequently Stacked Together */}
       {relatedProducts.length > 0 && (
         <div className="pt-10 border-t border-slate-200 space-y-6">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <div>
               <p className="text-xs font-bold uppercase tracking-wider text-red-600">Complete The Stack</p>
-              <h3 className="text-3xl sm:text-5xl md:text-6xl lg:text-[54px] font-black text-slate-900 uppercase font-heading tracking-tight mt-1 leading-[1.0]">
+              <h3 className="text-4xl sm:text-5xl md:text-6xl lg:text-[72px] font-black text-slate-900 uppercase font-heading tracking-tight mt-1 leading-[1.0]">
                 Frequently Stacked Together
               </h3>
             </div>
             <button
               onClick={() => navigateTo('shop')}
-              className="text-xs font-bold text-slate-500 hover:text-red-600 uppercase tracking-wider"
+              className="text-xs font-bold text-slate-500 hover:text-red-600 uppercase tracking-wider shrink-0"
             >
               View More →
             </button>

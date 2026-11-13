@@ -163,11 +163,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         {/* Pricing & Add to Cart Action */}
         <div className="pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
           <div className="flex items-baseline gap-1.5 flex-wrap">
-            <span className="text-xl sm:text-2xl lg:text-3xl font-black text-slate-900 tabular-nums whitespace-nowrap">
+            <span className="text-sm sm:text-base font-bold text-slate-900 tabular-nums whitespace-nowrap">
               PKR {price.toLocaleString()}
             </span>
             {hasDiscount && (
-              <span className="text-xs sm:text-sm text-slate-400 line-through tabular-nums whitespace-nowrap">
+              <span className="text-[11px] sm:text-xs text-slate-400 line-through tabular-nums whitespace-nowrap">
                 PKR {product.price.toLocaleString()}
               </span>
             )}

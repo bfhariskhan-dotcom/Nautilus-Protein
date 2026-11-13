@@ -21,7 +21,7 @@ import { useStore } from '../context/StoreContext';
 import { ProductCard } from '../components/ProductCard';
 
 export const HomePage: React.FC = () => {
-  const { products, categories, brands, navigateTo, showToast } = useStore();
+  const { products, categories, navigateTo, showToast } = useStore();
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [isSubscribing, setIsSubscribing] = useState(false);
 
@@ -762,50 +762,14 @@ export const HomePage: React.FC = () => {
               </div>
               <h3 className="text-base font-bold text-slate-900">Dedicated WhatsApp Athlete Desk</h3>
               <p className="text-xs text-slate-500 leading-relaxed">
-                Reach human support instantly at 0325 2571589 / +92 325 2571589 for dosing advice, flavor reviews, stack recommendations, and real-time shipment updates.
+                Reach human support instantly at 0325 2571589 for dosing advice, flavor reviews, stack recommendations, and real-time shipment updates.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 8. BRAND SHOWCASE */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between mb-6">
-          <div>
-            <p className="text-xs font-bold uppercase tracking-wider text-red-600">Curated Roster</p>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 tracking-tight uppercase font-heading">
-              Available Brands
-            </h2>
-          </div>
-          <button
-            onClick={() => navigateTo('shop')}
-            className="text-xs font-bold text-slate-500 hover:text-red-600 uppercase tracking-wider flex items-center gap-1.5 transition-colors"
-          >
-            <span>View All</span>
-            <ArrowRight className="w-3.5 h-3.5 text-red-600" />
-          </button>
-        </div>
-        <div className="flex gap-4 overflow-x-auto pb-4 pt-1 no-scrollbar scroll-smooth">
-          {brands.concat(brands).map((b, idx) => (
-            <div
-              key={`${b.id}-${idx}`}
-              onClick={() => navigateTo('shop', { brand: b.name })}
-              className="min-w-[180px] sm:min-w-[210px] p-5 rounded-2xl bg-white border border-slate-200 hover:border-red-400 shadow-sm cursor-pointer text-center transition-all group hover:-translate-y-1 hover:shadow-md shrink-0 flex flex-col items-center justify-center"
-            >
-              <div className="w-10 h-10 rounded-full bg-red-50 border border-red-200 flex items-center justify-center text-red-600 font-extrabold text-xs mb-3 group-hover:scale-110 group-hover:bg-red-100 transition-all">
-                {b.name.substring(0, 2).toUpperCase()}
-              </div>
-              <p className="text-sm font-bold text-slate-800 group-hover:text-red-600 transition-colors uppercase tracking-wider">
-                {b.name}
-              </p>
-              <p className="text-[11px] text-slate-400 mt-1">{b.country} · Authentic Partner</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* 9. VERIFIED CUSTOMER REVIEWS - INTERACTIVE DRAGGABLE SLIDING CAROUSEL (WITH CURSOR SLIDE / TOUCH SWIPE) */}
+      {/* 8. VERIFIED CUSTOMER REVIEWS - INTERACTIVE DRAGGABLE SLIDING CAROUSEL (WITH CURSOR SLIDE / TOUCH SWIPE) */}
       <section
         onMouseEnter={() => setIsTestimonialPaused(true)}
         onMouseLeave={() => {

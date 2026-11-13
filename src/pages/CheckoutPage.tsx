@@ -95,7 +95,7 @@ export const CheckoutPage: React.FC = () => {
     // Phone format check
     const cleanPhone = phone.replace(/[\s-]/g, '');
     if (cleanPhone.length < 10) {
-      showToast('Please provide a valid Pakistani mobile number (e.g. 0333 1234567).', 'error');
+      showToast('Please provide a valid mobile number (e.g. 0325 2571589).', 'error');
       return;
     }
 
@@ -255,7 +255,7 @@ export const CheckoutPage: React.FC = () => {
                 <input
                   type="tel"
                   required
-                  placeholder="e.g. 0333 1234567"
+                  placeholder="e.g. 0325 2571589"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   className="w-full bg-white border border-slate-200 rounded-xl px-3.5 py-3 text-slate-900 placeholder-slate-400 focus:outline-none focus:border-red-600 tabular-nums"

@@ -17,7 +17,7 @@ export const FaqsPage: React.FC = () => {
     },
     {
       q: 'What payment options do you support?',
-      a: 'We accept Direct Online Bank Transfers (Meezan Bank Limited), JazzCash (0325 2571589), and Easypaisa (0325 2571589). Please note: We do not offer Cash on Delivery (COD); all orders are dispatched upon direct payment confirmation.'
+      a: 'We accept Direct Online Bank Transfers (Meezan Bank Limited), JazzCash (0325 2571589), and Easypaisa (0325 2571589). All orders are dispatched promptly upon direct online payment confirmation.'
     },
     {
       q: 'What is the Free Delivery policy?',

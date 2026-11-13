@@ -298,7 +298,7 @@ export const OrderTrackingPage: React.FC = () => {
           <span>Nautilus Official Logistics Network</span>
         </div>
         <p>Direct shipments dispatched across all cities and towns in Pakistan.</p>
-        <p>Support hotline: 0325 2571589 / +92 325 2571589 · nautilusprotein@gmail.com</p>
+        <p>Support hotline: 0325 2571589 · nautilusprotein@gmail.com</p>
       </div>
 
     </div>

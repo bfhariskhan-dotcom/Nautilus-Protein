@@ -30,7 +30,7 @@ export const PolicyPages: React.FC<PolicyPageProps> = ({ type }) => {
             },
             {
               heading: '4. Physical Parcel Inspection',
-              text: 'Customers are encouraged to inspect outer carton seals upon delivery. In the rare event that an outer box appears visibly torn or damaged, please make a note with the rider and immediately notify our WhatsApp support desk at 0325 2571589 / +92 325 2571589.'
+              text: 'Customers are encouraged to inspect outer carton seals upon delivery. In the rare event that an outer box appears visibly torn or damaged, please make a note with the rider and immediately notify our WhatsApp support desk at 0325 2571589.'
             }
           ]
         };
@@ -78,7 +78,7 @@ export const PolicyPages: React.FC<PolicyPageProps> = ({ type }) => {
             },
             {
               heading: '4. Contact & Deletion Requests',
-              text: 'To review or request deletion of your order history, please contact our privacy compliance desk at nautilusprotein@gmail.com or via WhatsApp at 0325 2571589 / +92 325 2571589.'
+              text: 'To review or request deletion of your order history, please contact our privacy compliance desk at nautilusprotein@gmail.com or via WhatsApp at 0325 2571589.'
             }
           ]
         };
@@ -152,7 +152,7 @@ export const PolicyPages: React.FC<PolicyPageProps> = ({ type }) => {
 
       <div className="text-xs text-slate-500 text-center space-y-1">
         <p>Nautilus Protein · 238/170  Floor 8 Ratchadaview Codo, Soi, Sannibattasaban Jankhseam, Jatujak district, Bangkok 10900</p>
-        <p>Inquiries: 0325 2571589 / +92 325 2571589 · nautilusprotein@gmail.com</p>
+        <p>Inquiries: 0325 2571589 · nautilusprotein@gmail.com</p>
       </div>
 
     </div>
